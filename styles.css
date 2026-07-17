@@ -154,7 +154,7 @@ button, input, select { font: inherit; }
 .hero-eyebrow { display: flex; align-items: center; gap: 12px; }
 .hero-eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--coral); }
 
-.hero h1 { max-width: 850px; margin: 0; font-size: clamp(64px, 7.3vw, 124px); font-weight: 500; line-height: 0.91; letter-spacing: -0.052em; }
+.hero h1 { max-width: 850px; margin: 0; font-size: clamp(64px, 7.3vw, 124px); font-weight: 500; line-height: 0.84; letter-spacing: -0.072em; }
 .hero h1 em, .closing-content h2 em { color: var(--coral); font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -0.055em; }
 .hero-intro { max-width: 530px; margin: 44px 0 0 2px; color: rgba(255,253,248,.72); font-size: 18px; line-height: 1.55; }
 .hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 38px; }
@@ -377,7 +377,7 @@ html:not(.js) .reveal { opacity: 1 !important; transform: none !important; trans
 @media (max-width: 640px) {
   :root { --shell: calc(100% - 34px); }
   .site-header { padding-inline: 17px; }
-  .hero { min-height: 760px; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(50px,14vw,72px); line-height: .92; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }
+  .hero { min-height: 760px; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(52px,15vw,75px); line-height: .88; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }
   .statement,.gap-section,.system-section,.performance-section,.foundation-section,.partners-section,.policy-section,.landscape-section,.reading-section { padding-block: 88px; }
   .display-heading { font-size: clamp(43px,13vw,64px); }.statement-copy,.policy-notes { grid-template-columns: 1fr; gap: 28px; margin-top: 45px; }
   .gap-grid,.partner-list { margin-top: 52px; }.gap-card { padding: 22px; }.failure-visual { height: 210px; }.gap-card h3 { margin-top: 28px; }
