@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="PrintGuard is a local-first safety layer for additive manufacturing: fast, auditable screening for firearm-related risk in 3D-printing files."
+    />
+    <meta name="theme-color" content="#12110f" />
+    <meta property="og:title" content="PrintGuard — The safety layer for additive manufacturing" />
+    <meta
+      property="og:description"
+      content="Local screening. Auditable decisions. Practical compliance for the next era of 3D printing."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/printguard-scan-art-source.png" />
+    <title>PrintGuard — The safety layer for additive manufacturing</title>
+    <link rel="preload" href="assets/printguard-scan-art.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!--
+      With appreciation for the visual inspiration: astera.org,
+      onepagelove.com/digital-original-xr, onepagelove.com/materials,
+      iconiq.com, convergentresearch.org, and foundersfund.com.
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="PrintGuard home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M7 9.5 20 3l13 6.5v17L20 37 7 26.5Z" />
+          <path d="m7 9.5 13 7 13-7M20 16.5V37" />
+          <path d="m12.5 12.5 7.5 4 7.5-4v9.25L20 26l-7.5-4.25Z" />
+        </svg>
+        <span>PrintGuard</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span>
+        <span class="sr-only">Open navigation</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#problem">Why now</a>
+        <a href="#system">The system</a>
+        <a href="#performance">Performance</a>
+        <a href="#partners">Partners</a>
+      </nav>
+
+      <a class="header-cta" href="assets/PrintGuard_Brief.pdf" target="_blank" rel="noreferrer">
+        Read the brief <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-art" aria-hidden="true">
+          <picture>
+            <source srcset="assets/printguard-scan-art.webp" type="image/webp" />
+            <img src="assets/printguard-scan-art-source.png" alt="" />
+          </picture>
+          <span class="hero-scan"></span>
+          <span class="hero-grid"></span>
+        </div>
+        <div class="hero-shade" aria-hidden="true"></div>
+
+        <div class="hero-content page-shell">
+          <p class="eyebrow hero-eyebrow reveal">Defensive infrastructure for additive manufacturing</p>
+          <h1 id="hero-title" class="reveal" style="--delay: 80ms">
+            Keep the promise of<br />
+            <em>3D printing.</em><br />
+            Guard the boundary.
+          </h1>
+          <p class="hero-intro reveal" style="--delay: 160ms">
+            PrintGuard identifies firearm-related risk before a file is published, queued, or fabricated—locally,
+            quickly, and with an auditable record.
+          </p>
+          <div class="hero-actions reveal" style="--delay: 240ms">
+            <a class="button button-light" href="#system">See how it works <span aria-hidden="true">↓</span></a>
+            <a class="text-link" href="#partners">Explore a partnership <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <div class="hero-foot page-shell reveal" style="--delay: 320ms">
+          <span>Local screening</span>
+          <span>Auditable decisions</span>
+          <span>Practical compliance</span>
+          <span class="scroll-cue">Scroll to explore <i></i></span>
+        </div>
+      </section>
+
+      <section class="statement light-section" id="problem">
+        <div class="page-shell statement-grid">
+          <p class="section-label reveal"><span>01</span> The moment</p>
+          <div>
+            <h2 class="display-heading reveal">Additive manufacturing is becoming ordinary infrastructure.</h2>
+            <div class="statement-copy reveal">
+              <p>
+                Schools, labs, manufacturers, marketplaces, makerspaces, and homes are gaining extraordinary new
+                creative capacity. The same accessibility also opens a public-safety gap: restricted components can
+                move from digital file to physical object outside traditional compliance checkpoints.
+              </p>
+              <p>
+                Policy is moving toward performance-based safeguards. The market needs a standard that reduces risk,
+                withstands public scrutiny, and protects lawful making.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="principle-band" aria-label="PrintGuard principle">
+        <div class="marquee" aria-hidden="true">
+          <div>
+            <span>Safety without surveillance</span><i>◆</i><span>Geometry over guesswork</span><i>◆</i>
+            <span>Safety without surveillance</span><i>◆</i><span>Geometry over guesswork</span><i>◆</i>
+          </div>
+        </div>
+      </section>
+
+      <section class="gap-section dark-section">
+        <div class="page-shell">
+          <div class="gap-heading">
+            <p class="section-label reveal"><span>02</span> The gap</p>
+            <h2 class="display-heading reveal">A geometry problem cannot be solved by a list of names.</h2>
+          </div>
+
+          <div class="gap-grid">
+            <article class="gap-card reveal">
+              <span class="card-index">A</span>
+              <div class="failure-visual filename-visual" aria-hidden="true">
+                <span>school_project_v8.stl</span>
+                <span>final_final_part.stl</span>
+                <span>untitled_mesh_03.stl</span>
+              </div>
+              <h3>Filenames are fragile</h3>
+              <p>Names can be changed in seconds. Keyword filters confuse intent with a label.</p>
+            </article>
+
+            <article class="gap-card reveal" style="--delay: 80ms">
+              <span class="card-index">B</span>
+              <div class="failure-visual hash-visual" aria-hidden="true">
+                <code>6e9a 14f3 03b8 7a21</code>
+                <i></i>
+                <code>911c 7d02 bb4a 19e0</code>
+              </div>
+              <h3>Hashes are brittle</h3>
+              <p>Small file edits break static matches, even when the underlying geometry remains recognizable.</p>
+            </article>
+
+            <article class="gap-card accent-card reveal" style="--delay: 160ms">
+              <span class="card-index">C</span>
+              <div class="failure-visual geometry-visual" aria-hidden="true">
+                <span class="geo-orbit orbit-one"></span>
+                <span class="geo-orbit orbit-two"></span>
+                <svg viewBox="0 0 180 130">
+                  <path d="m46 91 8-53 60-15 25 30-18 47-54 10Z" />
+                  <path d="m54 38 47 26 38-11M101 64l20 36M101 64 67 110M46 91l55-27M114 23l-13 41" />
+                  <circle cx="54" cy="38" r="3" /><circle cx="114" cy="23" r="3" />
+                  <circle cx="139" cy="53" r="3" /><circle cx="121" cy="100" r="3" />
+                  <circle cx="67" cy="110" r="3" /><circle cx="46" cy="91" r="3" />
+                </svg>
+              </div>
+              <h3>Shape is the evidence</h3>
+              <p>PrintGuard reads the file itself—its mesh, point cloud, volume, views, and known geometry.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="system-section" id="system">
+        <div class="page-shell system-layout">
+          <div class="system-copy">
+            <p class="section-label reveal"><span>03</span> The system</p>
+            <h2 class="display-heading reveal">A fast first line of review, built for the real world.</h2>
+            <p class="system-intro reveal">
+              PrintGuard combines known-file evidence with shape-aware classification, then turns the result into a
+              decision an organization can inspect and defend.
+            </p>
+
+            <ol class="system-steps">
+              <li class="active reveal" data-system-step="0">
+                <span>01</span>
+                <div><h3>Accept</h3><p>Screen common mesh formats at the point of publication, intake, or print.</p></div>
+              </li>
+              <li class="reveal" data-system-step="1">
+                <span>02</span>
+                <div><h3>Understand</h3><p>Extract mesh statistics, point-cloud, voxel, and multiview features.</p></div>
+              </li>
+              <li class="reveal" data-system-step="2">
+                <span>03</span>
+                <div><h3>Compare</h3><p>Check exact SHA-256 evidence, near-geometry matches, and classifier scores.</p></div>
+              </li>
+              <li class="reveal" data-system-step="3">
+                <span>04</span>
+                <div><h3>Route</h3><p>Return a decision and confidence, then preserve the evidence for review.</p></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="system-stage reveal" aria-label="Animated illustration of PrintGuard's screening pipeline">
+            <div class="stage-topline">
+              <span>PG / ANALYSIS CORE</span>
+              <span class="live-state"><i></i> Local process</span>
+            </div>
+            <div class="stage-viewport">
+              <span class="stage-grid"></span>
+              <span class="axis axis-x">X</span><span class="axis axis-y">Y</span><span class="axis axis-z">Z</span>
+              <div class="mesh-object" aria-hidden="true">
+                <svg viewBox="0 0 260 260">
+                  <path d="m50 88 82-48 78 45 4 92-84 45-80-48Z" />
+                  <path d="m50 88 80 47 80-50M130 135l84 42M130 135v87M132 40l-2 95M50 174l80-39" />
+                  <path d="m81 106 51-30 48 28 2 55-52 28-49-30Z" />
+                  <path d="m81 106 49 29 50-31M130 135l52 24M130 135v52M132 76l-2 59M81 157l49-22" />
+                </svg>
+                <span class="scan-plane"></span>
+              </div>
+              <div class="stage-readout readout-a"><span>FILE</span><strong>mesh.stl</strong></div>
+              <div class="stage-readout readout-b"><span>STATE</span><strong data-stage-state>INGESTING</strong></div>
+              <div class="stage-readout readout-c"><span>ROUTE</span><strong>REVIEW LAYER</strong></div>
+            </div>
+            <div class="stage-progress">
+              <span><i data-stage-progress></i></span>
+              <div><strong data-stage-title>Accepting file</strong><em data-stage-detail>Native, local mesh parser</em></div>
+            </div>
+            <div class="format-row" aria-label="Supported mesh formats">
+              <span>STL</span><span>OBJ</span><span>AMF</span><span>3MF</span><span>OFF</span>
+              <small>STEP / STP routed for conversion</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="performance-section" id="performance">
+        <div class="page-shell">
+          <div class="performance-heading">
+            <p class="section-label reveal"><span>04</span> Benchmark snapshot</p>
+            <h2 class="display-heading reveal">Safety that works at the speed of a workflow.</h2>
+            <p class="reveal">A source-separated test set spanning firearm, dual-use, near-firearm, and benign files.</p>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card metric-primary reveal">
+              <span class="metric-kicker">Firearm detection</span>
+              <strong><span data-count="96.75">0</span><sup>%</sup></strong>
+              <div class="metric-rule"><i style="--value: 96.75%"></i></div>
+              <p>Percentage of firearm-related files successfully flagged.</p>
+            </article>
+            <article class="metric-card reveal" style="--delay: 80ms">
+              <span class="metric-kicker">False-positive rate</span>
+              <strong><span data-count="0.06">0</span><sup>%</sup></strong>
+              <div class="metric-rule low"><i style="--value: 6%"></i></div>
+              <p>Benign files incorrectly flagged. Lower means less friction for lawful use.</p>
+            </article>
+            <article class="metric-card metric-small reveal" style="--delay: 160ms">
+              <span class="metric-kicker">Average scoring</span>
+              <strong><sup>&lt;</sup><span data-count="1">0</span><small> sec</small></strong>
+              <p>Per file, for average file sizes.</p>
+            </article>
+            <article class="metric-card metric-small reveal" style="--delay: 240ms">
+              <span class="metric-kicker">Held-out evaluation</span>
+              <strong><span data-count="10000">0</span><small> files</small></strong>
+              <p>Source-separated test set.</p>
+            </article>
+          </div>
+
+          <p class="benchmark-note reveal">
+            <span>V1 benchmark · July 2026</span>
+            These figures reproduce the current PrintGuard brief and will evolve with continued independent testing.
+          </p>
+        </div>
+      </section>
+
+      <section class="foundation-section dark-section">
+        <div class="page-shell foundation-grid">
+          <div>
+            <p class="section-label reveal"><span>05</span> Built to be credible</p>
+            <h2 class="display-heading reveal">Evidence before enforcement.</h2>
+          </div>
+          <div class="foundation-copy reveal">
+            <p>
+              A safety control only earns trust when it can explain itself, protect lawful users, and improve under
+              scrutiny. PrintGuard is designed around manifested data, auditable labels, source-separated evaluation,
+              and human review.
+            </p>
+          </div>
+
+          <div class="asset-ledger">
+            <article class="ledger-stat reveal">
+              <span>01 / Training foundation</span><strong>113,368</strong><p>mesh rows in the binary training manifest</p>
+            </article>
+            <article class="ledger-stat reveal" style="--delay: 60ms">
+              <span>02 / Lawful lookalikes</span><strong>99,848</strong><p>hard-negative mechanical examples</p>
+            </article>
+            <article class="ledger-stat reveal" style="--delay: 120ms">
+              <span>03 / Restricted evidence</span><strong>13,520</strong><p>positive mesh examples from authorized channels</p>
+            </article>
+          </div>
+
+          <div class="trust-grid">
+            <article class="trust-card reveal">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M16 25.5 21 30l11-13"/></svg>
+              <h3>Local-first</h3>
+              <p>Screening can happen where files already live, without centralizing every design.</p>
+            </article>
+            <article class="trust-card reveal" style="--delay: 60ms">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 8h17l6 6v26H13Z"/><path d="M30 8v7h6M18 23h13M18 29h13M18 35h8"/></svg>
+              <h3>Auditable by design</h3>
+              <p>Hashes, model scores, evidence, and decisions form a reproducible record.</p>
+            </article>
+            <article class="trust-card reveal" style="--delay: 120ms">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7v34M7 24h34"/><circle cx="24" cy="24" r="10"/></svg>
+              <h3>Human where it matters</h3>
+              <p>Ambiguous and high-impact decisions can move into a review workflow.</p>
+            </article>
+            <article class="trust-card reveal" style="--delay: 180ms">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 33 20 22l7 7 12-14"/><path d="M31 15h8v8"/></svg>
+              <h3>Designed to improve</h3>
+              <p>Regular model, benchmark, and policy updates are part of the system—not an afterthought.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="partners-section" id="partners">
+        <div class="page-shell">
+          <div class="partners-heading">
+            <p class="section-label reveal"><span>06</span> Where it fits</p>
+            <h2 class="display-heading reveal">One safety layer. Many points of integration.</h2>
+          </div>
+
+          <div class="partner-list">
+            <article class="partner-row reveal">
+              <span class="partner-number">01</span><h3>Printer OEMs</h3>
+              <p>A credible path from policy requirements to product-level safeguards.</p><span class="partner-arrow">↗</span>
+            </article>
+            <article class="partner-row reveal">
+              <span class="partner-number">02</span><h3>Slicers & marketplaces</h3>
+              <p>Pre-print and pre-publication screening without a centralized file repository.</p><span class="partner-arrow">↗</span>
+            </article>
+            <article class="partner-row reveal">
+              <span class="partner-number">03</span><h3>Labs & fabrication</h3>
+              <p>Job-level intake controls for universities, makerspaces, and enterprise teams.</p><span class="partner-arrow">↗</span>
+            </article>
+            <article class="partner-row reveal">
+              <span class="partner-number">04</span><h3>Public-safety partners</h3>
+              <p>Reproducible file review without broadly distributing restricted CAD data.</p><span class="partner-arrow">↗</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <div class="page-shell policy-grid">
+          <p class="section-label reveal"><span>07</span> The opportunity</p>
+          <div>
+            <h2 class="display-heading reveal">Help define what good looks like.</h2>
+            <p class="policy-lead reveal">
+              PrintGuard is seeking pilot partners, public-sector sponsors, technical reviewers, and investment
+              support to help establish a practical reference implementation for emerging performance standards.
+            </p>
+            <div class="policy-notes reveal">
+              <p>
+                California AB 2047 contemplates detection performance standards, benchmark datasets, and regular
+                updates. New York has moved toward blocking-technology requirements. Comparable frameworks are
+                emerging elsewhere.
+              </p>
+              <p>
+                The durable answer will require manufacturers, researchers, public institutions, and policymakers to
+                build it together.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <div class="closing-art" aria-hidden="true"></div>
+        <div class="page-shell closing-content">
+          <p class="eyebrow reveal">A practical middle path</p>
+          <h2 class="reveal">Make 3D printing safer.<br /><em>Keep innovation open.</em></h2>
+          <p class="reveal">
+            We are building the compliance boundary that regulated production needs—without making lawful creation
+            harder than it needs to be.
+          </p>
+          <div class="closing-actions reveal">
+            <a class="button button-coral" href="assets/PrintGuard_Brief.pdf" target="_blank" rel="noreferrer">
+              Open the partner brief <span aria-hidden="true">↗</span>
+            </a>
+            <a class="text-link light" href="https://github.com/williamEH/PrintGuard" target="_blank" rel="noreferrer">
+              Review the project on GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer-grid">
+        <a class="brand footer-brand" href="#top" aria-label="PrintGuard home">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M7 9.5 20 3l13 6.5v17L20 37 7 26.5Z" />
+            <path d="m7 9.5 13 7 13-7M20 16.5V37" />
+            <path d="m12.5 12.5 7.5 4 7.5-4v9.25L20 26l-7.5-4.25Z" />
+          </svg>
+          <span>PrintGuard</span>
+        </a>
+        <p>The safety layer for additive manufacturing.</p>
+        <nav aria-label="Footer navigation">
+          <a href="#problem">Why now</a><a href="#system">The system</a><a href="#performance">Performance</a>
+          <a href="assets/PrintGuard_Brief.pdf" target="_blank" rel="noreferrer">Brief ↗</a>
+        </nav>
+        <div class="footer-meta">
+          <span>© <span data-year></span> PrintGuard</span>
+          <span>Defensive research &amp; development</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
