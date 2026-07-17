@@ -131,20 +131,20 @@ const policyData = {
     link: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047",
   },
   NY: {
-    kind: "Direct blocking law",
-    status: "Enacted · Chapter 55",
+    kind: "Blocking law + active bill",
+    status: "Enacted + active",
     statusClass: "status-enacted",
-    title: "S9005C / A10005C",
-    summary: "Enacted printer-blocking requirements alongside provisions addressing 3D-printed ghost guns and digital firearm instructions.",
+    title: "S9005C + S5952",
+    summary: "Chapter 55 establishes a blocking-technology framework; S5952/A2060 separately remains in committee on serialization and registration.",
     link: "https://www.nysenate.gov/legislation/bills/2025/S9005",
   },
   WA: {
-    kind: "Direct blocking proposal",
-    status: "Introduced · House committee",
-    statusClass: "status-introduced",
-    title: "HB 2321",
-    summary: "Would require certain 3D printers to evaluate files using firearms-blueprint detection technology before printing.",
-    link: "https://app.leg.wa.gov/billsummary?BillNumber=2321&Year=2025&Initiative=false",
+    kind: "Enacted law + blocking proposal",
+    status: "Enacted + introduced",
+    statusClass: "status-enacted",
+    title: "ESHB 2320 + HB 2321",
+    summary: "ESHB 2320 regulates firearm manufacture and digital manufacturing code; HB 2321 separately proposes printer-level blocking features.",
+    link: "https://app.leg.wa.gov/billsummary?BillNumber=2320&Year=2025&Initiative=false",
   },
   CO: {
     kind: "Related 3D-firearm law",
@@ -163,12 +163,12 @@ const policyData = {
     link: "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB5043&which_year=2026",
   },
   DE: {
-    kind: "Related 3D-firearm law",
-    status: "Enacted · Codified",
-    statusClass: "status-enacted",
-    title: "83 Del. Laws c.246",
-    summary: "Covers untraceable firearms, specified use of 3D printers, and distribution of certain digital manufacturing instructions.",
-    link: "https://legis.delaware.gov/SessionLaws?volume=83&chapter=246",
+    kind: "Blocking proposal + existing law",
+    status: "Active + enacted",
+    statusClass: "status-active",
+    title: "HB 399 + Chapter 246",
+    summary: "HB 399 proposes blocking technology for printers sold in Delaware; Chapter 246 already regulates specified 3D manufacture and digital instructions.",
+    link: "https://legis.delaware.gov/BillDetail?LegislationId=143522",
   },
   ME: {
     kind: "Related serialization law",
@@ -193,6 +193,46 @@ const policyData = {
     title: "HB 40 / SB 323",
     summary: "Addresses unfinished frames or receivers, unserialized firearms, and undetectable-firearm restrictions.",
     link: "https://lis.virginia.gov/bill-details/20261/HB40",
+  },
+  MN: {
+    kind: "3D manufacture + file proposals",
+    status: "Active + introduced",
+    statusClass: "status-active",
+    title: "HF 3407 / SF 3661 · HF 4882 / SF 5066",
+    summary: "The companion proposals address unlicensed 3D firearm manufacture, distribution of design files, and serialization; SF 3661 advanced to second reading.",
+    link: "https://www.revisor.mn.gov/bills/94/2026/0/HF/3407/",
+  },
+  MI: {
+    kind: "Serialization proposal",
+    status: "Active · passed Senate",
+    statusClass: "status-active",
+    title: "SB 331 / SB 332",
+    summary: "The linked bills would regulate unserialized firearms and components, including manufacture using 3D printers or CNC equipment.",
+    link: "https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0331",
+  },
+  FL: {
+    kind: "Concluded 3D-firearm proposals",
+    status: "Concluded · 2025 session",
+    statusClass: "status-concluded",
+    title: "SB 1096 + related bills",
+    summary: "SB 1096, SB 252, and HB 1019 included restrictions involving unserialized firearms and unlicensed 3D-printer or CNC manufacture but did not advance.",
+    link: "https://www.flsenate.gov/Session/Bill/2025/1096",
+  },
+  MS: {
+    kind: "Concluded serialization proposal",
+    status: "Concluded · died in committee",
+    statusClass: "status-concluded",
+    title: "HB 434",
+    summary: "Would have required firearms made with 3D-printing technology to be serialized and regulated possession of unserialized firearms and components.",
+    link: "https://billstatus.ls.state.ms.us/documents/2026/html/HB/0400-0499/HB0434IN.htm",
+  },
+  TX: {
+    kind: "Concluded 3D-firearm proposal",
+    status: "Concluded · 2025 session",
+    statusClass: "status-concluded",
+    title: "SB 1711",
+    summary: "Would have created a state offense concerning manufacture, sale, transfer, or possession of a 3D-printed firearm; it remained in committee.",
+    link: "https://capitol.texas.gov/billlookup/History.aspx?LegSess=89R&Bill=SB1711",
   },
 };
 
@@ -224,3 +264,34 @@ function setPolicyState(state) {
 }
 
 policyMarkers.forEach((marker) => marker.addEventListener("click", () => setPolicyState(marker.dataset.policyState)));
+
+const policyMapCanvas = document.querySelector(".policy-map-canvas");
+function nearestPolicyMarker(x, y) {
+  return policyMarkers.reduce((best, marker) => {
+    const dot = marker.querySelector("i").getBoundingClientRect();
+    const distance = Math.hypot(x - (dot.left + dot.width / 2), y - (dot.top + dot.height / 2));
+    return !best || distance < best.distance ? { marker, distance } : best;
+  }, null)?.marker;
+}
+
+policyMapCanvas?.addEventListener("pointermove", (event) => {
+  const target = event.target.closest?.(".state-marker");
+  const nearest = target ? nearestPolicyMarker(event.clientX, event.clientY) : null;
+  policyMarkers.forEach((marker) => marker.classList.toggle("is-nearest", marker === nearest));
+});
+policyMapCanvas?.addEventListener("pointerleave", () => {
+  policyMarkers.forEach((marker) => marker.classList.remove("is-nearest"));
+});
+
+policyMapCanvas?.addEventListener("click", (event) => {
+  const target = event.target.closest?.(".state-marker");
+  if (!target || event.detail === 0) return;
+
+  const nearest = nearestPolicyMarker(event.clientX, event.clientY);
+
+  if (nearest && nearest !== target) {
+    event.preventDefault();
+    event.stopPropagation();
+    setPolicyState(nearest.dataset.policyState);
+  }
+}, true);

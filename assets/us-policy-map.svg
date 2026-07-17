@@ -7,7 +7,7 @@
 .borders {stroke:#625e56; stroke-width:1}    /* color and width of borders between states */
 .dccircle {display:none}                     /* hide the District of Columbia locator circle */
 .separator1 {stroke:#625e56; stroke-width:2} /* color and width of lines around Alaska and Hawaii */
-.ca,.co,.ct,.de,.me,.nj,.ny,.va,.wa {fill:#593129}
+.ca,.co,.ct,.de,.fl,.me,.mi,.mn,.ms,.nj,.ny,.tx,.va,.wa {fill:#593129}
 
 /* Individual states can be colored as follows:
 .ks,.mt,.pa {fill:#0000FF}
