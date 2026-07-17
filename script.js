@@ -112,3 +112,103 @@ document.querySelectorAll(".metric-card").forEach((card) => metricObserver.obser
 
 const year = document.querySelector("[data-year]");
 if (year) year.textContent = new Date().getFullYear();
+
+const policyData = {
+  CA: {
+    kind: "Direct blocking proposal",
+    status: "Active · Senate Appropriations",
+    statusClass: "status-active",
+    title: "AB 2047",
+    summary: "Would establish performance guidance and compliance requirements for firearm-blueprint detection technology in 3D printers.",
+    link: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047",
+  },
+  NY: {
+    kind: "Direct blocking law",
+    status: "Enacted · Chapter 55",
+    statusClass: "status-enacted",
+    title: "S9005C / A10005C",
+    summary: "Enacted printer-blocking requirements alongside provisions addressing 3D-printed ghost guns and digital firearm instructions.",
+    link: "https://www.nysenate.gov/legislation/bills/2025/S9005",
+  },
+  WA: {
+    kind: "Direct blocking proposal",
+    status: "Introduced · House committee",
+    statusClass: "status-introduced",
+    title: "HB 2321",
+    summary: "Would require certain 3D printers to evaluate files using firearms-blueprint detection technology before printing.",
+    link: "https://app.leg.wa.gov/billsummary?BillNumber=2321&Year=2025&Initiative=false",
+  },
+  CO: {
+    kind: "Related 3D-firearm law",
+    status: "Enacted · Effective July 2026",
+    statusClass: "status-enacted",
+    title: "HB26-1144",
+    summary: "Prohibits specified 3D-printed manufacture of potentially functional firearms and components, subject to exceptions.",
+    link: "https://leg.colorado.gov/bills/hb26-1144",
+  },
+  CT: {
+    kind: "Related ghost-gun law",
+    status: "Enacted · Public Act 26-41",
+    statusClass: "status-enacted",
+    title: "HB 5043",
+    summary: "Addresses unfinished frames and receivers, convertible pistols, and related ghost-gun enforcement provisions.",
+    link: "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB5043&which_year=2026",
+  },
+  DE: {
+    kind: "Related 3D-firearm law",
+    status: "Enacted · Codified",
+    statusClass: "status-enacted",
+    title: "83 Del. Laws c.246",
+    summary: "Covers untraceable firearms, specified use of 3D printers, and distribution of certain digital manufacturing instructions.",
+    link: "https://legis.delaware.gov/SessionLaws?volume=83&chapter=246",
+  },
+  ME: {
+    kind: "Related serialization law",
+    status: "Enacted · Public Law c.537",
+    statusClass: "status-enacted",
+    title: "LD 1126",
+    summary: "Requires serialization in specified circumstances and addresses frames or receivers made with 3D printers or CNC equipment.",
+    link: "https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1126&snum=132",
+  },
+  NJ: {
+    kind: "Related digital-instructions law",
+    status: "Enacted · P.L.2025 c.255",
+    statusClass: "status-enacted",
+    title: "A4975 / S3894",
+    summary: "Establishes an offense concerning possession of digital instructions used to illegally manufacture firearms or components.",
+    link: "https://www.njleg.state.nj.us/bill-search/2024/A4975",
+  },
+  VA: {
+    kind: "Related unserialized-firearm law",
+    status: "Enacted · Chapters 531–532",
+    statusClass: "status-enacted",
+    title: "HB 40 / SB 323",
+    summary: "Addresses unfinished frames or receivers, unserialized firearms, and undetectable-firearm restrictions.",
+    link: "https://lis.virginia.gov/bill-details/20261/HB40",
+  },
+};
+
+const policyMarkers = [...document.querySelectorAll("[data-policy-state]")];
+const policyCode = document.querySelector("[data-policy-code]");
+const policyKind = document.querySelector("[data-policy-kind]");
+const policyStatus = document.querySelector("[data-policy-status]");
+const policyTitle = document.querySelector("[data-policy-title]");
+const policySummary = document.querySelector("[data-policy-summary]");
+const policyLink = document.querySelector("[data-policy-link]");
+
+function setPolicyState(state) {
+  const policy = policyData[state];
+  if (!policy) return;
+  policyMarkers.forEach((marker) => marker.classList.toggle("active", marker.dataset.policyState === state));
+  if (policyCode) policyCode.textContent = state;
+  if (policyKind) policyKind.textContent = policy.kind;
+  if (policyStatus) {
+    policyStatus.textContent = policy.status;
+    policyStatus.className = `detail-status ${policy.statusClass}`;
+  }
+  if (policyTitle) policyTitle.textContent = policy.title;
+  if (policySummary) policySummary.textContent = policy.summary;
+  if (policyLink) policyLink.href = policy.link;
+}
+
+policyMarkers.forEach((marker) => marker.addEventListener("click", () => setPolicyState(marker.dataset.policyState)));
