@@ -2,33 +2,72 @@ const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector(".menu-toggle");
 const menuLabel = menuButton?.querySelector(".sr-only");
 const siteNav = document.querySelector(".site-nav");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobileMenuQuery = window.matchMedia("(max-width: 900px)");
+const menuOutside = [
+  document.querySelector("main"),
+  document.querySelector(".site-footer"),
+  document.querySelector(".brand"),
+  document.querySelector(".header-cta"),
+].filter(Boolean);
 
 function updateHeader() {
   header?.classList.toggle("scrolled", window.scrollY > 24);
 }
 
-function closeMenu() {
+function setMenuOutsideInert(isInert) {
+  menuOutside.forEach((element) => { element.inert = isInert; });
+}
+
+function closeMenu({ restoreFocus = false } = {}) {
   if (!menuButton || !siteNav) return;
   menuButton.setAttribute("aria-expanded", "false");
   if (menuLabel) menuLabel.textContent = "Open navigation";
   siteNav.classList.remove("open");
   document.body.classList.remove("menu-open");
+  setMenuOutsideInert(false);
+  if (restoreFocus) menuButton.focus();
+}
+
+function openMenu() {
+  if (!menuButton || !siteNav) return;
+  menuButton.setAttribute("aria-expanded", "true");
+  if (menuLabel) menuLabel.textContent = "Close navigation";
+  siteNav.classList.add("open");
+  document.body.classList.add("menu-open");
+  setMenuOutsideInert(true);
+  siteNav.querySelector("a")?.focus();
 }
 
 menuButton?.addEventListener("click", () => {
   const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-  menuButton.setAttribute("aria-expanded", String(!isOpen));
-  if (menuLabel) menuLabel.textContent = isOpen ? "Open navigation" : "Close navigation";
-  siteNav?.classList.toggle("open", !isOpen);
-  document.body.classList.toggle("menu-open", !isOpen);
+  if (isOpen) closeMenu({ restoreFocus: true });
+  else openMenu();
 });
 
 siteNav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
 document.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape" || menuButton?.getAttribute("aria-expanded") !== "true") return;
-  closeMenu();
-  menuButton?.focus();
+  if (menuButton?.getAttribute("aria-expanded") !== "true") return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeMenu({ restoreFocus: true });
+    return;
+  }
+  if (event.key !== "Tab" || !siteNav) return;
+  const focusable = [menuButton, ...siteNav.querySelectorAll("a")];
+  const currentIndex = focusable.indexOf(document.activeElement);
+  if (event.shiftKey && currentIndex <= 0) {
+    event.preventDefault();
+    focusable.at(-1)?.focus();
+  } else if (!event.shiftKey && currentIndex === focusable.length - 1) {
+    event.preventDefault();
+    menuButton.focus();
+  }
+});
+mobileMenuQuery.addEventListener("change", (event) => {
+  if (!event.matches) closeMenu();
+});
+window.addEventListener("resize", () => {
+  if (!mobileMenuQuery.matches) closeMenu();
 });
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
@@ -45,78 +84,6 @@ const revealObserver = new IntersectionObserver(
 );
 
 document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-
-const stageCopy = [
-  { state: "INGESTING", title: "Accepting file", detail: "Native, local mesh parser", progress: "22%" },
-  { state: "EXTRACTING", title: "Reading geometry", detail: "Mesh · point cloud · voxel · views", progress: "48%" },
-  { state: "COMPARING", title: "Layering evidence", detail: "Known matches · model scores", progress: "74%" },
-  { state: "ROUTING", title: "Returning decision", detail: "Confidence · evidence · audit log", progress: "100%" },
-];
-
-const stageSteps = [...document.querySelectorAll("[data-system-step]")];
-const stageState = document.querySelector("[data-stage-state]");
-const stageTitle = document.querySelector("[data-stage-title]");
-const stageDetail = document.querySelector("[data-stage-detail]");
-const stageProgress = document.querySelector("[data-stage-progress]");
-
-function setStage(index) {
-  const copy = stageCopy[index];
-  if (!copy) return;
-  stageSteps.forEach((step, stepIndex) => step.classList.toggle("active", stepIndex === index));
-  if (stageState) stageState.textContent = copy.state;
-  if (stageTitle) stageTitle.textContent = copy.title;
-  if (stageDetail) stageDetail.textContent = copy.detail;
-  if (stageProgress) stageProgress.style.width = copy.progress;
-}
-
-stageSteps.forEach((step, index) => {
-  step.addEventListener("mouseenter", () => setStage(index));
-  step.addEventListener("focusin", () => setStage(index));
-});
-
-if (!reduceMotion && stageSteps.length) {
-  let stageIndex = 0;
-  window.setInterval(() => {
-    stageIndex = (stageIndex + 1) % stageSteps.length;
-    setStage(stageIndex);
-  }, 2600);
-}
-
-const numberFormatter = new Intl.NumberFormat("en-US");
-
-function animateCount(element) {
-  const target = Number(element.dataset.count);
-  if (!Number.isFinite(target)) return;
-  const decimalPlaces = String(element.dataset.count).split(".")[1]?.length ?? 0;
-  const duration = reduceMotion ? 0 : 1250;
-  const start = performance.now();
-
-  function frame(now) {
-    const elapsed = Math.min(1, (now - start) / Math.max(duration, 1));
-    const eased = 1 - Math.pow(1 - elapsed, 3);
-    const value = target * eased;
-    element.textContent = decimalPlaces
-      ? value.toFixed(decimalPlaces)
-      : numberFormatter.format(Math.round(value));
-    if (elapsed < 1) requestAnimationFrame(frame);
-  }
-
-  requestAnimationFrame(frame);
-}
-
-const metricObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("counted");
-      entry.target.querySelectorAll("[data-count]").forEach(animateCount);
-      observer.unobserve(entry.target);
-    });
-  },
-  { threshold: 0.45 },
-);
-
-document.querySelectorAll(".metric-card").forEach((card) => metricObserver.observe(card));
 
 const year = document.querySelector("[data-year]");
 if (year) year.textContent = new Date().getFullYear();
@@ -139,11 +106,11 @@ const policyData = {
     link: "https://www.nysenate.gov/legislation/bills/2025/S9005",
   },
   WA: {
-    kind: "Enacted law + blocking proposal",
-    status: "Enacted + introduced",
+    kind: "Enacted law + concluded proposal",
+    status: "Enacted + concluded proposal",
     statusClass: "status-enacted",
     title: "ESHB 2320 + HB 2321",
-    summary: "ESHB 2320 regulates firearm manufacture and digital manufacturing code; HB 2321 separately proposes printer-level blocking features.",
+    summary: "ESHB 2320 regulates firearm manufacture and digital manufacturing code; HB 2321 separately proposed printer-level blocking features before the 2026 session adjourned.",
     link: "https://app.leg.wa.gov/billsummary?BillNumber=2320&Year=2025&Initiative=false",
   },
   CO: {
@@ -195,11 +162,11 @@ const policyData = {
     link: "https://lis.virginia.gov/bill-details/20261/HB40",
   },
   MN: {
-    kind: "3D manufacture + file proposals",
-    status: "Active + introduced",
-    statusClass: "status-active",
+    kind: "Concluded 3D manufacture + file proposals",
+    status: "Concluded · 2026 session",
+    statusClass: "status-concluded",
     title: "HF 3407 / SF 3661 · HF 4882 / SF 5066",
-    summary: "The companion proposals address unlicensed 3D firearm manufacture, distribution of design files, and serialization; SF 3661 advanced to second reading.",
+    summary: "The companion proposals addressed unlicensed 3D firearm manufacture, distribution of design files, and serialization; SF 3661 reached second reading before the session adjourned.",
     link: "https://www.revisor.mn.gov/bills/94/2026/0/HF/3407/",
   },
   MI: {
@@ -220,7 +187,7 @@ const policyData = {
   },
   MS: {
     kind: "Concluded serialization proposal",
-    status: "Concluded · died in committee",
+    status: "Concluded · 2026 session",
     statusClass: "status-concluded",
     title: "HB 434",
     summary: "Would have required firearms made with 3D-printing technology to be serialized and regulated possession of unserialized firearms and components.",
@@ -243,6 +210,7 @@ const policyStatus = document.querySelector("[data-policy-status]");
 const policyTitle = document.querySelector("[data-policy-title]");
 const policySummary = document.querySelector("[data-policy-summary]");
 const policyLink = document.querySelector("[data-policy-link]");
+const policySelect = document.querySelector("#policy-state-select");
 
 function setPolicyState(state) {
   const policy = policyData[state];
@@ -261,37 +229,23 @@ function setPolicyState(state) {
   if (policyTitle) policyTitle.textContent = policy.title;
   if (policySummary) policySummary.textContent = policy.summary;
   if (policyLink) policyLink.href = policy.link;
+  if (policySelect) policySelect.value = state;
 }
 
 policyMarkers.forEach((marker) => marker.addEventListener("click", () => setPolicyState(marker.dataset.policyState)));
+policySelect?.addEventListener("change", () => setPolicyState(policySelect.value));
 
 const policyMapCanvas = document.querySelector(".policy-map-canvas");
-function nearestPolicyMarker(x, y) {
-  return policyMarkers.reduce((best, marker) => {
-    const dot = marker.querySelector("i").getBoundingClientRect();
-    const distance = Math.hypot(x - (dot.left + dot.width / 2), y - (dot.top + dot.height / 2));
-    return !best || distance < best.distance ? { marker, distance } : best;
-  }, null)?.marker;
-}
-
-policyMapCanvas?.addEventListener("pointermove", (event) => {
-  const target = event.target.closest?.(".state-marker");
-  const nearest = target ? nearestPolicyMarker(event.clientX, event.clientY) : null;
-  policyMarkers.forEach((marker) => marker.classList.toggle("is-nearest", marker === nearest));
-});
-policyMapCanvas?.addEventListener("pointerleave", () => {
-  policyMarkers.forEach((marker) => marker.classList.remove("is-nearest"));
-});
-
 policyMapCanvas?.addEventListener("click", (event) => {
-  const target = event.target.closest?.(".state-marker");
-  if (!target || event.detail === 0) return;
-
-  const nearest = nearestPolicyMarker(event.clientX, event.clientY);
-
-  if (nearest && nearest !== target) {
-    event.preventDefault();
-    event.stopPropagation();
-    setPolicyState(nearest.dataset.policyState);
-  }
+  if (event.detail === 0) return;
+  const nearest = policyMarkers.reduce((best, marker) => {
+    const dot = marker.querySelector("i")?.getBoundingClientRect();
+    if (!dot) return best;
+    const distance = Math.hypot(event.clientX - (dot.left + dot.width / 2), event.clientY - (dot.top + dot.height / 2));
+    return !best || distance < best.distance ? { marker, distance } : best;
+  }, null);
+  if (!nearest || nearest.distance > 28) return;
+  event.preventDefault();
+  event.stopPropagation();
+  setPolicyState(nearest.marker.dataset.policyState);
 }, true);

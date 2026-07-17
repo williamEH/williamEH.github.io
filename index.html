@@ -21,8 +21,9 @@
     <meta property="og:image:alt" content="PrintGuard geometry scanning artwork" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>PrintGuard — The safety layer for additive manufacturing</title>
+    <script>document.documentElement.classList.add("js");</script>
     <link rel="preload" href="assets/printguard-scan-art.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <!--
@@ -51,12 +52,13 @@
         <a href="#problem">Why now</a>
         <a href="#system">The system</a>
         <a href="#performance">Performance</a>
-        <a href="#landscape">Landscape</a>
         <a href="#partners">Partners</a>
+        <a href="#landscape">Landscape</a>
+        <a class="mobile-nav-brief" href="assets/PrintGuard_Brief.pdf?v=3" target="_blank" rel="noreferrer">Read the brief</a>
       </nav>
 
       <a class="header-cta" href="assets/PrintGuard_Brief.pdf?v=3" target="_blank" rel="noreferrer">
-        Read the brief <span aria-hidden="true">↗</span>
+        Read the brief
       </a>
     </header>
 
@@ -84,8 +86,8 @@
             quickly, and with an auditable record.
           </p>
           <div class="hero-actions reveal" style="--delay: 240ms">
-            <a class="button button-light" href="#system">See how it works <span aria-hidden="true">↓</span></a>
-            <a class="text-link" href="#partners">Explore a partnership <span aria-hidden="true">↗</span></a>
+            <a class="button button-light" href="#system">See how it works</a>
+            <a class="text-link" href="#partners">Explore a partnership</a>
           </div>
         </div>
 
@@ -97,40 +99,39 @@
         </div>
       </section>
 
-      <section class="statement light-section" id="problem">
+      <section class="statement light-section" id="problem" aria-labelledby="problem-title">
         <div class="page-shell statement-grid">
           <p class="section-label reveal"><span>01</span> The moment</p>
           <div>
-            <h2 class="display-heading reveal">Additive manufacturing is becoming ordinary infrastructure.</h2>
+            <h2 class="display-heading reveal" id="problem-title">Additive manufacturing is becoming ordinary infrastructure.</h2>
             <div class="statement-copy reveal">
               <p>
                 Schools, labs, manufacturers, marketplaces, makerspaces, and homes are gaining extraordinary new
-                creative capacity. The same accessibility also opens a public-safety gap: restricted components can
-                move from digital file to physical object outside traditional compliance checkpoints.
+                creative capacity. That same accessibility creates a public-safety gap: digital designs for firearms
+                and regulated components can be fabricated outside some traditional manufacturing and distribution
+                checkpoints.
               </p>
               <p>
-                Policy is moving toward performance-based safeguards. The market needs a standard that reduces risk,
-                withstands public scrutiny, and protects lawful making.
+                State policy is beginning to move toward performance-based safeguards. Implementers need a standard
+                that reduces risk, withstands public scrutiny, and protects lawful making.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="principle-band" aria-label="PrintGuard principle">
-        <div class="marquee" aria-hidden="true">
-          <div>
-            <span>Safety without surveillance</span><i>◆</i><span>Geometry over guesswork</span><i>◆</i>
-            <span>Safety without surveillance</span><i>◆</i><span>Geometry over guesswork</span><i>◆</i>
-          </div>
+      <section class="principle-band" aria-label="PrintGuard principles">
+        <div class="principles page-shell">
+          <span>Local screening, not central surveillance</span>
+          <span>Geometry over guesswork</span>
         </div>
       </section>
 
-      <section class="gap-section dark-section">
+      <section class="gap-section dark-section" id="gap" aria-labelledby="gap-title">
         <div class="page-shell">
           <div class="gap-heading">
             <p class="section-label reveal"><span>02</span> The gap</p>
-            <h2 class="display-heading reveal">A geometry problem cannot be solved by a list of names.</h2>
+            <h2 class="display-heading reveal" id="gap-title">A geometry problem cannot be solved by a list of names.</h2>
           </div>
 
           <div class="gap-grid">
@@ -152,8 +153,8 @@
                 <i></i>
                 <code>911c 7d02 bb4a 19e0</code>
               </div>
-              <h3>Hashes are brittle</h3>
-              <p>Small file edits break static matches, even when the underlying geometry remains recognizable.</p>
+              <h3>Hashes only match exact files</h3>
+              <p>A small file edit produces a new hash, even when the underlying geometry is effectively unchanged.</p>
             </article>
 
             <article class="gap-card accent-card reveal" style="--delay: 160ms">
@@ -169,127 +170,119 @@
                   <circle cx="67" cy="110" r="3" /><circle cx="46" cy="91" r="3" />
                 </svg>
               </div>
-              <h3>Shape is the evidence</h3>
-              <p>PrintGuard reads the file itself—its mesh, point cloud, volume, views, and known geometry.</p>
+              <h3>Geometry is the durable signal</h3>
+              <p>PrintGuard extracts mesh statistics, sampled points, voxel occupancy, and multiview projections from the file itself.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="system-section" id="system">
+      <section class="system-section" id="system" aria-labelledby="system-title">
         <div class="page-shell system-layout">
           <div class="system-copy">
             <p class="section-label reveal"><span>03</span> The system</p>
-            <h2 class="display-heading reveal">A fast first line of review, built for the real world.</h2>
+            <h2 class="display-heading reveal" id="system-title">A fast first review layer for additive-manufacturing workflows.</h2>
             <p class="system-intro reveal">
-              PrintGuard combines known-file evidence with shape-aware classification, then turns the result into a
-              decision an organization can inspect and defend.
+              PrintGuard combines known-file evidence with shape-aware classification, producing a screening result
+              organizations can inspect and document.
             </p>
 
             <ol class="system-steps">
-              <li class="active reveal" data-system-step="0">
+              <li class="reveal">
                 <span>01</span>
-                <div><h3>Accept</h3><p>Screen common mesh formats at the point of publication, intake, or print.</p></div>
+                <div><h3>Accept</h3><p>Screen supported mesh files during publication, intake, or pre-print review.</p></div>
               </li>
-              <li class="reveal" data-system-step="1">
+              <li class="reveal">
                 <span>02</span>
                 <div><h3>Understand</h3><p>Extract mesh statistics, point-cloud, voxel, and multiview features.</p></div>
               </li>
-              <li class="reveal" data-system-step="2">
+              <li class="reveal">
                 <span>03</span>
                 <div><h3>Compare</h3><p>Check exact SHA-256 evidence, near-geometry matches, and classifier scores.</p></div>
               </li>
-              <li class="reveal" data-system-step="3">
+              <li class="reveal">
                 <span>04</span>
-                <div><h3>Route</h3><p>Return a decision and confidence, then preserve the evidence for review.</p></div>
+                <div><h3>Route</h3><p>Return a review-oriented decision with supporting scores, then log the result locally.</p></div>
               </li>
             </ol>
           </div>
 
-          <div class="system-stage reveal" aria-label="Animated illustration of PrintGuard's screening pipeline">
-            <div class="stage-topline">
-              <span>PG / ANALYSIS CORE</span>
-              <span class="live-state"><i></i> Local process</span>
-            </div>
-            <div class="stage-viewport">
-              <span class="stage-grid"></span>
-              <span class="axis axis-x">X</span><span class="axis axis-y">Y</span><span class="axis axis-z">Z</span>
-              <div class="mesh-object" aria-hidden="true">
-                <svg viewBox="0 0 260 260">
-                  <path d="m50 88 82-48 78 45 4 92-84 45-80-48Z" />
-                  <path d="m50 88 80 47 80-50M130 135l84 42M130 135v87M132 40l-2 95M50 174l80-39" />
-                  <path d="m81 106 51-30 48 28 2 55-52 28-49-30Z" />
-                  <path d="m81 106 49 29 50-31M130 135l52 24M130 135v52M132 76l-2 59M81 157l49-22" />
-                </svg>
-                <span class="scan-plane"></span>
+          <div class="system-visual reveal">
+            <div class="system-stage" role="img" aria-label="Illustration of a local geometry screening pipeline">
+              <div class="stage-topline">
+                <span>PG / ANALYSIS CORE</span>
+                <span class="live-state"><i></i> Local process</span>
               </div>
-              <div class="stage-readout readout-a"><span>FILE</span><strong>mesh.stl</strong></div>
-              <div class="stage-readout readout-b"><span>STATE</span><strong data-stage-state>INGESTING</strong></div>
-              <div class="stage-readout readout-c"><span>ROUTE</span><strong>REVIEW LAYER</strong></div>
+              <div class="stage-viewport">
+                <span class="stage-grid"></span>
+                <div class="mesh-object" aria-hidden="true">
+                  <svg viewBox="0 0 260 260">
+                    <path d="m50 88 82-48 78 45 4 92-84 45-80-48Z" />
+                    <path d="m50 88 80 47 80-50M130 135l84 42M130 135v87M132 40l-2 95M50 174l80-39" />
+                    <path d="m81 106 51-30 48 28 2 55-52 28-49-30Z" />
+                    <path d="m81 106 49 29 50-31M130 135l52 24M130 135v52M132 76l-2 59M81 157l49-22" />
+                  </svg>
+                  <span class="scan-plane"></span>
+                </div>
+              </div>
+              <div class="stage-progress">
+                <strong>Geometry screening pipeline</strong>
+                <em>Known-file evidence, shape classification, local audit log</em>
+              </div>
             </div>
-            <div class="stage-progress">
-              <span><i data-stage-progress></i></span>
-              <div><strong data-stage-title>Accepting file</strong><em data-stage-detail>Native, local mesh parser</em></div>
-            </div>
-            <div class="format-row" aria-label="Supported mesh formats">
-              <span>STL</span><span>OBJ</span><span>AMF</span><span>3MF</span><span>OFF</span>
-              <small>STEP / STP routed for conversion</small>
-            </div>
+            <p class="supported-formats"><strong>Native formats:</strong> STL, OBJ, AMF, 3MF, and OFF. STEP/STP require CAD-kernel conversion before screening.</p>
           </div>
         </div>
       </section>
 
-      <section class="performance-section" id="performance">
+      <section class="performance-section" id="performance" aria-labelledby="performance-title">
         <div class="page-shell">
           <div class="performance-heading">
             <p class="section-label reveal"><span>04</span> Benchmark snapshot</p>
-            <h2 class="display-heading reveal">Safety that works at the speed of a workflow.</h2>
-            <p class="reveal">A source-separated test set spanning firearm, dual-use, near-firearm, and benign files.</p>
+            <h2 class="display-heading reveal" id="performance-title">Safety that works at the speed of a workflow.</h2>
+            <p class="reveal">A source-separated test set of firearm designs, firearm-specific parts, dual-use parts, near-firearm duplicates, and benign 3D files.</p>
           </div>
 
           <div class="metric-grid">
             <article class="metric-card metric-primary reveal">
               <span class="metric-kicker">Firearm detection</span>
-              <strong><span data-count="96.75">0</span><sup>%</sup></strong>
-              <div class="metric-rule"><i style="--value: 96.75%"></i></div>
-              <p>Percentage of firearm-related files successfully flagged.</p>
+              <strong>96.75<sup>%</sup></strong>
+              <p>Percentage of firearm files successfully flagged.</p>
             </article>
             <article class="metric-card reveal" style="--delay: 80ms">
               <span class="metric-kicker">False-positive rate</span>
-              <strong><span data-count="0.06">0</span><sup>%</sup></strong>
-              <div class="metric-rule low"><i style="--value: 6%"></i></div>
+              <strong>0.06<sup>%</sup></strong>
               <p>Benign files incorrectly flagged. Lower means less friction for lawful use.</p>
             </article>
             <article class="metric-card metric-small reveal" style="--delay: 160ms">
-              <span class="metric-kicker">Average scoring</span>
-              <strong><sup>&lt;</sup><span data-count="1">0</span><small> sec</small></strong>
+              <span class="metric-kicker">Per-file scoring</span>
+              <strong><sup>&lt;</sup>1<small> sec</small></strong>
               <p>Per file, for average file sizes.</p>
             </article>
             <article class="metric-card metric-small reveal" style="--delay: 240ms">
               <span class="metric-kicker">Held-out evaluation</span>
-              <strong><span data-count="10000">0</span><small> files</small></strong>
+              <strong>10,000<small> files</small></strong>
               <p>Source-separated test set.</p>
             </article>
           </div>
 
           <p class="benchmark-note reveal">
-            <span>V1 benchmark · July 2026</span>
-            These figures reproduce the current PrintGuard brief and will evolve with continued independent testing.
+            <span>Internal V1 benchmark · July 2026</span>
+            Figures reproduce the current PrintGuard brief; future validation updates will be reported separately.
           </p>
         </div>
       </section>
 
-      <section class="foundation-section dark-section">
+      <section class="foundation-section dark-section" id="foundation" aria-labelledby="foundation-title">
         <div class="page-shell foundation-grid">
           <div>
             <p class="section-label reveal"><span>05</span> Built to be credible</p>
-            <h2 class="display-heading reveal">Evidence before enforcement.</h2>
+            <h2 class="display-heading reveal" id="foundation-title">Evidence before enforcement.</h2>
           </div>
           <div class="foundation-copy reveal">
             <p>
-              A safety control only earns trust when it can explain itself, protect lawful users, and improve under
-              scrutiny. PrintGuard is designed around manifested data, auditable labels, source-separated evaluation,
-              and human review.
+              PrintGuard is built around documented datasets, source-separated testing, clear audit records, and
+              human review.
             </p>
           </div>
 
@@ -298,7 +291,7 @@
               <span>01 / Training foundation</span><strong>113,368</strong><p>mesh rows in the binary training manifest</p>
             </article>
             <article class="ledger-stat reveal" style="--delay: 60ms">
-              <span>02 / Lawful lookalikes</span><strong>99,848</strong><p>hard-negative mechanical examples</p>
+              <span>02 / Lawful lookalikes</span><strong>99,848</strong><p>benign mechanical examples selected to challenge the classifier</p>
             </article>
             <article class="ledger-stat reveal" style="--delay: 120ms">
               <span>03 / Restricted evidence</span><strong>13,520</strong><p>positive mesh examples from authorized channels</p>
@@ -314,7 +307,7 @@
             <article class="trust-card reveal" style="--delay: 60ms">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 8h17l6 6v26H13Z"/><path d="M30 8v7h6M18 23h13M18 29h13M18 35h8"/></svg>
               <h3>Auditable by design</h3>
-              <p>Hashes, model scores, evidence, and decisions form a reproducible record.</p>
+              <p>Hashes, model scores, evidence, and decisions create a reviewable record.</p>
             </article>
             <article class="trust-card reveal" style="--delay: 120ms">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7v34M7 24h34"/><circle cx="24" cy="24" r="10"/></svg>
@@ -323,55 +316,55 @@
             </article>
             <article class="trust-card reveal" style="--delay: 180ms">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 33 20 22l7 7 12-14"/><path d="M31 15h8v8"/></svg>
-              <h3>Designed to improve</h3>
-              <p>Regular model, benchmark, and policy updates are part of the system—not an afterthought.</p>
+              <h3>Built to evolve</h3>
+              <p>Models, benchmarks, and policy rules can be updated as evidence improves.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="partners-section" id="partners">
+      <section class="partners-section" id="partners" aria-labelledby="partners-title">
         <div class="page-shell">
           <div class="partners-heading">
             <p class="section-label reveal"><span>06</span> Where it fits</p>
-            <h2 class="display-heading reveal">One safety layer. Many points of integration.</h2>
+            <h2 class="display-heading reveal" id="partners-title">One safety layer. Many points of integration.</h2>
           </div>
 
           <div class="partner-list">
             <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Printer%20OEMs">
-              <span class="partner-number">01</span><h3>Printer OEMs</h3>
-              <p>A credible path from policy requirements to product-level safeguards.</p><span class="partner-arrow">↗</span>
+              <span class="partner-number">01</span><h3>3D-printer manufacturers</h3>
+              <p>Evaluate product-level safeguards against emerging performance requirements.</p><span class="partner-arrow">Email</span>
             </a>
             <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Slicers%20and%20marketplaces">
-              <span class="partner-number">02</span><h3>Slicers & marketplaces</h3>
-              <p>Pre-print and pre-publication screening without a centralized file repository.</p><span class="partner-arrow">↗</span>
+              <span class="partner-number">02</span><h3>Slicing software &amp; marketplaces</h3>
+              <p>Screen files before slicing or publication, close to the existing workflow.</p><span class="partner-arrow">Email</span>
             </a>
             <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Labs%20and%20fabrication">
               <span class="partner-number">03</span><h3>Labs & fabrication</h3>
-              <p>Job-level intake controls for universities, makerspaces, and enterprise teams.</p><span class="partner-arrow">↗</span>
+              <p>Job-level intake controls for universities, makerspaces, and enterprise teams.</p><span class="partner-arrow">Email</span>
             </a>
             <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Public%20safety">
               <span class="partner-number">04</span><h3>Public-safety partners</h3>
-              <p>Reproducible file review without broadly distributing restricted CAD data.</p><span class="partner-arrow">↗</span>
+              <p>Support consistent file review while limiting unnecessary redistribution of sensitive CAD files.</p><span class="partner-arrow">Email</span>
             </a>
           </div>
         </div>
       </section>
 
-      <section class="policy-section">
+      <section class="policy-section" id="opportunity" aria-labelledby="opportunity-title">
         <div class="page-shell policy-grid">
           <p class="section-label reveal"><span>07</span> The opportunity</p>
           <div>
-            <h2 class="display-heading reveal">Help define what good looks like.</h2>
+            <h2 class="display-heading reveal" id="opportunity-title">Help define what good looks like.</h2>
             <p class="policy-lead reveal">
-              PrintGuard is seeking pilot partners, public-sector sponsors, technical reviewers, and investment
-              support to help establish a practical reference implementation for emerging performance standards.
+              PrintGuard is seeking pilot and technical partners to test a practical reference implementation for
+              emerging performance standards.
             </p>
             <div class="policy-notes reveal">
               <p>
-                California AB 2047 contemplates detection performance standards, benchmark datasets, and regular
-                updates. New York has moved toward blocking-technology requirements. Comparable frameworks are
-                emerging elsewhere.
+                California AB 2047 proposes performance guidance, a protected reference-file library, and regular
+                update requirements. New York enacted a blocking-technology framework whose implementation depends
+                on technical feasibility, a working group, and rulemaking.
               </p>
               <p>
                 The durable answer will require manufacturers, researchers, public institutions, and policymakers to
@@ -382,14 +375,14 @@
         </div>
       </section>
 
-      <section class="landscape-section dark-section" id="landscape">
+      <section class="landscape-section dark-section" id="landscape" aria-labelledby="landscape-title">
         <div class="page-shell">
           <div class="landscape-heading">
             <p class="section-label reveal"><span>08</span> Policy landscape</p>
-            <h2 class="display-heading reveal">A national question, moving state by state.</h2>
+            <h2 class="display-heading reveal" id="landscape-title">A national question, moving state by state.</h2>
             <p class="reveal">
               PrintGuard tracks 2025–26 measures that expressly address printer blocking, 3D firearm manufacture,
-              digital instructions, or serialization, alongside operative precursor laws cited by those measures.
+              digital instructions, or serialization, together with selected related laws already in force.
             </p>
           </div>
 
@@ -400,31 +393,40 @@
                 <!-- CC0 Albers-projection state map derived from Wikimedia Commons: Blank US Map (states only).svg -->
                 <img class="us-outline" src="assets/us-policy-map.svg?v=3" alt="" aria-hidden="true" />
 
-                <button class="state-marker status-active active" style="--x: 8.80%; --y: 45.15%" data-policy-state="CA" type="button" aria-label="Show California policy details" aria-pressed="true"><span>CA</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 12.10%; --y: 8.19%" data-policy-state="WA" type="button" aria-label="Show Washington policy details" aria-pressed="false"><span>WA</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 33.09%; --y: 46.04%" data-policy-state="CO" type="button" aria-label="Show Colorado policy details" aria-pressed="false"><span>CO</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 93.35%; --y: 14.76%" data-policy-state="ME" type="button" aria-label="Show Maine policy details" aria-pressed="false"><span>ME</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 84.38%; --y: 26.53%" data-policy-state="NY" type="button" aria-label="Show New York policy details" aria-pressed="false"><span>NY</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 89.56%; --y: 30.35%" data-policy-state="CT" type="button" aria-label="Show Connecticut policy details" aria-pressed="false"><span>CT</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 86.97%; --y: 36.67%" data-policy-state="NJ" type="button" aria-label="Show New Jersey policy details" aria-pressed="false"><span>NJ</span><i></i></button>
-                <button class="state-marker status-active marker-tight" style="--x: 86.25%; --y: 40.79%" data-policy-state="DE" type="button" aria-label="Show Delaware policy details" aria-pressed="false"><span>DE</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 79.93%; --y: 47.71%" data-policy-state="VA" type="button" aria-label="Show Virginia policy details" aria-pressed="false"><span>VA</span><i></i></button>
-                <button class="state-marker status-active" style="--x: 54.24%; --y: 19.87%" data-policy-state="MN" type="button" aria-label="Show Minnesota policy details" aria-pressed="false"><span>MN</span><i></i></button>
-                <button class="state-marker status-active" style="--x: 65.90%; --y: 24.29%" data-policy-state="MI" type="button" aria-label="Show Michigan policy details" aria-pressed="false"><span>MI</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 74.89%; --y: 86.26%" data-policy-state="FL" type="button" aria-label="Show Florida policy details" aria-pressed="false"><span>FL</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 61.94%; --y: 70.72%" data-policy-state="MS" type="button" aria-label="Show Mississippi policy details" aria-pressed="false"><span>MS</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 42.18%; --y: 76.31%" data-policy-state="TX" type="button" aria-label="Show Texas policy details" aria-pressed="false"><span>TX</span><i></i></button>
+                <button class="state-marker status-active active" style="--x: 8.34%; --y: 50.74%" data-policy-state="CA" type="button" aria-controls="policy-detail" aria-label="Show California policy details" aria-pressed="true"><span>CA</span><i></i></button>
+                <button class="state-marker status-enacted" style="--x: 12.87%; --y: 8.47%" data-policy-state="WA" type="button" aria-controls="policy-detail" aria-label="Show Washington policy details" aria-pressed="false"><span>WA</span><i></i></button>
+                <button class="state-marker status-enacted" style="--x: 34.75%; --y: 46.41%" data-policy-state="CO" type="button" aria-controls="policy-detail" aria-label="Show Colorado policy details" aria-pressed="false"><span>CO</span><i></i></button>
+                <button class="state-marker status-enacted" style="--x: 92.97%; --y: 13.78%" data-policy-state="ME" type="button" aria-controls="policy-detail" aria-label="Show Maine policy details" aria-pressed="false"><span>ME</span><i></i></button>
+                <button class="state-marker status-enacted" style="--x: 85.30%; --y: 25.89%" data-policy-state="NY" type="button" aria-controls="policy-detail" aria-label="Show New York policy details" aria-pressed="false"><span>NY</span><i></i></button>
+                <button class="state-marker status-enacted marker-tight" style="--x: 89.86%; --y: 29.63%" data-policy-state="CT" type="button" aria-controls="policy-detail" aria-label="Show Connecticut policy details" aria-pressed="false"><span>CT</span><i></i></button>
+                <button class="state-marker status-enacted marker-tight" style="--x: 87.02%; --y: 38.45%" data-policy-state="NJ" type="button" aria-controls="policy-detail" aria-label="Show New Jersey policy details" aria-pressed="false"><span>NJ</span><i></i></button>
+                <button class="state-marker status-active marker-tight" style="--x: 86.38%; --y: 42.26%" data-policy-state="DE" type="button" aria-controls="policy-detail" aria-label="Show Delaware policy details" aria-pressed="false"><span>DE</span><i></i></button>
+                <button class="state-marker status-enacted" style="--x: 81.82%; --y: 47.84%" data-policy-state="VA" type="button" aria-controls="policy-detail" aria-label="Show Virginia policy details" aria-pressed="false"><span>VA</span><i></i></button>
+                <button class="state-marker status-concluded" style="--x: 52.43%; --y: 17.66%" data-policy-state="MN" type="button" aria-controls="policy-detail" aria-label="Show Minnesota policy details" aria-pressed="false"><span>MN</span><i></i></button>
+                <button class="state-marker status-active" style="--x: 68.99%; --y: 31.35%" data-policy-state="MI" type="button" aria-controls="policy-detail" aria-label="Show Michigan policy details" aria-pressed="false"><span>MI</span><i></i></button>
+                <button class="state-marker status-concluded" style="--x: 79.85%; --y: 86.17%" data-policy-state="FL" type="button" aria-controls="policy-detail" aria-label="Show Florida policy details" aria-pressed="false"><span>FL</span><i></i></button>
+                <button class="state-marker status-concluded" style="--x: 62.13%; --y: 67.89%" data-policy-state="MS" type="button" aria-controls="policy-detail" aria-label="Show Mississippi policy details" aria-pressed="false"><span>MS</span><i></i></button>
+                <button class="state-marker status-concluded" style="--x: 45.39%; --y: 76.88%" data-policy-state="TX" type="button" aria-controls="policy-detail" aria-label="Show Texas policy details" aria-pressed="false"><span>TX</span><i></i></button>
               </div>
 
               <div class="map-legend" aria-label="Status legend">
                 <span><i class="status-enacted"></i> Enacted</span>
                 <span><i class="status-active"></i> Active</span>
-                <span><i class="status-introduced"></i> Introduced</span>
                 <span><i class="status-concluded"></i> Concluded</span>
               </div>
             </div>
 
-            <aside class="policy-detail" aria-live="polite">
+            <aside class="policy-detail" id="policy-detail" aria-live="polite">
+              <label class="policy-select-label" for="policy-state-select">Choose a tracked state</label>
+              <select class="policy-state-select" id="policy-state-select">
+                <option value="CA">California</option><option value="WA">Washington</option>
+                <option value="CO">Colorado</option><option value="ME">Maine</option>
+                <option value="NY">New York</option><option value="CT">Connecticut</option>
+                <option value="NJ">New Jersey</option><option value="DE">Delaware</option>
+                <option value="VA">Virginia</option><option value="MN">Minnesota</option>
+                <option value="MI">Michigan</option><option value="FL">Florida</option>
+                <option value="MS">Mississippi</option><option value="TX">Texas</option>
+              </select>
               <div class="detail-topline"><span data-policy-code>CA</span><i data-policy-kind>Direct blocking proposal</i></div>
               <p class="detail-status status-active" data-policy-status>Active · Senate Appropriations</p>
               <h3 data-policy-title>AB 2047</h3>
@@ -433,7 +435,7 @@
                 technology in 3D printers.
               </p>
               <a data-policy-link href="https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" target="_blank" rel="noreferrer">
-                Official bill source <span aria-hidden="true">↗</span>
+                Primary bill source
               </a>
               <small data-policy-date>Status reviewed July 17, 2026</small>
             </aside>
@@ -441,63 +443,64 @@
 
           <div class="policy-records" aria-label="Tracked legislation">
             <a class="policy-record reveal" href="https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" target="_blank" rel="noreferrer">
-              <span>California</span><strong>AB 2047</strong><em class="status-active">Active · committee</em><i>Blocking technology ↗</i>
+              <span>California</span><strong>AB 2047</strong><em class="status-active">Active · committee</em><i>Blocking technology</i>
             </a>
             <a class="policy-record reveal" href="https://www.nysenate.gov/legislation/bills/2025/S9005" target="_blank" rel="noreferrer">
-              <span>New York</span><strong>Ch. 55 / S9005C · S5952</strong><em class="status-enacted">Enacted + active</em><i>Blocking + serialization ↗</i>
+              <span>New York</span><strong>Ch. 55 / S9005C · S5952</strong><em class="status-enacted">Enacted + active</em><i>Blocking + serialization</i>
             </a>
             <a class="policy-record reveal" href="https://app.leg.wa.gov/billsummary?BillNumber=2320&amp;Year=2025&amp;Initiative=false" target="_blank" rel="noreferrer">
-              <span>Washington</span><strong>Ch. 203 / ESHB 2320 · HB 2321</strong><em class="status-enacted">Enacted + introduced</em><i>Manufacture + blocking ↗</i>
+              <span>Washington</span><strong>Ch. 203 / ESHB 2320 · HB 2321</strong><em class="status-enacted">Enacted + concluded</em><i>Manufacture + blocking</i>
             </a>
             <a class="policy-record reveal" href="https://leg.colorado.gov/bills/hb26-1144" target="_blank" rel="noreferrer">
-              <span>Colorado</span><strong>HB26-1144</strong><em class="status-enacted">Enacted</em><i>3D manufacture ↗</i>
+              <span>Colorado</span><strong>HB26-1144</strong><em class="status-enacted">Enacted</em><i>3D manufacture</i>
             </a>
             <a class="policy-record reveal" href="https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&amp;bill_num=HB5043&amp;which_year=2026" target="_blank" rel="noreferrer">
-              <span>Connecticut</span><strong>PA 26-41 / HB 5043</strong><em class="status-enacted">Enacted</em><i>Ghost guns ↗</i>
+              <span>Connecticut</span><strong>PA 26-41 / HB 5043</strong><em class="status-enacted">Enacted</em><i>Ghost guns</i>
             </a>
             <a class="policy-record reveal" href="https://legis.delaware.gov/BillDetail?LegislationId=143522" target="_blank" rel="noreferrer">
-              <span>Delaware</span><strong>HB 399 · 83 Del. Laws c.246</strong><em class="status-active">Active + enacted</em><i>Blocking + digital files ↗</i>
+              <span>Delaware</span><strong>HB 399 · 83 Del. Laws c.246</strong><em class="status-active">Active + enacted</em><i>Blocking + digital files</i>
             </a>
             <a class="policy-record reveal" href="https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1126&amp;snum=132" target="_blank" rel="noreferrer">
-              <span>Maine</span><strong>PL 2025 c.537 / LD 1126</strong><em class="status-enacted">Enacted</em><i>Serialization ↗</i>
+              <span>Maine</span><strong>PL 2025 c.537 / LD 1126</strong><em class="status-enacted">Enacted</em><i>Serialization</i>
             </a>
             <a class="policy-record reveal" href="https://www.njleg.state.nj.us/bill-search/2024/A4975" target="_blank" rel="noreferrer">
-              <span>New Jersey</span><strong>PL 2025 c.255 / A4975 / S3894</strong><em class="status-enacted">Enacted</em><i>Digital instructions ↗</i>
+              <span>New Jersey</span><strong>PL 2025 c.255 / A4975 / S3894</strong><em class="status-enacted">Enacted</em><i>Digital instructions</i>
             </a>
             <a class="policy-record reveal" href="https://lis.virginia.gov/bill-details/20261/HB40" target="_blank" rel="noreferrer">
-              <span>Virginia</span><strong>Ch. 531–532 / HB 40 / SB 323</strong><em class="status-enacted">Enacted</em><i>Unserialized components ↗</i>
+              <span>Virginia</span><strong>Ch. 531–532 / HB 40 / SB 323</strong><em class="status-enacted">Enacted</em><i>Unserialized components</i>
             </a>
             <a class="policy-record reveal" href="https://www.revisor.mn.gov/bills/94/2026/0/HF/3407/" target="_blank" rel="noreferrer">
-              <span>Minnesota</span><strong>HF 3407 / SF 3661 · HF 4882 / SF 5066</strong><em class="status-active">Active + introduced</em><i>Manufacture + files ↗</i>
+              <span>Minnesota</span><strong>HF 3407 / SF 3661 · HF 4882 / SF 5066</strong><em class="status-concluded">Concluded · 2026</em><i>Manufacture + files</i>
             </a>
             <a class="policy-record reveal" href="https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0331" target="_blank" rel="noreferrer">
-              <span>Michigan</span><strong>SB 331 / SB 332</strong><em class="status-active">Passed Senate</em><i>Serialization ↗</i>
+              <span>Michigan</span><strong>SB 331 / SB 332</strong><em class="status-active">Passed Senate</em><i>Serialization</i>
             </a>
             <a class="policy-record reveal" href="https://www.flsenate.gov/Session/Bill/2025/1096" target="_blank" rel="noreferrer">
-              <span>Florida</span><strong>SB 1096 · SB 252 · HB 1019</strong><em class="status-concluded">Concluded · 2025</em><i>Manufacture + serialization ↗</i>
+              <span>Florida</span><strong>SB 1096 · SB 252 · HB 1019</strong><em class="status-concluded">Concluded · 2025</em><i>Manufacture + serialization</i>
             </a>
             <a class="policy-record reveal" href="https://billstatus.ls.state.ms.us/documents/2026/html/HB/0400-0499/HB0434IN.htm" target="_blank" rel="noreferrer">
-              <span>Mississippi</span><strong>HB 434</strong><em class="status-concluded">Died in committee</em><i>Serialization ↗</i>
+              <span>Mississippi</span><strong>HB 434</strong><em class="status-concluded">Concluded · 2026</em><i>Serialization</i>
             </a>
             <a class="policy-record reveal" href="https://capitol.texas.gov/billlookup/History.aspx?LegSess=89R&amp;Bill=SB1711" target="_blank" rel="noreferrer">
-              <span>Texas</span><strong>SB 1711</strong><em class="status-concluded">Concluded · 2025</em><i>3D manufacture ↗</i>
+              <span>Texas</span><strong>SB 1711</strong><em class="status-concluded">Concluded · 2025</em><i>3D manufacture</i>
             </a>
           </div>
 
           <p class="landscape-note reveal">
             Scope: 2025–26 state measures expressly addressing printer blocking, 3D firearm manufacture, digital
-            instructions, or serialization, plus operative precursor laws already cited by those measures. This
+            instructions, or serialization, together with selected related laws already in force. Map color reflects
+            the most advanced listed measure. This
             focused tracker does not attempt to catalog every general firearm or ghost-gun bill. It is informational,
             may not be exhaustive, and is not legal advice. Statuses last reviewed July 17, 2026.
           </p>
         </div>
       </section>
 
-      <section class="reading-section" id="reading">
+      <section class="reading-section" id="reading" aria-labelledby="reading-title">
         <div class="page-shell">
           <div class="reading-heading">
             <p class="section-label reveal"><span>09</span> In the public record</p>
-            <h2 class="display-heading reveal">Reporting on the risk—and the response.</h2>
+            <h2 class="display-heading reveal" id="reading-title">Reporting on the risk and the response.</h2>
             <p class="reveal">
               Independent coverage of untraceable firearms, the rise of 3D-printed weapons, and emerging policy
               responses.
@@ -506,48 +509,52 @@
 
           <div class="article-grid">
             <a class="article-card feature-article reveal" href="https://apnews.com/article/737b48cd483da5394076bc99d94619ca" target="_blank" rel="noreferrer">
-              <span class="article-source">Associated Press · June 2026</span>
+              <span class="article-source">Associated Press · June 13, 2026</span>
               <h3>Some people are making guns with 3D printers. A new law seeks to cancel their print jobs.</h3>
               <p>Reporting on New York’s first-of-its-kind requirement, the technical questions it raises, and the emerging standards debate.</p>
-              <span class="article-link">Read the report ↗</span>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
             </a>
             <a class="article-card reveal" href="https://apnews.com/article/0f22ec981a29a31d9a72d0f8b32d0b22" target="_blank" rel="noreferrer">
-              <span class="article-source">Associated Press · October 2025</span>
-              <h3>Gun safety advocates warn of a surge in untraceable 3D-printed weapons.</h3>
-              <p>A look at recoveries, cheaper fabrication tools, and the concern that a new wave of homemade weapons is arriving.</p>
-              <span class="article-link">Read the report ↗</span>
+              <span class="article-source">Associated Press · October 16, 2025</span>
+              <h3>Gun safety advocates warn of a surge in untraceable 3D-printed weapons in the US.</h3>
+              <p>A look at recoveries reported by roughly two dozen police departments, cheaper fabrication tools, and concern about a new wave of homemade weapons.</p>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
             </a>
             <a class="article-card reveal" href="https://www.nprillinois.org/southern-il-area/2026-06-12/southern-illinois-man-convicted-in-federal-case-involving-3d-printed-guns" target="_blank" rel="noreferrer">
-              <span class="article-source">NPR Illinois · June 2026</span>
-              <h3>A federal case offers a rare view into increasingly sophisticated home gun-making.</h3>
-              <p>Public-radio reporting on the investigative and reporting gaps around weapons made with home fabrication equipment.</p>
-              <span class="article-link">Read the report ↗</span>
+              <span class="article-source">Capitol News Illinois via NPR Illinois · June 12, 2026</span>
+              <h3>Southern Illinois man convicted in federal case involving 3D-printed guns.</h3>
+              <p>Reporting on a federal conviction and the enforcement challenges surrounding increasingly sophisticated home gun-making.</p>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
             </a>
             <a class="article-card reveal" href="https://www.pbs.org/video/sci-firearms-hearing-1713296785/" target="_blank" rel="noreferrer">
-              <span class="article-source">NJ Spotlight News / PBS · April 2024</span>
-              <h3>Ghost guns in New Jersey: easy, cheap, and difficult to trace.</h3>
+              <span class="article-source">NJ Spotlight News / PBS · April 16, 2024</span>
+              <h3>“Ghost guns” in NJ: Easy, cheap and deadly.</h3>
               <p>Statehouse reporting on crime-gun recoveries, 3D printing, conversion devices, and pressure on existing statutes.</p>
-              <span class="article-link">Watch the report ↗</span>
+              <span class="article-link">Watch the report</span>
+              <span class="sr-only">Opens in a new tab</span>
             </a>
           </div>
         </div>
       </section>
 
-      <section class="closing-section">
+      <section class="closing-section" id="closing" aria-labelledby="closing-title">
         <div class="closing-art" aria-hidden="true"></div>
         <div class="page-shell closing-content">
           <p class="eyebrow reveal">A practical middle path</p>
-          <h2 class="reveal">Make 3D printing safer.<br /><em>Keep innovation open.</em></h2>
+          <h2 class="reveal" id="closing-title">Make 3D printing safer.<br /><em>Keep innovation open.</em></h2>
           <p class="reveal">
-            We are building the compliance boundary that regulated production needs—without making lawful creation
-            harder than it needs to be.
+            We are building a practical screening layer for additive-manufacturing workflows—designed to reduce risk
+            without adding unnecessary friction for lawful use.
           </p>
           <div class="closing-actions reveal">
             <a class="button button-coral" href="assets/PrintGuard_Brief.pdf?v=3" target="_blank" rel="noreferrer">
-              Open the partner brief <span aria-hidden="true">↗</span>
+              Read the brief (PDF)<span class="sr-only"> Opens in a new tab</span>
             </a>
             <a class="text-link light" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership">
-              Discuss a partnership <span aria-hidden="true">↗</span>
+              Discuss a partnership
             </a>
           </div>
         </div>
@@ -567,15 +574,16 @@
         <p>The safety layer for additive manufacturing.</p>
         <nav aria-label="Footer navigation">
           <a href="#problem">Why now</a><a href="#system">The system</a><a href="#landscape">Landscape</a>
-          <a href="assets/PrintGuard_Brief.pdf?v=3" target="_blank" rel="noreferrer">Brief ↗</a>
+          <a href="assets/PrintGuard_Brief.pdf?v=3" target="_blank" rel="noreferrer">Brief<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="mailto:contact@printguard.cv">contact@printguard.cv</a>
         </nav>
         <div class="footer-meta">
-          <span>© <span data-year></span> PrintGuard</span>
+          <span>Copyright <span data-year></span> PrintGuard</span>
           <span>Defensive research &amp; development</span>
         </div>
       </div>
     </footer>
 
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=6"></script>
   </body>
 </html>
