@@ -8,16 +8,21 @@
       content="PrintGuard is a local-first safety layer for additive manufacturing: fast, auditable screening for firearm-related risk in 3D-printing files."
     />
     <meta name="theme-color" content="#12110f" />
+    <link rel="canonical" href="https://printguard.cv/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content="PrintGuard — The safety layer for additive manufacturing" />
     <meta
       property="og:description"
       content="Local screening. Auditable decisions. Practical compliance for the next era of 3D printing."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="assets/printguard-scan-art-source.png" />
+    <meta property="og:url" content="https://printguard.cv/" />
+    <meta property="og:image" content="https://printguard.cv/assets/printguard-scan-art-source.png" />
+    <meta property="og:image:alt" content="PrintGuard geometry scanning artwork" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>PrintGuard — The safety layer for additive manufacturing</title>
     <link rel="preload" href="assets/printguard-scan-art.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=1" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
     <!--
@@ -389,38 +394,36 @@
           </div>
 
           <div class="policy-map-layout reveal">
-            <div class="policy-map" aria-label="Map of tracked state policy activity">
-              <svg class="us-outline" viewBox="0 0 900 520" aria-hidden="true">
-                <path d="M85 83 149 62l72 21 51-12 55 23 72-6 36 22 69-2 30 24 83-2 20 20 75-2 28 28 57 2 22 45-18 25-7 59-40 11-25 40-72 15-48 53-72 12-50 25-62-6-52-36-55-2-48-49-61-18-30-52-65-40-8-67-25-39 10-45-20-45Z" />
-                <path d="m185 403 25 37 52 14 17 26-22 13-72-22-27-38ZM697 445l30 3 20 24-18 12-35-16Z" />
-              </svg>
+            <div class="policy-map" role="group" aria-label="Interactive map of tracked state policy activity">
+              <!-- CC0 Albers-projection state map derived from Wikimedia Commons: Blank US Map (states only).svg -->
+              <img class="us-outline" src="assets/us-policy-map.svg" alt="" aria-hidden="true" />
               <span class="map-grid" aria-hidden="true"></span>
 
-              <button class="state-marker status-active active" style="--x: 8%; --y: 54%" data-policy-state="CA" type="button">
+              <button class="state-marker status-active active" style="--x: 9.5%; --y: 53%" data-policy-state="CA" type="button" aria-label="Show California policy details" aria-pressed="true">
                 <span>CA</span><i></i>
               </button>
-              <button class="state-marker status-introduced" style="--x: 12%; --y: 16%" data-policy-state="WA" type="button">
+              <button class="state-marker status-introduced" style="--x: 12.5%; --y: 14%" data-policy-state="WA" type="button" aria-label="Show Washington policy details" aria-pressed="false">
                 <span>WA</span><i></i>
               </button>
-              <button class="state-marker status-enacted" style="--x: 38%; --y: 50%" data-policy-state="CO" type="button">
+              <button class="state-marker status-enacted" style="--x: 38.5%; --y: 50%" data-policy-state="CO" type="button" aria-label="Show Colorado policy details" aria-pressed="false">
                 <span>CO</span><i></i>
               </button>
-              <button class="state-marker status-enacted" style="--x: 88%; --y: 13%" data-policy-state="ME" type="button">
+              <button class="state-marker status-enacted" style="--x: 92%; --y: 14%" data-policy-state="ME" type="button" aria-label="Show Maine policy details" aria-pressed="false">
                 <span>ME</span><i></i>
               </button>
-              <button class="state-marker status-enacted" style="--x: 84%; --y: 31%" data-policy-state="NY" type="button">
+              <button class="state-marker status-enacted" style="--x: 85.5%; --y: 26%" data-policy-state="NY" type="button" aria-label="Show New York policy details" aria-pressed="false">
                 <span>NY</span><i></i>
               </button>
-              <button class="state-marker status-enacted marker-tight" style="--x: 91%; --y: 38%" data-policy-state="CT" type="button">
+              <button class="state-marker status-enacted marker-tight" style="--x: 89.5%; --y: 30%" data-policy-state="CT" type="button" aria-label="Show Connecticut policy details" aria-pressed="false">
                 <span>CT</span><i></i>
               </button>
-              <button class="state-marker status-enacted marker-tight" style="--x: 87%; --y: 44%" data-policy-state="NJ" type="button">
+              <button class="state-marker status-enacted marker-tight" style="--x: 86.5%; --y: 36%" data-policy-state="NJ" type="button" aria-label="Show New Jersey policy details" aria-pressed="false">
                 <span>NJ</span><i></i>
               </button>
-              <button class="state-marker status-enacted marker-tight" style="--x: 84%; --y: 52%" data-policy-state="DE" type="button">
+              <button class="state-marker status-enacted marker-tight" style="--x: 85%; --y: 42%" data-policy-state="DE" type="button" aria-label="Show Delaware policy details" aria-pressed="false">
                 <span>DE</span><i></i>
               </button>
-              <button class="state-marker status-enacted" style="--x: 76%; --y: 58%" data-policy-state="VA" type="button">
+              <button class="state-marker status-enacted" style="--x: 78.5%; --y: 47%" data-policy-state="VA" type="button" aria-label="Show Virginia policy details" aria-pressed="false">
                 <span>VA</span><i></i>
               </button>
 
@@ -536,8 +539,8 @@
             <a class="button button-coral" href="assets/PrintGuard_Brief.pdf" target="_blank" rel="noreferrer">
               Open the partner brief <span aria-hidden="true">↗</span>
             </a>
-            <a class="text-link light" href="https://github.com/williamEH/PrintGuard" target="_blank" rel="noreferrer">
-              Review the project on GitHub <span aria-hidden="true">↗</span>
+            <a class="text-link light" href="https://github.com/williamEH" target="_blank" rel="noreferrer">
+              View work on GitHub <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -566,6 +569,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=2"></script>
   </body>
 </html>

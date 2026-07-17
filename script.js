@@ -1,5 +1,6 @@
 const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector(".menu-toggle");
+const menuLabel = menuButton?.querySelector(".sr-only");
 const siteNav = document.querySelector(".site-nav");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -10,6 +11,7 @@ function updateHeader() {
 function closeMenu() {
   if (!menuButton || !siteNav) return;
   menuButton.setAttribute("aria-expanded", "false");
+  if (menuLabel) menuLabel.textContent = "Open navigation";
   siteNav.classList.remove("open");
   document.body.classList.remove("menu-open");
 }
@@ -17,11 +19,17 @@ function closeMenu() {
 menuButton?.addEventListener("click", () => {
   const isOpen = menuButton.getAttribute("aria-expanded") === "true";
   menuButton.setAttribute("aria-expanded", String(!isOpen));
+  if (menuLabel) menuLabel.textContent = isOpen ? "Open navigation" : "Close navigation";
   siteNav?.classList.toggle("open", !isOpen);
   document.body.classList.toggle("menu-open", !isOpen);
 });
 
 siteNav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || menuButton?.getAttribute("aria-expanded") !== "true") return;
+  closeMenu();
+  menuButton?.focus();
+});
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
 
@@ -199,7 +207,11 @@ const policyLink = document.querySelector("[data-policy-link]");
 function setPolicyState(state) {
   const policy = policyData[state];
   if (!policy) return;
-  policyMarkers.forEach((marker) => marker.classList.toggle("active", marker.dataset.policyState === state));
+  policyMarkers.forEach((marker) => {
+    const isActive = marker.dataset.policyState === state;
+    marker.classList.toggle("active", isActive);
+    marker.setAttribute("aria-pressed", String(isActive));
+  });
   if (policyCode) policyCode.textContent = state;
   if (policyKind) policyKind.textContent = policy.kind;
   if (policyStatus) {
