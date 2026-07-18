@@ -21,9 +21,12 @@
     <meta property="og:image:alt" content="PrintGuard geometry scanning artwork" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>PrintGuard — The safety layer for additive manufacturing</title>
-    <script>document.documentElement.classList.add("js");</script>
+    <script>
+      document.documentElement.classList.add("js");
+      if (window.location.hash === "#demotime") document.documentElement.classList.add("demo-route-pending");
+    </script>
     <link rel="preload" href="assets/printguard-scan-art.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=11" />
+    <link rel="stylesheet" href="styles.css?v=12" />
   </head>
   <body>
     <!--
@@ -584,6 +587,109 @@
       </div>
     </footer>
 
-    <script src="script.js?v=6"></script>
+    <dialog class="demo-dialog" data-demo-dialog aria-labelledby="demo-title" aria-describedby="demo-disclosure-copy">
+      <div class="demo-frame">
+        <header class="demo-header">
+          <div class="brand demo-brand" aria-label="PrintGuard">
+            <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M7 9.5 20 3l13 6.5v17L20 37 7 26.5Z" />
+              <path d="m7 9.5 13 7 13-7M20 16.5V37" />
+              <path d="m12.5 12.5 7.5 4 7.5-4v9.25L20 26l-7.5-4.25Z" />
+            </svg>
+            <span>PrintGuard</span>
+          </div>
+          <span class="demo-header-label">Guided demo</span>
+          <button class="demo-close" type="button" data-demo-close>Return to site</button>
+        </header>
+
+        <div class="demo-content">
+          <div class="demo-intro page-shell">
+            <p class="section-label"><span>01</span> Product walkthrough</p>
+            <div>
+              <h1 id="demo-title" tabindex="-1">See how a file moves from intake to a <em>review decision.</em></h1>
+              <p>Choose an illustrative case to preview PrintGuard’s local screening workflow and review-oriented routing.</p>
+            </div>
+          </div>
+
+          <div class="demo-disclosure page-shell" role="note">
+            <strong>Demo mode</strong>
+            <p id="demo-disclosure-copy">This walkthrough does not upload or classify your files. The workflow and decision categories reflect the current prototype; sample names, evidence, and outcomes are illustrative.</p>
+          </div>
+
+          <div class="demo-workspace page-shell">
+            <aside class="demo-chooser" aria-labelledby="demo-chooser-title">
+              <div class="demo-chooser-heading">
+                <p class="eyebrow">Sample cases</p>
+                <h2 id="demo-chooser-title">Choose a sample case</h2>
+                <p>Each example highlights a different point in the screening workflow.</p>
+              </div>
+              <div class="demo-case-list" aria-label="Illustrative sample cases">
+                <button class="demo-case active" type="button" data-demo-case="clear" aria-pressed="true">
+                  <span>01</span><strong>Benign mechanical part</strong><small>STL · Not flagged</small>
+                </button>
+                <button class="demo-case" type="button" data-demo-case="review" aria-pressed="false">
+                  <span>02</span><strong>Ambiguous geometry</strong><small>OBJ · Human review</small>
+                </button>
+                <button class="demo-case" type="button" data-demo-case="hold" aria-pressed="false">
+                  <span>03</span><strong>Firearm-related test case</strong><small>STL · High-confidence route</small>
+                </button>
+                <button class="demo-case" type="button" data-demo-case="convert" aria-pressed="false">
+                  <span>04</span><strong>CAD assembly</strong><small>STEP · Conversion required</small>
+                </button>
+              </div>
+            </aside>
+
+            <section class="demo-output" data-demo-case-state="clear" aria-labelledby="demo-result-title">
+              <div class="demo-visual" aria-hidden="true">
+                <div class="demo-visual-topline"><span data-demo-visual-label>Geometry workflow illustration</span><span data-demo-format>STL</span></div>
+                <svg class="demo-geometry" viewBox="0 0 360 250">
+                  <g fill="none" stroke="currentColor">
+                    <path d="m180 35 92 53v104l-92 53-92-53V88Z" />
+                    <path d="m88 88 92 54 92-54M180 142v103" />
+                    <path d="m126 110 54-31 54 31v63l-54 31-54-31Z" />
+                    <path d="m126 110 54 32 54-32M180 142v62" />
+                    <circle cx="180" cy="142" r="80" />
+                    <circle cx="180" cy="142" r="111" />
+                  </g>
+                </svg>
+                <div class="demo-file"><span>Sample file</span><strong data-demo-file>bracket_fixture.stl</strong></div>
+              </div>
+
+              <ol class="demo-pipeline" aria-label="Screening stages">
+                <li><span>01 / Accept</span><strong data-demo-stage="0">Validated</strong></li>
+                <li><span>02 / Understand</span><strong data-demo-stage="1">Extracted</strong></li>
+                <li><span>03 / Compare</span><strong data-demo-stage="2">Compared</strong></li>
+                <li><span>04 / Route</span><strong data-demo-stage="3">Not flagged</strong></li>
+              </ol>
+
+              <div class="demo-result" data-demo-result-state="clear">
+                <div class="demo-result-copy">
+                  <p class="eyebrow">Illustrative decision</p>
+                  <h2 id="demo-result-title" tabindex="-1" data-demo-decision>Not flagged</h2>
+                  <p data-demo-explanation>No firearm-related signal crossed the review threshold, and no risky known match was found.</p>
+                </div>
+
+                <dl class="demo-evidence">
+                  <div><dt>Format handling</dt><dd data-demo-evidence-format>Native mesh parsing</dd></div>
+                  <div><dt>Known-file evidence</dt><dd data-demo-evidence-match>No risky match represented</dd></div>
+                  <div><dt>Geometry review</dt><dd data-demo-evidence-geometry>Below the review route</dd></div>
+                  <div><dt>Workflow route</dt><dd data-demo-route>Archive the illustrative result</dd></div>
+                </dl>
+
+                <p class="demo-qualification" data-demo-qualification>“Not flagged” is a screening result, not a safety or legal certification.</p>
+              </div>
+              <p class="sr-only" aria-live="polite" data-demo-live></p>
+            </section>
+          </div>
+
+          <footer class="demo-footer page-shell">
+            <span>Guided product walkthrough</span>
+            <span>This public walkthrough accepts no files.</span>
+          </footer>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="script.js?v=7"></script>
   </body>
 </html>

@@ -249,3 +249,230 @@ policyMapCanvas?.addEventListener("click", (event) => {
   event.stopPropagation();
   setPolicyState(nearest.marker.dataset.policyState);
 }, true);
+
+const demoDialog = document.querySelector("[data-demo-dialog]");
+const demoCloseButton = document.querySelector("[data-demo-close]");
+const demoTitle = document.querySelector("#demo-title");
+const demoCaseButtons = [...document.querySelectorAll("[data-demo-case]")];
+const demoResult = document.querySelector(".demo-result");
+const demoOutput = document.querySelector(".demo-output");
+const demoResultTitle = document.querySelector("[data-demo-decision]");
+const demoVisualLabel = document.querySelector("[data-demo-visual-label]");
+const demoFormat = document.querySelector("[data-demo-format]");
+const demoFile = document.querySelector("[data-demo-file]");
+const demoExplanation = document.querySelector("[data-demo-explanation]");
+const demoEvidenceFormat = document.querySelector("[data-demo-evidence-format]");
+const demoEvidenceMatch = document.querySelector("[data-demo-evidence-match]");
+const demoEvidenceGeometry = document.querySelector("[data-demo-evidence-geometry]");
+const demoRoute = document.querySelector("[data-demo-route]");
+const demoQualification = document.querySelector("[data-demo-qualification]");
+const demoStages = [...document.querySelectorAll("[data-demo-stage]")];
+const demoLiveRegion = document.querySelector("[data-demo-live]");
+const defaultDocumentTitle = document.title;
+const demoHash = "#demotime";
+
+const demoCases = {
+  clear: {
+    format: "STL",
+    file: "bracket_fixture.stl",
+    visualLabel: "Geometry workflow illustration",
+    decision: "Not flagged",
+    explanation: "No firearm-related signal crossed the review threshold, and no risky known match was found.",
+    evidenceFormat: "Native mesh parsing",
+    evidenceMatch: "No risky match represented",
+    evidenceGeometry: "Below the review route",
+    route: "Archive the illustrative result",
+    qualification: "“Not flagged” is a screening result, not a safety or legal certification.",
+    stages: ["Validated", "Extracted", "Compared", "Not flagged"],
+  },
+  review: {
+    format: "OBJ",
+    file: "mechanical_housing.obj",
+    visualLabel: "Geometry workflow illustration",
+    decision: "Needs human review",
+    explanation: "Shape evidence is similar enough to reviewed geometry to require inspection before a downstream decision.",
+    evidenceFormat: "Native mesh parsing",
+    evidenceMatch: "Near-geometry signal represented",
+    evidenceGeometry: "Review threshold represented",
+    route: "Send to the review queue",
+    qualification: "Human review is an intentional outcome when the available evidence should not drive an automatic route.",
+    stages: ["Validated", "Extracted", "Compared", "Human review"],
+  },
+  hold: {
+    format: "STL",
+    file: "firearm_related_test.stl",
+    visualLabel: "Geometry workflow illustration",
+    decision: "High-confidence firearm-related",
+    explanation: "This illustrative case represents high-confidence firearm-related evidence requiring authorized review.",
+    evidenceFormat: "Native mesh parsing",
+    evidenceMatch: "Risk evidence represented",
+    evidenceGeometry: "High-confidence route represented",
+    route: "Hold for authorized review",
+    qualification: "A high-confidence classifier route is not, by itself, a legal determination about a file or part.",
+    stages: ["Validated", "Extracted", "Compared", "Hold for review"],
+  },
+  convert: {
+    format: "STEP",
+    file: "assembly.step",
+    visualLabel: "CAD conversion pending",
+    decision: "CAD conversion required",
+    explanation: "STEP and STP files require CAD-kernel conversion before PrintGuard can perform geometry scoring.",
+    evidenceFormat: "CAD file cataloged",
+    evidenceMatch: "Not checked before conversion",
+    evidenceGeometry: "Not scored before conversion",
+    route: "Convert before scoring",
+    qualification: "Conversion is a workflow requirement, not a risk decision. The converted mesh still needs normal screening.",
+    stages: ["Cataloged", "Waiting", "Not run", "Convert first"],
+  },
+};
+
+let demoReturnHash = window.history.state?.printguardDemoReturnHash || "";
+let demoReturnScroll = Number(window.history.state?.printguardDemoReturnScroll || 0);
+let demoReturnFocus = null;
+let demoDirectEntry = window.location.hash === demoHash && !window.history.state?.printguardDemoOwned;
+
+function setDemoCase(key) {
+  const sample = demoCases[key];
+  if (!sample) return;
+
+  demoCaseButtons.forEach((button) => {
+    const selected = button.dataset.demoCase === key;
+    button.classList.toggle("active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+
+  if (demoResult) demoResult.dataset.demoResultState = key;
+  if (demoOutput) demoOutput.dataset.demoCaseState = key;
+  if (demoResultTitle) demoResultTitle.textContent = sample.decision;
+  if (demoVisualLabel) demoVisualLabel.textContent = sample.visualLabel;
+  if (demoFormat) demoFormat.textContent = sample.format;
+  if (demoFile) demoFile.textContent = sample.file;
+  if (demoExplanation) demoExplanation.textContent = sample.explanation;
+  if (demoEvidenceFormat) demoEvidenceFormat.textContent = sample.evidenceFormat;
+  if (demoEvidenceMatch) demoEvidenceMatch.textContent = sample.evidenceMatch;
+  if (demoEvidenceGeometry) demoEvidenceGeometry.textContent = sample.evidenceGeometry;
+  if (demoRoute) demoRoute.textContent = sample.route;
+  if (demoQualification) demoQualification.textContent = sample.qualification;
+  demoStages.forEach((stage, index) => { stage.textContent = sample.stages[index] || ""; });
+  if (demoLiveRegion) demoLiveRegion.textContent = `${sample.decision}. ${sample.route}.`;
+}
+
+function isElementInViewport(element) {
+  if (!element?.isConnected) return false;
+  const rect = element.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight && rect.right > 0 && rect.left < window.innerWidth;
+}
+
+function getDemoReturnFocus() {
+  const activeElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  if (siteNav?.contains(activeElement)) return menuButton;
+  if (activeElement && activeElement !== document.body && isElementInViewport(activeElement)) return activeElement;
+
+  const headerOffset = (header?.getBoundingClientRect().height || 0) + 12;
+  const currentSection = [...document.querySelectorAll("main > section")].find((section) => {
+    const rect = section.getBoundingClientRect();
+    return rect.top <= headerOffset && rect.bottom > headerOffset;
+  });
+  return currentSection?.querySelector("h1, h2") || header?.querySelector(".brand") || null;
+}
+
+function openDemo() {
+  if (!demoDialog || demoDialog.open) return;
+  demoReturnFocus = getDemoReturnFocus();
+  closeMenu();
+  const returnFocusIsNaturallyFocusable = demoReturnFocus?.matches("a[href], button, input, select, textarea, [contenteditable=true]");
+  if (demoReturnFocus && !returnFocusIsNaturallyFocusable && !demoReturnFocus.hasAttribute("tabindex")) {
+    demoReturnFocus.setAttribute("tabindex", "-1");
+  }
+  demoReturnFocus?.focus({ preventScroll: true });
+  if (!window.history.state?.printguardDemoOwned) demoReturnScroll = window.scrollY;
+  document.body.classList.add("demo-open");
+  document.title = "Guided demo — PrintGuard";
+  setDemoCase("clear");
+
+  if (typeof demoDialog.showModal === "function") demoDialog.showModal();
+  else demoDialog.setAttribute("open", "");
+
+  document.documentElement.classList.remove("demo-route-pending");
+  requestAnimationFrame(() => demoTitle?.focus({ preventScroll: true }));
+}
+
+function closeDemo({ restoreSitePosition = false } = {}) {
+  const wasActive = Boolean(demoDialog?.open || document.body.classList.contains("demo-open"));
+  if (demoDialog?.open && typeof demoDialog.close === "function") demoDialog.close();
+  else if (demoDialog?.open) demoDialog.removeAttribute("open");
+  document.body.classList.remove("demo-open");
+  document.title = defaultDocumentTitle;
+  document.documentElement.classList.remove("demo-route-pending");
+
+  if (!wasActive || !restoreSitePosition) return;
+  requestAnimationFrame(() => {
+    const returnToTop = demoDirectEntry && !demoReturnHash;
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, returnToTop ? 0 : demoReturnScroll);
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    const returnSection = demoReturnHash ? document.querySelector(demoReturnHash) : null;
+    const returnFocusIsVisible = isElementInViewport(demoReturnFocus);
+    const focusTarget = (returnFocusIsVisible ? demoReturnFocus : null)
+      || returnSection?.querySelector("h1, h2")
+      || (returnToTop ? document.querySelector("#hero-title") : null);
+    const isNaturallyFocusable = focusTarget?.matches("a[href], button, input, select, textarea, [contenteditable=true]");
+    if (focusTarget && !isNaturallyFocusable && !focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
+    focusTarget?.focus({ preventScroll: true });
+    demoDirectEntry = false;
+  });
+}
+
+function syncDemoRoute() {
+  if (window.location.hash === demoHash) openDemo();
+  else closeDemo({ restoreSitePosition: true });
+  document.documentElement.classList.remove("demo-route-pending");
+}
+
+function requestDemoClose() {
+  if (window.location.hash !== demoHash) {
+    closeDemo({ restoreSitePosition: true });
+    return;
+  }
+  if (window.history.state?.printguardDemoOwned) {
+    window.history.back();
+    return;
+  }
+  const returnUrl = `${window.location.pathname}${window.location.search}${demoReturnHash}`;
+  window.history.replaceState(null, "", returnUrl);
+  closeDemo({ restoreSitePosition: true });
+}
+
+demoCaseButtons.forEach((button) => button.addEventListener("click", () => setDemoCase(button.dataset.demoCase)));
+demoCloseButton?.addEventListener("click", requestDemoClose);
+demoDialog?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  requestDemoClose();
+});
+
+window.addEventListener("hashchange", (event) => {
+  const oldHash = new URL(event.oldURL).hash;
+  if (window.location.hash === demoHash && oldHash !== demoHash) {
+    demoDirectEntry = false;
+    demoReturnHash = oldHash;
+    demoReturnScroll = window.scrollY;
+    window.history.replaceState(
+      {
+        ...window.history.state,
+        printguardDemoOwned: true,
+        printguardDemoReturnHash: oldHash,
+        printguardDemoReturnScroll: demoReturnScroll,
+      },
+      "",
+      window.location.href,
+    );
+  }
+  syncDemoRoute();
+});
+
+if (window.location.hash === demoHash && !window.history.state?.printguardDemoOwned) {
+  demoReturnHash = "";
+  demoReturnScroll = 0;
+}
+syncDemoRoute();
