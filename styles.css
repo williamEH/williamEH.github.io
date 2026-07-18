@@ -98,9 +98,8 @@ button, input, select { font: inherit; }
 .site-header.scrolled {
   height: 68px;
   color: var(--ink);
-  background: rgba(241, 239, 233, 0.92);
+  background: rgba(241, 239, 233, 0.98);
   border-color: var(--line);
-  backdrop-filter: blur(18px);
 }
 
 .brand {
