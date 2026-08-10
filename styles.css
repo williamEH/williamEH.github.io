@@ -143,7 +143,7 @@ button, input, select { font: inherit; }
 .hero-art, .hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-art picture { position: absolute; top: 10%; right: 0; width: 80%; height: 80%; overflow: hidden; }
 .hero-art img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-art img { object-fit: cover; object-position: center; filter: saturate(0.86) contrast(1.02); transform: scale(1.025); animation: hero-breathe 14s ease-in-out infinite alternate; }
+.hero-art img { object-fit: cover; object-position: center; filter: saturate(0.86) contrast(1.02); transform: scale(.82); animation: hero-breathe 14s ease-in-out infinite alternate; }
 .hero-shade { z-index: 1; background: linear-gradient(90deg, rgba(14, 13, 11, 0.96) 0%, rgba(14, 13, 11, 0.78) 35%, rgba(14, 13, 11, 0.16) 67%, rgba(14, 13, 11, 0.16) 100%), linear-gradient(0deg, rgba(14,13,11,.62) 0, transparent 34%); }
 .hero-grid { position: absolute; z-index: 2; inset: 0; opacity: 0.13; background-image: linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(90deg, black, transparent 54%); }
 .hero-scan { position: absolute; z-index: 3; top: 0; bottom: 0; left: 61.5%; width: 1px; opacity: 0.5; background: linear-gradient(transparent, var(--coral) 20%, var(--coral) 80%, transparent); box-shadow: 0 0 28px rgba(255,104,77,.6); animation: scan-glow 4s ease-in-out infinite; }
@@ -434,7 +434,7 @@ html:not(.js) .reveal { opacity: 1 !important; transform: none !important; trans
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 750ms ease var(--delay,0ms), transform 750ms cubic-bezier(.2,.7,.2,1) var(--delay,0ms); }
 .js .reveal.visible { opacity: 1; transform: translateY(0); }
 
-@keyframes hero-breathe { to { transform: scale(1.055); } }
+@keyframes hero-breathe { to { transform: scale(.844); } }
 @keyframes scan-glow { 50% { opacity: .85; box-shadow: 0 0 48px rgba(255,104,77,.8); } }
 @keyframes scroll-cue { from { transform: translateY(-18px); } to { transform: translateY(38px); } }
 @keyframes mesh-float { to { transform: translateY(-8px) rotate(3deg); } }
