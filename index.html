@@ -26,7 +26,7 @@
       if (window.location.hash === "#demotime") document.documentElement.classList.add("demo-route-pending");
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=17" />
+    <link rel="stylesheet" href="styles.css?v=18" />
   </head>
   <body>
     <!--
@@ -603,7 +603,7 @@
         <div class="demo-content">
           <div class="demo-statusbar page-shell" role="note">
             <div><i aria-hidden="true"></i><strong data-demo-runtime-status>Browser model ready</strong></div>
-            <p id="demo-disclosure-copy">A compact exported classifier runs locally against pre-extracted geometry features from three curated sample files. No raw firearm geometry is distributed by this demo.</p>
+            <p id="demo-disclosure-copy">A compact exported classifier runs locally against pre-extracted geometry features from three curated sample files. The classification lines shown below are illustrative and configurable.</p>
           </div>
 
           <div class="demo-workspace page-shell">
@@ -624,27 +624,13 @@
                   <span>03</span><strong>Receiver test fixture</strong><small>receiver_reference.stl</small><em>Firearm part</em>
                 </button>
               </div>
-              <p class="demo-fixture-note">Feature-only fixtures prevent redistribution of the source geometry.</p>
+              <p class="demo-fixture-note">The classifier uses feature-only fixtures. Each preview is a static render derived from its source mesh, not the mesh itself.</p>
             </aside>
 
             <section class="demo-output" data-demo-case-state="benign" data-demo-run-state="ready" data-demo-result-state="allow" aria-labelledby="demo-result-title" aria-busy="false">
               <div class="demo-visual" aria-hidden="true">
-                <div class="demo-visual-topline"><span data-demo-visual-label>Local geometry feature fixture</span><span data-demo-format>OFF</span></div>
-                <svg class="demo-geometry" viewBox="0 0 420 280">
-                  <g class="demo-shape demo-shape-benign" fill="none" stroke="currentColor">
-                    <path d="M82 91h256l-22 124H104Z"/><path d="M82 91 113 62h194l31 29M104 215l-21 18M316 215l21 18"/>
-                    <path d="M113 62c18 30 176 30 194 0M111 112h198l-13 78H124Z"/><ellipse cx="210" cy="112" rx="99" ry="26"/>
-                  </g>
-                  <g class="demo-shape demo-shape-dual" fill="none" stroke="currentColor">
-                    <path d="M82 203V78h58v75h198v50Z"/><path d="m82 78 28-24h58v70h170l-28 29H140"/>
-                    <path d="M110 54v125l28 24M168 54l-28 24M194 124v29M240 124v29M286 124v29"/>
-                  </g>
-                  <g class="demo-shape demo-shape-firearm" fill="none" stroke="currentColor">
-                    <path d="M75 88h205l42 29-20 52h-70l-35 70h-72l14-89-64-18Z"/>
-                    <path d="m75 88 31-27h187l29 56M139 150l39-30h54l24 49M125 239l37-28h35l35-42"/>
-                    <path d="M106 61v59l33 30M178 120V61M293 61v49"/>
-                  </g>
-                </svg>
+                <div class="demo-visual-topline"><span data-demo-visual-label>Geometry-derived fixture preview</span><span data-demo-format>OFF</span></div>
+                <img class="demo-geometry" data-demo-preview src="assets/demo-preview-benign.svg?v=1" alt="" />
                 <span class="demo-scan-line"></span>
                 <div class="demo-file"><span>Selected fixture</span><strong data-demo-file>bathtub_model.off</strong></div>
               </div>
@@ -659,24 +645,25 @@
                 <div class="demo-result-copy">
                   <p class="eyebrow">Classifier output</p>
                   <h2 id="demo-result-title" tabindex="-1" data-demo-decision>Not flagged</h2>
-                  <p data-demo-explanation>The model score is below the browser demo’s review threshold.</p>
+                  <p data-demo-explanation>The model score is below the illustrative policy line shown here.</p>
                 </div>
 
                 <div class="demo-score-panel">
                   <span>Firearm-related score</span>
                   <p><strong data-demo-score>0.7</strong><sup>%</sup></p>
                   <div class="demo-score-track" aria-hidden="true"><i data-demo-score-bar style="--score: .7%"></i><b></b><b></b></div>
-                  <small><span>Allow</span><span>Review</span><span>Hold</span></small>
+                  <small><span>Below line</span><span>Policy band</span><span>Above line</span></small>
+                  <p class="demo-policy-note">Illustrative lines: 25% and 75%. Deployments can change both thresholds and resulting actions to reflect applicable state-specific legislation and workflow.</p>
                 </div>
 
                 <dl class="demo-evidence">
                   <div><dt>Ground-truth class</dt><dd data-demo-category>Totally benign</dd></div>
-                  <div><dt>Policy route</dt><dd data-demo-route>Continue workflow</dd></div>
+                  <div><dt>Policy route</dt><dd data-demo-route>Continue under active policy</dd></div>
                   <div><dt>Execution</dt><dd data-demo-elapsed>Local browser inference</dd></div>
                   <div><dt>Model</dt><dd data-demo-model>Loading fingerprint</dd></div>
                 </dl>
 
-                <p class="demo-qualification">This compact browser classifier evaluates pre-extracted geometry features. It does not replace the full screening service or make a legal determination.</p>
+                <p class="demo-qualification">Scores are model outputs; classification thresholds and downstream actions are configurable policy. This compact browser demo does not replace the full screening service or make a legal determination.</p>
               </div>
               <p class="sr-only" aria-live="polite" data-demo-live></p>
             </section>
@@ -691,6 +678,6 @@
     </dialog>
 
     <script src="assets/demo-classifier-v1.js?v=1"></script>
-    <script src="script.js?v=9"></script>
+    <script src="script.js?v=10"></script>
   </body>
 </html>

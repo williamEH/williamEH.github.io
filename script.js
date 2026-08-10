@@ -257,6 +257,7 @@ const demoCaseButtons = [...document.querySelectorAll("[data-demo-case]")];
 const demoOutput = document.querySelector(".demo-output");
 const demoResultTitle = document.querySelector("[data-demo-decision]");
 const demoVisualLabel = document.querySelector("[data-demo-visual-label]");
+const demoPreview = document.querySelector("[data-demo-preview]");
 const demoFormat = document.querySelector("[data-demo-format]");
 const demoFile = document.querySelector("[data-demo-file]");
 const demoExplanation = document.querySelector("[data-demo-explanation]");
@@ -306,26 +307,26 @@ function demoPolicyResult(score) {
     return {
       state: "allow",
       decision: "Not flagged",
-      route: "Continue workflow",
-      stage: "Allow",
-      explanation: "The classifier score stayed below the browser demo’s selective-review threshold.",
+      route: "Continue under active policy",
+      stage: "Below policy line",
+      explanation: "The classifier score stayed below the illustrative policy line shown here.",
     };
   }
   if (score < policy.holdAtOrAbove) {
     return {
       state: "review",
-      decision: "Needs human review",
-      route: "Manual review",
-      stage: "Review",
-      explanation: "The score falls inside the selective-review band, so the system abstains from an automatic route.",
+      decision: "Policy-dependent signal",
+      route: "Configured policy action",
+      stage: "Policy band",
+      explanation: "This score sits between the two illustrative classification lines. A deployment can move those lines—and change the resulting action—to reflect applicable state-specific legislation or an operator’s workflow.",
     };
   }
   return {
     state: "hold",
     decision: "Firearm-related signal",
-    route: "Hold for review",
-    stage: "Hold",
-    explanation: "The classifier score crossed the browser demo’s high-confidence review threshold.",
+    route: "Configured policy action",
+    stage: "Above policy line",
+    explanation: "This score crosses the upper illustrative classification line. A deployment can move that line and choose the resulting action based on applicable state-specific legislation or workflow requirements.",
   };
 }
 
@@ -344,7 +345,8 @@ function setDemoCase(key) {
   demoOutput.dataset.demoRunState = "running";
   demoOutput.setAttribute("aria-busy", "true");
   if (demoResultTitle) demoResultTitle.textContent = "Analyzing…";
-  if (demoVisualLabel) demoVisualLabel.textContent = "Local geometry feature fixture";
+  if (demoVisualLabel) demoVisualLabel.textContent = "Geometry-derived fixture preview";
+  if (demoPreview) demoPreview.setAttribute("src", `assets/demo-preview-${sample.preview}.svg?v=1`);
   if (demoFormat) demoFormat.textContent = sample.format;
   if (demoFile) demoFile.textContent = sample.file;
   if (demoExplanation) demoExplanation.textContent = "Running the exported gradient-boosted model locally in this browser.";
