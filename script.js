@@ -252,88 +252,87 @@ policyMapCanvas?.addEventListener("click", (event) => {
 
 const demoDialog = document.querySelector("[data-demo-dialog]");
 const demoCloseButton = document.querySelector("[data-demo-close]");
-const demoTitle = document.querySelector("#demo-title");
+const demoTitle = document.querySelector("#demo-chooser-title");
 const demoCaseButtons = [...document.querySelectorAll("[data-demo-case]")];
-const demoResult = document.querySelector(".demo-result");
 const demoOutput = document.querySelector(".demo-output");
 const demoResultTitle = document.querySelector("[data-demo-decision]");
 const demoVisualLabel = document.querySelector("[data-demo-visual-label]");
 const demoFormat = document.querySelector("[data-demo-format]");
 const demoFile = document.querySelector("[data-demo-file]");
 const demoExplanation = document.querySelector("[data-demo-explanation]");
-const demoEvidenceFormat = document.querySelector("[data-demo-evidence-format]");
-const demoEvidenceMatch = document.querySelector("[data-demo-evidence-match]");
-const demoEvidenceGeometry = document.querySelector("[data-demo-evidence-geometry]");
+const demoScore = document.querySelector("[data-demo-score]");
+const demoScoreBar = document.querySelector("[data-demo-score-bar]");
+const demoCategory = document.querySelector("[data-demo-category]");
 const demoRoute = document.querySelector("[data-demo-route]");
-const demoQualification = document.querySelector("[data-demo-qualification]");
+const demoElapsed = document.querySelector("[data-demo-elapsed]");
+const demoModel = document.querySelector("[data-demo-model]");
+const demoModelSpec = document.querySelector("[data-demo-model-spec]");
+const demoRuntimeStatus = document.querySelector("[data-demo-runtime-status]");
 const demoStages = [...document.querySelectorAll("[data-demo-stage]")];
 const demoLiveRegion = document.querySelector("[data-demo-live]");
+const demoBundle = window.PRINTGUARD_DEMO_CLASSIFIER;
 const defaultDocumentTitle = document.title;
 const demoHash = "#demotime";
-
-const demoCases = {
-  clear: {
-    format: "STL",
-    file: "bracket_fixture.stl",
-    visualLabel: "Geometry workflow illustration",
-    decision: "Not flagged",
-    explanation: "No firearm-related signal crossed the review threshold, and no risky known match was found.",
-    evidenceFormat: "Native mesh parsing",
-    evidenceMatch: "No risky match represented",
-    evidenceGeometry: "Below the review route",
-    route: "Archive the illustrative result",
-    qualification: "“Not flagged” is a screening result, not a safety or legal certification.",
-    stages: ["Validated", "Extracted", "Compared", "Not flagged"],
-  },
-  review: {
-    format: "OBJ",
-    file: "mechanical_housing.obj",
-    visualLabel: "Geometry workflow illustration",
-    decision: "Needs human review",
-    explanation: "Shape evidence is similar enough to reviewed geometry to require inspection before a downstream decision.",
-    evidenceFormat: "Native mesh parsing",
-    evidenceMatch: "Near-geometry signal represented",
-    evidenceGeometry: "Review threshold represented",
-    route: "Send to the review queue",
-    qualification: "Human review is an intentional outcome when the available evidence should not drive an automatic route.",
-    stages: ["Validated", "Extracted", "Compared", "Human review"],
-  },
-  hold: {
-    format: "STL",
-    file: "firearm_related_test.stl",
-    visualLabel: "Geometry workflow illustration",
-    decision: "High-confidence firearm-related",
-    explanation: "This illustrative case represents high-confidence firearm-related evidence requiring authorized review.",
-    evidenceFormat: "Native mesh parsing",
-    evidenceMatch: "Risk evidence represented",
-    evidenceGeometry: "High-confidence route represented",
-    route: "Hold for authorized review",
-    qualification: "A high-confidence classifier route is not, by itself, a legal determination about a file or part.",
-    stages: ["Validated", "Extracted", "Compared", "Hold for review"],
-  },
-  convert: {
-    format: "STEP",
-    file: "assembly.step",
-    visualLabel: "CAD conversion pending",
-    decision: "CAD conversion required",
-    explanation: "STEP and STP files require CAD-kernel conversion before PrintGuard can perform geometry scoring.",
-    evidenceFormat: "CAD file cataloged",
-    evidenceMatch: "Not checked before conversion",
-    evidenceGeometry: "Not scored before conversion",
-    route: "Convert before scoring",
-    qualification: "Conversion is a workflow requirement, not a risk decision. The converted mesh still needs normal screening.",
-    stages: ["Cataloged", "Waiting", "Not run", "Convert first"],
-  },
-};
 
 let demoReturnHash = window.history.state?.printguardDemoReturnHash || "";
 let demoReturnScroll = Number(window.history.state?.printguardDemoReturnScroll || 0);
 let demoReturnFocus = null;
 let demoDirectEntry = window.location.hash === demoHash && !window.history.state?.printguardDemoOwned;
+let demoRunToken = 0;
+
+function scoreDemoFeatures(features) {
+  const classifier = demoBundle?.classifier;
+  if (!classifier || features.length !== classifier.featureCount) {
+    throw new Error("Browser classifier artifact is unavailable or incompatible.");
+  }
+
+  let rawScore = classifier.baseline;
+  classifier.trees.forEach((tree) => {
+    let nodeIndex = 0;
+    while (tree[nodeIndex][0] === 0) {
+      const node = tree[nodeIndex];
+      const value = features[node[1]];
+      const goLeft = Number.isNaN(value) ? Boolean(node[3]) : value <= node[2];
+      nodeIndex = node[goLeft ? 4 : 5];
+    }
+    rawScore += tree[nodeIndex][1];
+  });
+  return 1 / (1 + Math.exp(-rawScore));
+}
+
+function demoPolicyResult(score) {
+  const policy = demoBundle.classifier.policy;
+  if (score < policy.allowBelow) {
+    return {
+      state: "allow",
+      decision: "Not flagged",
+      route: "Continue workflow",
+      stage: "Allow",
+      explanation: "The classifier score stayed below the browser demo’s selective-review threshold.",
+    };
+  }
+  if (score < policy.holdAtOrAbove) {
+    return {
+      state: "review",
+      decision: "Needs human review",
+      route: "Manual review",
+      stage: "Review",
+      explanation: "The score falls inside the selective-review band, so the system abstains from an automatic route.",
+    };
+  }
+  return {
+    state: "hold",
+    decision: "Firearm-related signal",
+    route: "Hold for review",
+    stage: "Hold",
+    explanation: "The classifier score crossed the browser demo’s high-confidence review threshold.",
+  };
+}
 
 function setDemoCase(key) {
-  const sample = demoCases[key];
-  if (!sample) return;
+  const sample = demoBundle?.fixtures?.find((fixture) => fixture.id === key);
+  if (!sample || !demoOutput) return;
+  const runToken = ++demoRunToken;
 
   demoCaseButtons.forEach((button) => {
     const selected = button.dataset.demoCase === key;
@@ -341,20 +340,65 @@ function setDemoCase(key) {
     button.setAttribute("aria-pressed", String(selected));
   });
 
-  if (demoResult) demoResult.dataset.demoResultState = key;
-  if (demoOutput) demoOutput.dataset.demoCaseState = key;
-  if (demoResultTitle) demoResultTitle.textContent = sample.decision;
-  if (demoVisualLabel) demoVisualLabel.textContent = sample.visualLabel;
+  demoOutput.dataset.demoCaseState = key;
+  demoOutput.dataset.demoRunState = "running";
+  demoOutput.setAttribute("aria-busy", "true");
+  if (demoResultTitle) demoResultTitle.textContent = "Analyzing…";
+  if (demoVisualLabel) demoVisualLabel.textContent = "Local geometry feature fixture";
   if (demoFormat) demoFormat.textContent = sample.format;
   if (demoFile) demoFile.textContent = sample.file;
-  if (demoExplanation) demoExplanation.textContent = sample.explanation;
-  if (demoEvidenceFormat) demoEvidenceFormat.textContent = sample.evidenceFormat;
-  if (demoEvidenceMatch) demoEvidenceMatch.textContent = sample.evidenceMatch;
-  if (demoEvidenceGeometry) demoEvidenceGeometry.textContent = sample.evidenceGeometry;
-  if (demoRoute) demoRoute.textContent = sample.route;
-  if (demoQualification) demoQualification.textContent = sample.qualification;
-  demoStages.forEach((stage, index) => { stage.textContent = sample.stages[index] || ""; });
-  if (demoLiveRegion) demoLiveRegion.textContent = `${sample.decision}. ${sample.route}.`;
+  if (demoExplanation) demoExplanation.textContent = "Running the exported gradient-boosted model locally in this browser.";
+  if (demoScore) demoScore.textContent = "—";
+  if (demoScoreBar) demoScoreBar.style.setProperty("--score", "0%");
+  if (demoCategory) demoCategory.textContent = sample.category;
+  if (demoRoute) demoRoute.textContent = "Pending";
+  if (demoElapsed) demoElapsed.textContent = "Running locally";
+  if (demoRuntimeStatus) demoRuntimeStatus.textContent = "Classifier running";
+  demoStages.forEach((stage, index) => {
+    stage.textContent = ["Feature vector loaded", "Evaluating trees", "Waiting"][index] || "";
+  });
+
+  const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 420;
+  window.setTimeout(() => {
+    if (runToken !== demoRunToken) return;
+    try {
+      const startedAt = performance.now();
+      const score = scoreDemoFeatures(sample.features);
+      const elapsed = performance.now() - startedAt;
+      const result = demoPolicyResult(score);
+      const percentage = score * 100;
+      const classifier = demoBundle.classifier;
+
+      demoOutput.dataset.demoRunState = "complete";
+      demoOutput.dataset.demoResultState = result.state;
+      demoOutput.setAttribute("aria-busy", "false");
+      if (demoResultTitle) demoResultTitle.textContent = result.decision;
+      if (demoExplanation) demoExplanation.textContent = result.explanation;
+      if (demoScore) demoScore.textContent = percentage.toFixed(1);
+      if (demoScoreBar) demoScoreBar.style.setProperty("--score", `${percentage}%`);
+      if (demoRoute) demoRoute.textContent = result.route;
+      if (demoElapsed) demoElapsed.textContent = elapsed < 0.1 ? "< 0.1 ms · local" : `${elapsed.toFixed(1)} ms · local`;
+      if (demoModel) demoModel.textContent = `GBDT ${classifier.modelSha256.slice(0, 12)}`;
+      if (demoModelSpec) demoModelSpec.textContent = `Exported GBDT · ${classifier.featureCount.toLocaleString()} geometry features · ${classifier.trees.length} trees`;
+      if (demoRuntimeStatus) demoRuntimeStatus.textContent = "Inference complete";
+      demoStages.forEach((stage, index) => {
+        stage.textContent = [
+          `${classifier.featureCount.toLocaleString()} features`,
+          `${classifier.trees.length} trees evaluated`,
+          result.stage,
+        ][index] || "";
+      });
+      if (demoLiveRegion) {
+        demoLiveRegion.textContent = `${sample.title}: ${result.decision}. Firearm-related score ${percentage.toFixed(1)} percent. ${result.route}.`;
+      }
+    } catch (error) {
+      demoOutput.dataset.demoRunState = "error";
+      demoOutput.setAttribute("aria-busy", "false");
+      if (demoResultTitle) demoResultTitle.textContent = "Model unavailable";
+      if (demoExplanation) demoExplanation.textContent = error instanceof Error ? error.message : "Classifier failed to run.";
+      if (demoRuntimeStatus) demoRuntimeStatus.textContent = "Classifier unavailable";
+    }
+  }, delay);
 }
 
 function isElementInViewport(element) {
@@ -387,8 +431,8 @@ function openDemo() {
   demoReturnFocus?.focus({ preventScroll: true });
   if (!window.history.state?.printguardDemoOwned) demoReturnScroll = window.scrollY;
   document.body.classList.add("demo-open");
-  document.title = "Guided demo — PrintGuard";
-  setDemoCase("clear");
+  document.title = "Live classifier — PrintGuard";
+  setDemoCase("benign");
 
   if (typeof demoDialog.showModal === "function") demoDialog.showModal();
   else demoDialog.setAttribute("open", "");
