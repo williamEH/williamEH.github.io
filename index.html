@@ -17,16 +17,16 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://printguard.cv/" />
-    <meta property="og:image" content="https://printguard.cv/assets/printguard-scan-art-source.png" />
-    <meta property="og:image:alt" content="PrintGuard geometry scanning artwork" />
+    <meta property="og:image" content="https://printguard.cv/assets/printguard-firearm-scan-hero-v2.png" />
+    <meta property="og:image:alt" content="A firearm rendered as a defensive 3D geometry scan" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>PrintGuard — The safety layer for additive manufacturing</title>
     <script>
       document.documentElement.classList.add("js");
       if (window.location.hash === "#demotime") document.documentElement.classList.add("demo-route-pending");
     </script>
-    <link rel="preload" href="assets/printguard-scan-art.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css?v=14" />
   </head>
   <body>
     <!--
@@ -52,7 +52,7 @@
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-        <a href="#problem">Why now</a>
+        <a href="#gap">Why now</a>
         <a href="#system">The system</a>
         <a href="#performance">Performance</a>
         <a href="#partners">Partners</a>
@@ -69,8 +69,8 @@
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <source srcset="assets/printguard-scan-art.webp" type="image/webp" />
-            <img src="assets/printguard-scan-art-source.png" alt="" />
+            <source srcset="assets/printguard-firearm-scan-hero-v2.webp" type="image/webp" />
+            <img src="assets/printguard-firearm-scan-hero-v2.png" alt="" />
           </picture>
           <span class="hero-scan"></span>
           <span class="hero-grid"></span>
@@ -78,7 +78,6 @@
         <div class="hero-shade" aria-hidden="true"></div>
 
         <div class="hero-content page-shell">
-          <p class="eyebrow hero-eyebrow reveal">Defensive infrastructure for additive manufacturing</p>
           <h1 id="hero-title" class="reveal" style="--delay: 80ms">
             Keep the promise of<br />
             <em>3D printing.</em><br />
@@ -99,27 +98,6 @@
           <span>Auditable decisions</span>
           <span>Practical compliance</span>
           <span class="scroll-cue">Scroll to explore <i></i></span>
-        </div>
-      </section>
-
-      <section class="statement light-section" id="problem" aria-labelledby="problem-title">
-        <div class="page-shell statement-grid">
-          <p class="section-label reveal"><span>01</span> The moment</p>
-          <div>
-            <h2 class="display-heading reveal" id="problem-title">Additive manufacturing is becoming ordinary infrastructure.</h2>
-            <div class="statement-copy reveal">
-              <p>
-                Schools, labs, manufacturers, marketplaces, makerspaces, and homes are gaining extraordinary new
-                creative capacity. That same accessibility creates a public-safety gap: digital designs for firearms
-                and regulated components can be fabricated outside some traditional manufacturing and distribution
-                checkpoints.
-              </p>
-              <p>
-                State policy is beginning to move toward performance-based safeguards. Implementers need a standard
-                that reduces risk, withstands public scrutiny, and protects lawful making.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -181,59 +159,103 @@
       </section>
 
       <section class="system-section" id="system" aria-labelledby="system-title">
-        <div class="page-shell system-layout">
-          <div class="system-copy">
+        <div class="page-shell">
+          <div class="system-heading">
             <p class="section-label reveal"><span>03</span> The system</p>
-            <h2 class="display-heading reveal" id="system-title">A fast first review layer for additive-manufacturing workflows.</h2>
-            <p class="system-intro reveal">
-              PrintGuard combines known-file evidence with shape-aware classification, producing a screening result
-              organizations can inspect and document.
-            </p>
-
-            <ol class="system-steps">
-              <li class="reveal">
-                <span>01</span>
-                <div><h3>Accept</h3><p>Screen supported mesh files during publication, intake, or pre-print review.</p></div>
-              </li>
-              <li class="reveal">
-                <span>02</span>
-                <div><h3>Understand</h3><p>Extract mesh statistics, point-cloud, voxel, and multiview features.</p></div>
-              </li>
-              <li class="reveal">
-                <span>03</span>
-                <div><h3>Compare</h3><p>Check exact SHA-256 evidence, near-geometry matches, and classifier scores.</p></div>
-              </li>
-              <li class="reveal">
-                <span>04</span>
-                <div><h3>Route</h3><p>Return a review-oriented decision with supporting scores, then log the result locally.</p></div>
-              </li>
-            </ol>
+            <div>
+              <h2 class="display-heading reveal" id="system-title">More than a classifier. A layered geometry-analysis system.</h2>
+              <p class="system-intro reveal">
+                PrintGuard combines hardened file handling, multiple representations of 3D geometry, known-file
+                evidence, hierarchical models, and selective policy routing in one local screening pipeline.
+              </p>
+            </div>
           </div>
 
-          <div class="system-visual reveal">
-            <div class="system-stage" role="img" aria-label="Illustration of a local geometry screening pipeline">
-              <div class="stage-topline">
-                <span>PG / ANALYSIS CORE</span>
-                <span class="live-state"><i></i> Local process</span>
-              </div>
-              <div class="stage-viewport">
-                <span class="stage-grid"></span>
-                <div class="mesh-object" aria-hidden="true">
-                  <svg viewBox="0 0 260 260">
-                    <path d="m50 88 82-48 78 45 4 92-84 45-80-48Z" />
-                    <path d="m50 88 80 47 80-50M130 135l84 42M130 135v87M132 40l-2 95M50 174l80-39" />
-                    <path d="m81 106 51-30 48 28 2 55-52 28-49-30Z" />
-                    <path d="m81 106 49 29 50-31M130 135l52 24M130 135v52M132 76l-2 59M81 157l49-22" />
-                  </svg>
-                  <span class="scan-plane"></span>
+          <div class="technical-layout">
+            <div class="feature-stack">
+              <article class="tech-feature reveal">
+                <span class="feature-code">INPUT / 01</span>
+                <h3>Safe mesh parsing</h3>
+                <p>Bounded local parsers validate supported mesh formats before analysis. CAD files enter a separate conversion gate.</p>
+              </article>
+              <article class="tech-feature reveal">
+                <span class="feature-code">SIGNAL / 02</span>
+                <h3>Multi-representation geometry</h3>
+                <p>Mesh statistics, sampled point clouds, voxel occupancy, and multiview projections capture complementary shape signals.</p>
+              </article>
+              <article class="tech-feature reveal">
+                <span class="feature-code">EVIDENCE / 03</span>
+                <h3>Exact and near matching</h3>
+                <p>SHA-256 lookup identifies known files while geometry signatures help surface materially similar variants.</p>
+              </article>
+              <article class="tech-feature reveal">
+                <span class="feature-code">MODEL / 04</span>
+                <h3>Hierarchical classification</h3>
+                <p>Separate heads estimate firearm-related risk, conditional part type, and support-gated platform family.</p>
+              </article>
+              <article class="tech-feature reveal">
+                <span class="feature-code">POLICY / 05</span>
+                <h3>Abstention by design</h3>
+                <p>Configurable thresholds preserve an <em>unknown</em> outcome and route ambiguous or high-impact results to review.</p>
+              </article>
+              <article class="tech-feature reveal">
+                <span class="feature-code">AUDIT / 06</span>
+                <h3>Local decision trace</h3>
+                <p>Hashes, model scores, supporting evidence, policy action, and review state form a locally retained audit record.</p>
+              </article>
+            </div>
+
+            <div class="system-visual reveal">
+              <div class="system-stage" role="img" aria-label="Technical diagram of PrintGuard's local geometry screening pipeline">
+                <div class="stage-topline">
+                  <span>PG / TECHNICAL CORE</span>
+                  <span class="live-state"><i></i> Local process</span>
+                </div>
+                <div class="tech-console">
+                  <div class="input-strip">
+                    <div><span>Validated input</span><code>sample_mesh.stl</code></div>
+                    <div class="format-chips" aria-label="Native mesh formats">
+                      <span>STL</span><span>OBJ</span><span>AMF</span><span>3MF</span><span>OFF</span>
+                    </div>
+                  </div>
+
+                  <div class="signal-grid">
+                    <div class="signal-module signal-wide">
+                      <span class="module-kicker">Feature extraction</span>
+                      <strong>Four views of shape</strong>
+                      <div class="signal-bars" aria-hidden="true">
+                        <span style="--level: 82%"><i>Mesh</i></span>
+                        <span style="--level: 66%"><i>Points</i></span>
+                        <span style="--level: 74%"><i>Voxels</i></span>
+                        <span style="--level: 91%"><i>Views</i></span>
+                      </div>
+                    </div>
+                    <div class="signal-module">
+                      <span class="module-kicker">Known-file index</span>
+                      <strong>SHA-256</strong>
+                      <p>Exact evidence lookup</p>
+                    </div>
+                    <div class="signal-module">
+                      <span class="module-kicker">Geometry index</span>
+                      <strong>Near match</strong>
+                      <p>Shape-signature search</p>
+                    </div>
+                  </div>
+
+                  <div class="inference-grid">
+                    <div><span>Risk head</span><strong>Firearm related</strong><em>probability + threshold</em></div>
+                    <div><span>Part head</span><strong>Component type</strong><em>conditional output</em></div>
+                    <div><span>Family head</span><strong>Known / unknown</strong><em>support gated</em></div>
+                  </div>
+
+                  <div class="route-strip">
+                    <div><span>Selective policy</span><strong>Allow&nbsp;&nbsp;·&nbsp;&nbsp; Review&nbsp;&nbsp;·&nbsp;&nbsp; Hold</strong></div>
+                    <div><span>Evidence record</span><strong>Written locally</strong></div>
+                  </div>
                 </div>
               </div>
-              <div class="stage-progress">
-                <strong>Geometry screening pipeline</strong>
-                <em>Known-file evidence, shape classification, local audit log</em>
-              </div>
+              <p class="supported-formats"><strong>Native formats:</strong> STL, OBJ, AMF, 3MF, and OFF. STEP/STP require CAD-kernel conversion before geometry scoring.</p>
             </div>
-            <p class="supported-formats"><strong>Native formats:</strong> STL, OBJ, AMF, 3MF, and OFF. STEP/STP require CAD-kernel conversion before screening.</p>
           </div>
         </div>
       </section>
@@ -350,30 +372,6 @@
               <span class="partner-number">04</span><h3>Public-safety partners</h3>
               <p>Support consistent file review while limiting unnecessary redistribution of sensitive CAD files.</p><span class="partner-arrow">Email</span>
             </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="policy-section" id="opportunity" aria-labelledby="opportunity-title">
-        <div class="page-shell policy-grid">
-          <p class="section-label reveal"><span>07</span> The opportunity</p>
-          <div>
-            <h2 class="display-heading reveal" id="opportunity-title">Help define what good looks like.</h2>
-            <p class="policy-lead reveal">
-              PrintGuard is seeking pilot and technical partners to test a practical reference implementation for
-              emerging performance standards.
-            </p>
-            <div class="policy-notes reveal">
-              <p>
-                California AB 2047 proposes performance guidance, a protected reference-file library, and regular
-                update requirements. New York enacted a blocking-technology framework whose implementation depends
-                on technical feasibility, a working group, and rulemaking.
-              </p>
-              <p>
-                The durable answer will require manufacturers, researchers, public institutions, and policymakers to
-                build it together.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -576,7 +574,7 @@
         </a>
         <p>The safety layer for additive manufacturing.</p>
         <nav aria-label="Footer navigation">
-          <a href="#problem">Why now</a><a href="#system">The system</a><a href="#landscape">Landscape</a>
+          <a href="#gap">Why now</a><a href="#system">The system</a><a href="#landscape">Landscape</a>
           <a href="assets/PrintGuard_Brief.pdf?v=4" target="_blank" rel="noreferrer">Brief<span class="sr-only"> (opens in a new tab)</span></a>
           <a href="mailto:contact@printguard.cv">contact@printguard.cv</a>
         </nav>
