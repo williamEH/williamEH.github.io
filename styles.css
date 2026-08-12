@@ -155,6 +155,7 @@ button, input, select { font: inherit; }
 
 .hero h1 { max-width: 1100px; margin: 0; font-size: clamp(64px, 7.3vw, 124px); font-weight: 500; line-height: 0.84; letter-spacing: -0.072em; }
 .hero h1 em, .closing-content h2 em { color: var(--coral); font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -0.055em; }
+.hero-title-line { display: block; white-space: nowrap; }
 .hero-intro { max-width: 530px; margin: 44px 0 0 2px; color: rgba(255,253,248,.72); font-size: 18px; line-height: 1.55; }
 .hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 38px; }
 
@@ -502,7 +503,7 @@ html:not(.js) .reveal { opacity: 1 !important; transform: none !important; trans
 @media (max-width: 640px) {
   :root { --shell: calc(100% - 34px); }
   .site-header { padding-inline: 17px; }
-  .hero { min-height: 760px; }.hero-art picture { top: 13%; height: 48%; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(52px,15vw,75px); line-height: .88; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }
+  .hero { min-height: 760px; }.hero-art picture { top: 13%; height: 48%; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(52px,15vw,75px); line-height: .88; }.hero-title-line { font-size: .84em; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }
   .principles span { width: 100%; }
   .statement,.gap-section,.system-section,.performance-section,.foundation-section,.partners-section,.policy-section,.landscape-section,.reading-section { padding-block: 88px; }
   .display-heading { font-size: clamp(43px,13vw,64px); }.statement-copy,.policy-notes { grid-template-columns: 1fr; gap: 28px; margin-top: 45px; }
@@ -536,6 +537,10 @@ html:not(.js) .reveal { opacity: 1 !important; transform: none !important; trans
   .demo-score-panel > p:not(.demo-policy-note) { font-size: 52px; }
   .demo-evidence { grid-template-columns: 1fr 1fr; }.demo-evidence > div,.demo-evidence > div + div { padding: 13px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }.demo-evidence > div:nth-child(even) { border-right: 0; }.demo-evidence > div:nth-last-child(-n+2) { border-bottom: 0; }
   .demo-footer { align-items: flex-start; flex-direction: column; width: calc(100% - 34px); }
+}
+
+@media (max-width: 360px) {
+  .hero-title-line { font-size: .66em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
