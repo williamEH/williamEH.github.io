@@ -26,7 +26,7 @@
       if (window.location.hash === "#demotime") document.documentElement.classList.add("demo-route-pending");
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=20" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body>
     <!--
@@ -360,14 +360,15 @@
                 <!-- CC0 Albers-projection state map derived from Wikimedia Commons: Blank US Map (states only).svg -->
                 <img class="us-outline" src="assets/us-policy-map.svg?v=3" alt="" aria-hidden="true" />
 
-                <button class="state-marker status-active active" style="--x: 8.34%; --y: 50.74%" data-policy-state="CA" type="button" aria-controls="policy-detail" aria-label="Show California policy details" aria-pressed="true"><span>CA</span><i></i></button>
+                <button class="state-marker status-enacted active" style="--x: 8.34%; --y: 50.74%" data-policy-state="CA" type="button" aria-controls="policy-detail" aria-label="Show California policy details" aria-pressed="true"><span>CA</span><i></i></button>
                 <button class="state-marker status-enacted" style="--x: 12.87%; --y: 8.47%" data-policy-state="WA" type="button" aria-controls="policy-detail" aria-label="Show Washington policy details" aria-pressed="false"><span>WA</span><i></i></button>
                 <button class="state-marker status-enacted" style="--x: 34.75%; --y: 46.41%" data-policy-state="CO" type="button" aria-controls="policy-detail" aria-label="Show Colorado policy details" aria-pressed="false"><span>CO</span><i></i></button>
                 <button class="state-marker status-enacted" style="--x: 92.97%; --y: 13.78%" data-policy-state="ME" type="button" aria-controls="policy-detail" aria-label="Show Maine policy details" aria-pressed="false"><span>ME</span><i></i></button>
+                <button class="state-marker status-enacted marker-tight" style="--x: 89.36%; --y: 20.45%" data-policy-state="VT" type="button" aria-controls="policy-detail" aria-label="Show Vermont policy details" aria-pressed="false"><span>VT</span><i></i></button>
                 <button class="state-marker status-enacted" style="--x: 85.30%; --y: 25.89%" data-policy-state="NY" type="button" aria-controls="policy-detail" aria-label="Show New York policy details" aria-pressed="false"><span>NY</span><i></i></button>
                 <button class="state-marker status-enacted marker-tight" style="--x: 89.86%; --y: 29.63%" data-policy-state="CT" type="button" aria-controls="policy-detail" aria-label="Show Connecticut policy details" aria-pressed="false"><span>CT</span><i></i></button>
                 <button class="state-marker status-enacted marker-tight" style="--x: 87.02%; --y: 38.45%" data-policy-state="NJ" type="button" aria-controls="policy-detail" aria-label="Show New Jersey policy details" aria-pressed="false"><span>NJ</span><i></i></button>
-                <button class="state-marker status-active marker-tight" style="--x: 86.38%; --y: 42.26%" data-policy-state="DE" type="button" aria-controls="policy-detail" aria-label="Show Delaware policy details" aria-pressed="false"><span>DE</span><i></i></button>
+                <button class="state-marker status-enacted marker-tight" style="--x: 86.38%; --y: 42.26%" data-policy-state="DE" type="button" aria-controls="policy-detail" aria-label="Show Delaware policy details" aria-pressed="false"><span>DE</span><i></i></button>
                 <button class="state-marker status-enacted" style="--x: 81.82%; --y: 47.84%" data-policy-state="VA" type="button" aria-controls="policy-detail" aria-label="Show Virginia policy details" aria-pressed="false"><span>VA</span><i></i></button>
                 <button class="state-marker status-concluded" style="--x: 52.43%; --y: 17.66%" data-policy-state="MN" type="button" aria-controls="policy-detail" aria-label="Show Minnesota policy details" aria-pressed="false"><span>MN</span><i></i></button>
                 <button class="state-marker status-active" style="--x: 68.99%; --y: 31.35%" data-policy-state="MI" type="button" aria-controls="policy-detail" aria-label="Show Michigan policy details" aria-pressed="false"><span>MI</span><i></i></button>
@@ -388,77 +389,34 @@
               <select class="policy-state-select" id="policy-state-select">
                 <option value="CA">California</option><option value="WA">Washington</option>
                 <option value="CO">Colorado</option><option value="ME">Maine</option>
+                <option value="VT">Vermont</option>
                 <option value="NY">New York</option><option value="CT">Connecticut</option>
                 <option value="NJ">New Jersey</option><option value="DE">Delaware</option>
                 <option value="VA">Virginia</option><option value="MN">Minnesota</option>
                 <option value="MI">Michigan</option><option value="FL">Florida</option>
                 <option value="MS">Mississippi</option><option value="TX">Texas</option>
               </select>
-              <div class="detail-topline"><span data-policy-code>CA</span><i data-policy-kind>Direct blocking proposal</i></div>
-              <p class="detail-status status-active" data-policy-status>Active · Senate Appropriations</p>
-              <h3 data-policy-title>AB 2047</h3>
+              <div class="detail-topline"><span data-policy-code>CA</span><i data-policy-kind>Blocking proposal + enacted digital-file law</i></div>
+              <p class="detail-status status-enacted" data-policy-status>Enacted + active</p>
+              <h3 data-policy-title>California</h3>
               <p data-policy-summary>
-                Would establish performance guidance and compliance requirements for firearm-blueprint detection
-                technology in 3D printers.
+                California has an active printer-blocking proposal and a 2025 law expanding rules for digital firearm
+                manufacturing code.
               </p>
-              <a data-policy-link href="https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" target="_blank" rel="noreferrer">
-                Primary bill source
-              </a>
-              <small data-policy-date>Status reviewed July 17, 2026</small>
+              <div class="policy-detail-measures" data-policy-measures aria-label="Bills in selected state"></div>
+              <small data-policy-date>Status reviewed August 12, 2026</small>
             </aside>
           </div>
 
-          <div class="policy-records" aria-label="Tracked legislation">
-            <a class="policy-record reveal" href="https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" target="_blank" rel="noreferrer">
-              <span>California</span><strong>AB 2047</strong><em class="status-active">Active · committee</em><i>Blocking technology</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.nysenate.gov/legislation/bills/2025/S9005" target="_blank" rel="noreferrer">
-              <span>New York</span><strong>Ch. 55 / S9005C · S5952</strong><em class="status-enacted">Enacted + active</em><i>Blocking + serialization</i>
-            </a>
-            <a class="policy-record reveal" href="https://app.leg.wa.gov/billsummary?BillNumber=2320&amp;Year=2025&amp;Initiative=false" target="_blank" rel="noreferrer">
-              <span>Washington</span><strong>Ch. 203 / ESHB 2320 · HB 2321</strong><em class="status-enacted">Enacted + concluded</em><i>Manufacture + blocking</i>
-            </a>
-            <a class="policy-record reveal" href="https://leg.colorado.gov/bills/hb26-1144" target="_blank" rel="noreferrer">
-              <span>Colorado</span><strong>HB26-1144</strong><em class="status-enacted">Enacted</em><i>3D manufacture</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&amp;bill_num=HB5043&amp;which_year=2026" target="_blank" rel="noreferrer">
-              <span>Connecticut</span><strong>PA 26-41 / HB 5043</strong><em class="status-enacted">Enacted</em><i>Ghost guns</i>
-            </a>
-            <a class="policy-record reveal" href="https://legis.delaware.gov/BillDetail?LegislationId=143522" target="_blank" rel="noreferrer">
-              <span>Delaware</span><strong>HB 399 · 83 Del. Laws c.246</strong><em class="status-active">Active + enacted</em><i>Blocking + digital files</i>
-            </a>
-            <a class="policy-record reveal" href="https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1126&amp;snum=132" target="_blank" rel="noreferrer">
-              <span>Maine</span><strong>PL 2025 c.537 / LD 1126</strong><em class="status-enacted">Enacted</em><i>Serialization</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.njleg.state.nj.us/bill-search/2024/A4975" target="_blank" rel="noreferrer">
-              <span>New Jersey</span><strong>PL 2025 c.255 / A4975 / S3894</strong><em class="status-enacted">Enacted</em><i>Digital instructions</i>
-            </a>
-            <a class="policy-record reveal" href="https://lis.virginia.gov/bill-details/20261/HB40" target="_blank" rel="noreferrer">
-              <span>Virginia</span><strong>Ch. 531–532 / HB 40 / SB 323</strong><em class="status-enacted">Enacted</em><i>Unserialized components</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.revisor.mn.gov/bills/94/2026/0/HF/3407/" target="_blank" rel="noreferrer">
-              <span>Minnesota</span><strong>HF 3407 / SF 3661 · HF 4882 / SF 5066</strong><em class="status-concluded">Concluded · 2026</em><i>Manufacture + files</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0331" target="_blank" rel="noreferrer">
-              <span>Michigan</span><strong>SB 331 / SB 332</strong><em class="status-active">Passed Senate</em><i>Serialization</i>
-            </a>
-            <a class="policy-record reveal" href="https://www.flsenate.gov/Session/Bill/2025/1096" target="_blank" rel="noreferrer">
-              <span>Florida</span><strong>SB 1096 · SB 252 · HB 1019</strong><em class="status-concluded">Concluded · 2025</em><i>Manufacture + serialization</i>
-            </a>
-            <a class="policy-record reveal" href="https://billstatus.ls.state.ms.us/documents/2026/html/HB/0400-0499/HB0434IN.htm" target="_blank" rel="noreferrer">
-              <span>Mississippi</span><strong>HB 434</strong><em class="status-concluded">Concluded · 2026</em><i>Serialization</i>
-            </a>
-            <a class="policy-record reveal" href="https://capitol.texas.gov/billlookup/History.aspx?LegSess=89R&amp;Bill=SB1711" target="_blank" rel="noreferrer">
-              <span>Texas</span><strong>SB 1711</strong><em class="status-concluded">Concluded · 2025</em><i>3D manufacture</i>
-            </a>
-          </div>
+          <div class="policy-records" data-policy-records aria-label="Tracked legislation"></div>
 
           <p class="landscape-note reveal">
             Scope: 2025–26 state measures expressly addressing printer blocking, 3D firearm manufacture, digital
             instructions, or serialization, together with selected related laws already in force. Map color reflects
             the most advanced listed measure. This
-            focused tracker does not attempt to catalog every general firearm or ghost-gun bill. It is informational,
-            may not be exhaustive, and is not legal advice. Statuses last reviewed July 17, 2026.
+            focused tracker does not attempt to catalog every general firearm or ghost-gun bill. Each linked measure
+            has substantive language within this scope; bills that merely repeat an existing definition are excluded.
+            It is informational, may not be exhaustive, and is not legal advice. Statuses last reviewed August 12, 2026.
           </p>
         </div>
       </section>
@@ -672,6 +630,6 @@
     </dialog>
 
     <script src="assets/demo-classifier-v1.js?v=1"></script>
-    <script src="script.js?v=10"></script>
+    <script src="script.js?v=11"></script>
   </body>
 </html>
