@@ -26,7 +26,7 @@
       if (window.location.hash === "#demotime") document.documentElement.classList.add("demo-route-pending");
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=18" />
+    <link rel="stylesheet" href="styles.css?v=19" />
   </head>
   <body>
     <!--
@@ -52,8 +52,8 @@
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-        <a href="#gap">Why now</a>
         <a href="#system">The system</a>
+        <a href="#gap">Why now</a>
         <a href="#performance">Performance</a>
         <a href="#partners">Partners</a>
         <a href="#landscape">Landscape</a>
@@ -79,9 +79,8 @@
 
         <div class="hero-content page-shell">
           <h1 id="hero-title" class="reveal" style="--delay: 80ms">
-            Keep the promise of<br />
-            <em>3D printing.</em><br />
-            Guard the boundary.
+            Guard the boundary of<br />
+            <em>3D printing.</em>
           </h1>
           <p class="hero-intro reveal" style="--delay: 160ms">
             PrintGuard identifies firearm-related risk before a file is published, queued, or fabricated—locally,
@@ -105,6 +104,104 @@
         <div class="principles page-shell">
           <span>Local screening, not central surveillance</span>
           <span>Geometry over guesswork</span>
+        </div>
+      </section>
+
+      <section class="system-section" id="system" aria-labelledby="system-title">
+        <div class="page-shell">
+          <div class="system-heading">
+            <p class="section-label reveal"><span>01</span> The system</p>
+            <div>
+              <h2 class="display-heading reveal" id="system-title">A software safety layer between every file and the printer.</h2>
+              <p class="system-intro reveal">
+                PrintGuard can run as a cloud service called through an API or directly on printer hardware. Either
+                way, the same classifier screens each file before fabrication and only releases jobs that clear the
+                configured firearm-part policy.
+              </p>
+            </div>
+          </div>
+
+          <div class="system-architecture reveal" aria-label="PrintGuard deployment and pre-print screening flow">
+            <div class="architecture-topline">
+              <span>PG / DEPLOYMENT PATH</span>
+              <span class="live-state"><i></i> Screening gate · before motion</span>
+            </div>
+
+            <div class="architecture-flow">
+              <article class="architecture-node ingress-node">
+                <span class="architecture-code">01 / Intercept</span>
+                <div class="file-cube" aria-hidden="true"><i></i><i></i><i></i></div>
+                <h3>File queued to print</h3>
+                <p>The safety check starts before the job reaches the fabrication controller.</p>
+                <code>print_job.3mf</code>
+              </article>
+
+              <span class="flow-arrow" aria-hidden="true"></span>
+
+              <div class="deployment-paths">
+                <p>02 / Choose deployment</p>
+                <article class="deployment-option cloud-option">
+                  <span>Cloud service</span>
+                  <h3>Call through the API</h3>
+                  <p>Slicers, marketplaces, and print services send the file to a managed screening endpoint.</p>
+                  <code>POST /v1/classify</code>
+                </article>
+                <span class="deployment-or">or</span>
+                <article class="deployment-option edge-option">
+                  <span>Local runtime</span>
+                  <h3>Run on printer hardware</h3>
+                  <p>The classifier executes on the printer or local controller without sending the file to the cloud.</p>
+                  <code>LOCAL / NO UPLOAD</code>
+                </article>
+              </div>
+
+              <span class="flow-arrow" aria-hidden="true"></span>
+
+              <article class="architecture-node classifier-node">
+                <span class="architecture-code">03 / Classify geometry</span>
+                <div class="classifier-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <h3>Check for firearm-part risk</h3>
+                <p>The classifier reads the shape itself—not the filename—and scores the file before any print motion is authorized.</p>
+                <div class="signal-chips" aria-label="Geometry signals used by the classifier">
+                  <span>Mesh</span><span>Points</span><span>Voxels</span><span>Views</span>
+                </div>
+              </article>
+
+              <span class="flow-arrow" aria-hidden="true"></span>
+
+              <div class="outcome-paths">
+                <p>04 / Enforce before print</p>
+                <article class="outcome-card clear-outcome">
+                  <span>Cleared</span>
+                  <h3>Release to printer</h3>
+                  <p>The job continues only after it clears the active classification and policy line.</p>
+                </article>
+                <article class="outcome-card signal-outcome">
+                  <span>Firearm-part signal</span>
+                  <h3>Apply configured action</h3>
+                  <p>Hold, block, or route according to jurisdiction-specific rules and workflow.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="system-capabilities">
+            <article class="system-capability reveal">
+              <span>INPUT / 01</span>
+              <h3>Hardened file intake</h3>
+              <p>Bounded parsers validate STL, OBJ, AMF, 3MF, and OFF files before analysis.</p>
+            </article>
+            <article class="system-capability reveal" style="--delay: 80ms">
+              <span>SIGNAL / 02</span>
+              <h3>Geometry, not filenames</h3>
+              <p>Mesh statistics, point clouds, voxel occupancy, and multiview projections capture the durable shape signal.</p>
+            </article>
+            <article class="system-capability reveal" style="--delay: 160ms">
+              <span>RECORD / 03</span>
+              <h3>Auditable policy action</h3>
+              <p>Scores, evidence, thresholds, and the resulting pre-print action are retained in a decision record.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -158,112 +255,10 @@
         </div>
       </section>
 
-      <section class="system-section" id="system" aria-labelledby="system-title">
-        <div class="page-shell">
-          <div class="system-heading">
-            <p class="section-label reveal"><span>03</span> The system</p>
-            <div>
-              <h2 class="display-heading reveal" id="system-title">More than a classifier. A layered geometry-analysis system.</h2>
-              <p class="system-intro reveal">
-                PrintGuard combines hardened file handling, multiple representations of 3D geometry, known-file
-                evidence, hierarchical models, and selective policy routing in one local screening pipeline.
-              </p>
-            </div>
-          </div>
-
-          <div class="technical-layout">
-            <div class="feature-stack">
-              <article class="tech-feature reveal">
-                <span class="feature-code">INPUT / 01</span>
-                <h3>Safe mesh parsing</h3>
-                <p>Bounded local parsers validate supported mesh formats before analysis. CAD files enter a separate conversion gate.</p>
-              </article>
-              <article class="tech-feature reveal">
-                <span class="feature-code">SIGNAL / 02</span>
-                <h3>Multi-representation geometry</h3>
-                <p>Mesh statistics, sampled point clouds, voxel occupancy, and multiview projections capture complementary shape signals.</p>
-              </article>
-              <article class="tech-feature reveal">
-                <span class="feature-code">EVIDENCE / 03</span>
-                <h3>Exact and near matching</h3>
-                <p>SHA-256 lookup identifies known files while geometry signatures help surface materially similar variants.</p>
-              </article>
-              <article class="tech-feature reveal">
-                <span class="feature-code">MODEL / 04</span>
-                <h3>Hierarchical classification</h3>
-                <p>Separate heads estimate firearm-related risk, conditional part type, and support-gated platform family.</p>
-              </article>
-              <article class="tech-feature reveal">
-                <span class="feature-code">POLICY / 05</span>
-                <h3>Abstention by design</h3>
-                <p>Configurable thresholds preserve an <em>unknown</em> outcome and route ambiguous or high-impact results to review.</p>
-              </article>
-              <article class="tech-feature reveal">
-                <span class="feature-code">AUDIT / 06</span>
-                <h3>Local decision trace</h3>
-                <p>Hashes, model scores, supporting evidence, policy action, and review state form a locally retained audit record.</p>
-              </article>
-            </div>
-
-            <div class="system-visual reveal">
-              <div class="system-stage" role="img" aria-label="Technical diagram of PrintGuard's local geometry screening pipeline">
-                <div class="stage-topline">
-                  <span>PG / TECHNICAL CORE</span>
-                  <span class="live-state"><i></i> Local process</span>
-                </div>
-                <div class="tech-console">
-                  <div class="input-strip">
-                    <div><span>Validated input</span><code>sample_mesh.stl</code></div>
-                    <div class="format-chips" aria-label="Native mesh formats">
-                      <span>STL</span><span>OBJ</span><span>AMF</span><span>3MF</span><span>OFF</span>
-                    </div>
-                  </div>
-
-                  <div class="signal-grid">
-                    <div class="signal-module signal-wide">
-                      <span class="module-kicker">Feature extraction</span>
-                      <strong>Four views of shape</strong>
-                      <div class="signal-bars" aria-hidden="true">
-                        <span style="--level: 82%"><i>Mesh</i></span>
-                        <span style="--level: 66%"><i>Points</i></span>
-                        <span style="--level: 74%"><i>Voxels</i></span>
-                        <span style="--level: 91%"><i>Views</i></span>
-                      </div>
-                    </div>
-                    <div class="signal-module">
-                      <span class="module-kicker">Known-file index</span>
-                      <strong>SHA-256</strong>
-                      <p>Exact evidence lookup</p>
-                    </div>
-                    <div class="signal-module">
-                      <span class="module-kicker">Geometry index</span>
-                      <strong>Near match</strong>
-                      <p>Shape-signature search</p>
-                    </div>
-                  </div>
-
-                  <div class="inference-grid">
-                    <div><span>Risk head</span><strong>Firearm related</strong><em>probability + threshold</em></div>
-                    <div><span>Part head</span><strong>Component type</strong><em>conditional output</em></div>
-                    <div><span>Family head</span><strong>Known / unknown</strong><em>support gated</em></div>
-                  </div>
-
-                  <div class="route-strip">
-                    <div><span>Selective policy</span><strong>Allow&nbsp;&nbsp;·&nbsp;&nbsp; Review&nbsp;&nbsp;·&nbsp;&nbsp; Hold</strong></div>
-                    <div><span>Evidence record</span><strong>Written locally</strong></div>
-                  </div>
-                </div>
-              </div>
-              <p class="supported-formats"><strong>Native formats:</strong> STL, OBJ, AMF, 3MF, and OFF. STEP/STP require CAD-kernel conversion before geometry scoring.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="performance-section" id="performance" aria-labelledby="performance-title">
         <div class="page-shell">
           <div class="performance-heading">
-            <p class="section-label reveal"><span>04</span> Benchmark snapshot</p>
+            <p class="section-label reveal"><span>03</span> Benchmark snapshot</p>
             <h2 class="display-heading reveal" id="performance-title">Safety that works at the speed of a workflow.</h2>
             <p class="reveal">A source-separated test set of firearm designs, firearm-specific parts, dual-use parts, near-firearm duplicates, and benign 3D files.</p>
           </div>
@@ -301,7 +296,7 @@
       <section class="foundation-section dark-section" id="foundation" aria-labelledby="foundation-title">
         <div class="page-shell foundation-grid">
           <div>
-            <p class="section-label reveal"><span>05</span> Built to be credible</p>
+            <p class="section-label reveal"><span>04</span> Built to be credible</p>
             <h2 class="display-heading reveal" id="foundation-title">Evidence before enforcement.</h2>
           </div>
           <div class="foundation-copy reveal">
@@ -351,7 +346,7 @@
       <section class="partners-section" id="partners" aria-labelledby="partners-title">
         <div class="page-shell">
           <div class="partners-heading">
-            <p class="section-label reveal"><span>06</span> Where it fits</p>
+            <p class="section-label reveal"><span>05</span> Where it fits</p>
             <h2 class="display-heading reveal" id="partners-title">One safety layer. Many points of integration.</h2>
           </div>
 
@@ -379,7 +374,7 @@
       <section class="landscape-section dark-section" id="landscape" aria-labelledby="landscape-title">
         <div class="page-shell">
           <div class="landscape-heading">
-            <p class="section-label reveal"><span>08</span> Policy landscape</p>
+            <p class="section-label reveal"><span>06</span> Policy landscape</p>
             <h2 class="display-heading reveal" id="landscape-title">A national question, moving state by state.</h2>
             <p class="reveal">
               PrintGuard tracks 2025–26 measures that expressly address printer blocking, 3D firearm manufacture,
@@ -500,7 +495,7 @@
       <section class="reading-section" id="reading" aria-labelledby="reading-title">
         <div class="page-shell">
           <div class="reading-heading">
-            <p class="section-label reveal"><span>09</span> In the public record</p>
+            <p class="section-label reveal"><span>07</span> In the public record</p>
             <h2 class="display-heading reveal" id="reading-title">Reporting on the risk and the response.</h2>
             <p class="reveal">
               Independent coverage of untraceable firearms, the rise of 3D-printed weapons, and emerging policy
@@ -574,7 +569,7 @@
         </a>
         <p>The safety layer for additive manufacturing.</p>
         <nav aria-label="Footer navigation">
-          <a href="#gap">Why now</a><a href="#system">The system</a><a href="#landscape">Landscape</a>
+          <a href="#system">The system</a><a href="#gap">Why now</a><a href="#landscape">Landscape</a>
           <a href="assets/PrintGuard_Brief.pdf?v=4" target="_blank" rel="noreferrer">Brief<span class="sr-only"> (opens in a new tab)</span></a>
           <a href="mailto:contact@printguard.cv">contact@printguard.cv</a>
         </nav>
