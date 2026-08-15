@@ -448,7 +448,11 @@ function createPolicyLink(bill) {
   link.href = bill.link;
   link.target = "_blank";
   link.rel = "noreferrer";
-  link.textContent = `${bill.label} ↗`;
+  link.textContent = bill.label;
+  const icon = document.createElement("span");
+  icon.className = "external-link-icon";
+  icon.setAttribute("aria-hidden", "true");
+  link.append(icon);
   return link;
 }
 
