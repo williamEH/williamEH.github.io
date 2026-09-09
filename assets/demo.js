@@ -18,7 +18,7 @@
   const PASSPHRASE = "beingandtime";
   const STORAGE_KEY = "printguard-demo-unlocked";
   const MAX_BYTES = 64 * 1024 * 1024;
-  const SCENE_ASPECT = 1;
+  const SCENE_ASPECT = 0.72;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const $ = (selector, scope) => (scope || dialog).querySelector(selector);
@@ -323,15 +323,23 @@
     const ox = W / 2;
     const oy = H / 2;
 
+    // Screen coords for rasterising; unscaled view coords for the normal. The
+    // two must be kept apart: mixing pixel-space x/y with model-space z makes
+    // the cross product wildly anisotropic, nz swamps the normal once it is
+    // normalised, and every face ends up with the same shade.
     const ax = new Float64Array(3), ay = new Float64Array(3), az = new Float64Array(3);
+    const vx = new Float64Array(3), vy = new Float64Array(3);
     for (let t = 0; t < total; t += step) {
       for (let c = 0; c < 3; c += 1) {
         const o = t * 9 + c * 3;
         const x = tri[o], y = tri[o + 1], z = tri[o + 2];
         const x1 = x * cosY - z * sinY;
         const z1 = x * sinY + z * cosY;
+        const y1 = y * cosP - z1 * sinP;
+        vx[c] = x1;
+        vy[c] = y1;
         ax[c] = ox + x1 * scale;
-        ay[c] = oy - (y * cosP - z1 * sinP) * scale;
+        ay[c] = oy - y1 * scale;
         az[c] = y * sinP + z1 * cosP;
       }
       const e1x = ax[1] - ax[0], e1y = ay[1] - ay[0], e1z = az[1] - az[0];
@@ -339,20 +347,22 @@
       const area = e1x * e2y - e1y * e2x;
       if (area <= 0) continue; // back face (screen y is already flipped)
 
-      // Face normal in view space drives the shading.
-      let nx = e1y * e2z - e1z * e2y;
-      let ny = e1z * e2x - e1x * e2z;
-      let nz = e1x * e2y - e1y * e2x;
+      // View-space normal, negated so it faces the viewer: the screen y-flip
+      // reverses handedness, so a visible face's raw cross product points away.
+      const g1x = vx[1] - vx[0], g1y = vy[1] - vy[0], g1z = e1z;
+      const g2x = vx[2] - vx[0], g2y = vy[2] - vy[0], g2z = e2z;
+      let nx = -(g1y * g2z - g1z * g2y);
+      let ny = -(g1z * g2x - g1x * g2z);
+      let nz = -(g1x * g2y - g1y * g2x);
       const len = Math.hypot(nx, ny, nz) || 1;
       nx /= len; ny /= len; nz /= len;
-      // Key light over the viewer's left shoulder. +z points at the viewer, so
-      // the z term must be positive or every front face lands on the
-      // flipped-normal path below and the whole object reads flat.
-      let lambert = nx * -0.35 + ny * 0.5 + nz * 0.79;
+
+      // Key light high and to the viewer's left.
+      let lambert = nx * -0.4 + ny * 0.6 + nz * 0.69;
       // STL winding is often inconsistent, so treat an inward normal as lit
       // rather than black, just a little dimmer.
       if (lambert < 0) lambert = -lambert * 0.55;
-      const shade = 0.2 + Math.min(1, lambert) * 0.8;
+      const shade = 0.18 + Math.min(1, lambert) * 0.82;
 
       let minX = Math.max(0, Math.floor(Math.min(ax[0], ax[1], ax[2])));
       let maxX = Math.min(W - 1, Math.ceil(Math.max(ax[0], ax[1], ax[2])));
