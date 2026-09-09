@@ -181,8 +181,14 @@
     const axes = chooseAxes(extent);
     data.axes = axes;
 
-    if (result.signature) {
-      const points = result.signature.points; // already normalised to [-0.5, 0.5]
+    const rawPoints = result.signature
+      ? result.signature.points
+      : result.pointsQ
+        ? Float64Array.from(result.pointsQ, (v) => v / 1000)
+        : null;
+
+    if (rawPoints) {
+      const points = rawPoints; // normalised to [-0.5, 0.5]
       const mapped = new Float64Array(points.length);
       for (let i = 0; i < points.length / 3; i += 1) {
         const m = mapPoint(points[i * 3], points[i * 3 + 1], points[i * 3 + 2], axes);
@@ -233,6 +239,41 @@
     }
     data.voxels = filled;
 
+    // Twelve triangles per occupied cell, inset slightly so the grid reads as
+    // separate cells rather than one fused block.
+    const cell = 1 / 8;
+    const half = cell * 0.4;
+    const cube = new Float32Array(filled.length * 36 * 3);
+    let vi = 0;
+    const quad = (a, b, c, d) => {
+      for (const v of [a, b, c, a, c, d]) {
+        cube[vi++] = v[0];
+        cube[vi++] = v[1];
+        cube[vi++] = v[2];
+      }
+    };
+    for (const [cxv, cyv, czv] of filled) {
+      const x0 = cxv - half, x1 = cxv + half;
+      const y0 = cyv - half, y1 = cyv + half;
+      const z0 = czv - half, z1 = czv + half;
+      quad([x1, y0, z1], [x1, y0, z0], [x1, y1, z0], [x1, y1, z1]);
+      quad([x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0]);
+      quad([x0, y1, z1], [x1, y1, z1], [x1, y1, z0], [x0, y1, z0]);
+      quad([x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1]);
+      quad([x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]);
+      quad([x1, y0, z0], [x0, y0, z0], [x0, y1, z0], [x1, y1, z0]);
+    }
+    data.voxelTriangles = cube;
+    const vlo = [Infinity, Infinity, Infinity];
+    const vhi = [-Infinity, -Infinity, -Infinity];
+    for (let i = 0; i < cube.length; i += 3) {
+      for (let a = 0; a < 3; a += 1) {
+        if (cube[i + a] < vlo[a]) vlo[a] = cube[i + a];
+        if (cube[i + a] > vhi[a]) vhi[a] = cube[i + a];
+      }
+    }
+    data.voxelBounds = { lo: vlo, hi: vhi };
+
     const lo = [Infinity, Infinity, Infinity];
     const hi = [-Infinity, -Infinity, -Infinity];
     const track = (x, y, z) => {
@@ -261,9 +302,8 @@
   // a stride-sampled subset cannot tile a surface, so it reads as debris; a
   // depth-buffered rasteriser draws every triangle correctly and only has to
   // run when the orientation actually changes.
-  function renderSolid(quality) {
+  function renderSolid(tri, bounds, quality) {
     const canvas = scene.canvas;
-    const tri = scene.data.triangles;
     const total = tri.length / 9;
     const { context } = fitCanvas(canvas, SCENE_ASPECT);
     const W = canvas.width;
@@ -279,7 +319,7 @@
 
     const cosY = Math.cos(scene.yaw), sinY = Math.sin(scene.yaw);
     const cosP = Math.cos(scene.pitch), sinP = Math.sin(scene.pitch);
-    const scale = fitScale(scene.data.bounds, scene.yaw, scene.pitch, W, H, 0.92);
+    const scale = fitScale(bounds, scene.yaw, scene.pitch, W, H, 0.92);
     const ox = W / 2;
     const oy = H / 2;
 
@@ -305,10 +345,14 @@
       let nz = e1x * e2y - e1y * e2x;
       const len = Math.hypot(nx, ny, nz) || 1;
       nx /= len; ny /= len; nz /= len;
-      // Key light over the viewer's shoulder, plus a little ambient.
-      let lambert = nx * 0.35 + ny * 0.45 - nz * 0.82;
-      if (lambert < 0) lambert = -lambert * 0.35;
-      const shade = 0.24 + Math.min(1, lambert) * 0.76;
+      // Key light over the viewer's left shoulder. +z points at the viewer, so
+      // the z term must be positive or every front face lands on the
+      // flipped-normal path below and the whole object reads flat.
+      let lambert = nx * -0.35 + ny * 0.5 + nz * 0.79;
+      // STL winding is often inconsistent, so treat an inward normal as lit
+      // rather than black, just a little dimmer.
+      if (lambert < 0) lambert = -lambert * 0.55;
+      const shade = 0.2 + Math.min(1, lambert) * 0.8;
 
       let minX = Math.max(0, Math.floor(Math.min(ax[0], ax[1], ax[2])));
       let maxX = Math.min(W - 1, Math.ceil(Math.max(ax[0], ax[1], ax[2])));
@@ -363,7 +407,12 @@
     if (!canvas || !scene.data) return;
 
     if (scene.mode === "mesh" && scene.data.triangles) {
-      renderSolid(quality);
+      renderSolid(scene.data.triangles, scene.data.bounds, quality);
+      return;
+    }
+
+    if (scene.mode === "voxels" && scene.data.voxelTriangles) {
+      renderSolid(scene.data.voxelTriangles, scene.data.voxelBounds, quality);
       return;
     }
 
@@ -396,19 +445,6 @@
       return;
     }
 
-    const voxels = scene.data.voxels || [];
-    const projected = voxels.map(([x, y, z]) => toScreen(x, y, z)).sort((a, b) => a[2] - b[2]);
-    const size = radius * 2 / 8;
-    for (const p of projected) {
-      const depth = Math.min(1, Math.max(0, p[2] + 0.5));
-      context.fillStyle = `rgba(86,107,143,${0.3 + depth * 0.55})`;
-      context.strokeStyle = "rgba(255,253,248,0.16)";
-      context.lineWidth = 1;
-      context.beginPath();
-      context.rect(p[0] - size / 2, p[1] - size / 2, size, size);
-      context.fill();
-      context.stroke();
-    }
   }
 
   // Drag to orbit. Rendering on demand keeps a demo page from pinning a core.
@@ -443,39 +479,6 @@
     };
     canvas.addEventListener("pointerup", release);
     canvas.addEventListener("pointercancel", release);
-  }
-
-  function drawSilhouettes(features) {
-    const views = slice(features, "views");
-    $$("[data-pg-view]").forEach((canvas, index) => {
-      const { context, width, height } = fitCanvas(canvas, 1);
-      context.clearRect(0, 0, width, height);
-      const cell = Math.min(width, height) / 10;
-      const offsetX = (width - cell * 10) / 2;
-      const offsetY = (height - cell * 10) / 2;
-      for (let a = 0; a < 10; a += 1) {
-        for (let b = 0; b < 10; b += 1) {
-          const on = views[index * 100 + a * 10 + b] > 0;
-          context.fillStyle = on ? "rgba(255,104,77,.85)" : "rgba(255,253,248,.07)";
-          context.fillRect(offsetX + a * cell + 0.5, offsetY + b * cell + 0.5, cell - 1, cell - 1);
-        }
-      }
-    });
-  }
-
-  function drawHistogram(canvas, values, colour) {
-    const { context, width, height } = fitCanvas(canvas, 0.42);
-    context.clearRect(0, 0, width, height);
-    let peak = 0;
-    for (const v of values) if (v > peak) peak = v;
-    if (peak <= 0) peak = 1;
-    const gap = 2;
-    const barWidth = (width - gap * (values.length - 1)) / values.length;
-    for (let i = 0; i < values.length; i += 1) {
-      const barHeight = Math.max(1, (values[i] / peak) * (height - 2));
-      context.fillStyle = colour;
-      context.fillRect(i * (barWidth + gap), height - barHeight, barWidth, barHeight);
-    }
   }
 
   function renderAttribution(features) {
@@ -616,7 +619,7 @@
         source.kind === "fixture" ? `${fmt(inferMs)} inference` : `${fmt(total)} end to end`;
 
       // ---- visuals
-      scene.data = buildSceneData({ mesh, signature, features });
+      scene.data = buildSceneData({ mesh, signature, features, pointsQ: source.pointsQ });
       scene.yaw = 0.38;
       scene.pitch = -0.22;
       scene.lastFeatures = features;
@@ -628,15 +631,10 @@
         button.disabled = !available;
         button.style.display = available ? "" : "none";
       });
-      setMode(scene.data.triangles ? "mesh" : "voxels");
-      drawSilhouettes(features);
-      drawHistogram($("[data-pg-hist-radial]"), slice(features, "radial"), "rgba(255,104,77,.85)");
-      drawHistogram($("[data-pg-hist-pairwise]"), slice(features, "pairwise"), "rgba(86,107,143,.9)");
+      setMode(scene.data.triangles ? "mesh" : scene.data.points ? "points" : "voxels");
       renderAttribution(features);
-
-      const voxelFill = features[867], viewFill = features[868];
-      $("[data-pg-voxel-fill]").textContent = `${(voxelFill * 100).toFixed(1)}% of 512 cells filled`;
-      $("[data-pg-view-fill]").textContent = `${(viewFill * 100).toFixed(1)}% filled`;
+      $("[data-pg-voxel-fill]").textContent =
+        `${(features[867] * 100).toFixed(1)}% of 512 voxels occupied`;
     } catch (error) {
       if (token !== runToken) return;
       resetSteps();
@@ -720,7 +718,8 @@
             kind: "fixture",
             name: item.title,
             features: item.features,
-            meta: `${item.format.toUpperCase()} · ${item.faces.toLocaleString()} faces · geometry features only`,
+            pointsQ: item.pointsQ,
+            meta: `${item.source} · ${item.format.toUpperCase()} · ${item.vertices.toLocaleString()} vertices · ${item.faces.toLocaleString()} faces`,
           });
         } else {
           const response = await fetch(item.file);
@@ -813,15 +812,6 @@
   window.addEventListener("resize", () => {
     if (!dialog.open || $("[data-pg-app]").hidden) return;
     drawScene();
-    const stage = $("[data-pg-stage]");
-    if (!stage.hidden) {
-      const features = scene.lastFeatures;
-      if (features) {
-        drawSilhouettes(features);
-        drawHistogram($("[data-pg-hist-radial]"), slice(features, "radial"), "rgba(255,104,77,.85)");
-        drawHistogram($("[data-pg-hist-pairwise]"), slice(features, "pairwise"), "rgba(86,107,143,.9)");
-      }
-    }
   });
 
   $$("[data-pg-mode]").forEach((button) =>
