@@ -199,33 +199,39 @@ const policyData = {
   CT: {
     name: "Connecticut",
     kind: "Related ghost-gun law",
-    status: "Enacted · Public Act 26-41",
+    status: "Enacted · Effective October 1, 2026",
     statusClass: "status-enacted",
     summary: "A selected related ghost-gun law, rather than a printer-blocking measure.",
     measures: [{
       status: "Enacted · PA 26-41",
       statusClass: "status-enacted",
-      summary: "Addresses unfinished frames and receivers, convertible pistols, relinquishment, and related enforcement provisions.",
+      summary: "Redefines unfinished frames and receivers to include printed items, keeps serialization before transfer, and regulates convertible pistols and voluntary relinquishment.",
       bills: [{ label: "HB 5043", link: "https://www.cga.ct.gov/ASP/CGABILLSTATUS/cgabillstatus.asp?bill_num=HB05043&selBillType=Bill&which_year=2026" }],
     }],
   },
   DE: {
     name: "Delaware",
-    kind: "Blocking proposal + existing law",
-    status: "Enacted + active",
+    kind: "Serialization laws + stalled blocking proposal",
+    status: "Enacted + concluded proposal",
     statusClass: "status-enacted",
-    summary: "Delaware has an active printer-blocking bill and an existing law on unlicensed 3D manufacture and digital instructions.",
+    summary: "Delaware's printer-blocking bill stalled when the 2026 session ended; a 2026 serialization law took effect, and a federal court partly blocked the 2021 ghost-gun law.",
     measures: [
       {
-        status: "Active · House Judiciary",
-        statusClass: "status-active",
-        summary: "Would require blocking technology and manufacturer attestations for covered 3D printers sold or delivered in Delaware.",
+        status: "Concluded · Stalled in House Judiciary",
+        statusClass: "status-concluded",
+        summary: "Would have required blocking technology and manufacturer attestations for covered 3D printers, after an Attorney General working group set standards. No action before the session adjourned June 30, 2026.",
         bills: [{ label: "HB 399", link: "https://legis.delaware.gov/BillDetail?LegislationId=143522" }],
       },
       {
-        status: "Enacted · Ch. 246 (2021)",
+        status: "Enacted · Ch. 469 (2026)",
         statusClass: "status-enacted",
-        summary: "Prohibits specified unlicensed 3D firearm manufacture and distribution of digital firearm-manufacturing instructions.",
+        summary: "Gives owners of previously lawful unserialized firearms, frames, and receivers six months to have them serialized by a licensee or permanently disabled.",
+        bills: [{ label: "HB 418", link: "https://legis.delaware.gov/BillDetail?legislationId=143277" }],
+      },
+      {
+        status: "Enacted · Ch. 246 (2021) · Partly enjoined",
+        statusClass: "status-enacted",
+        summary: "Prohibits specified unlicensed 3D firearm manufacture and distribution of digital firearm-manufacturing instructions. A September 10, 2026 federal ruling blocked the possession and home-manufacture bans; sale and transfer limits were upheld.",
         bills: [{ label: "HB 125", link: "https://legis.delaware.gov/BillDetail?legislationId=48451" }],
       },
     ],
@@ -235,7 +241,7 @@ const policyData = {
     kind: "Related serialization law",
     status: "Enacted · Effective July 29, 2026",
     statusClass: "status-enacted",
-    summary: "Maine's 2025 law directly addresses serialization and undetectability for certain privately made firearms and components.",
+    summary: "Maine's 2025 law directly addresses serialization and undetectability for certain privately made firearms and components; its penalties apply beginning January 1, 2027.",
     measures: [{
       status: "Enacted · PL 2025, c. 537",
       statusClass: "status-enacted",
@@ -253,7 +259,7 @@ const policyData = {
       {
         status: "Enacted · P.L.2025, c.255",
         statusClass: "status-enacted",
-        summary: "Creates a fourth-degree offense for knowingly possessing firearm digital instructions with intent to manufacture unlawfully.",
+        summary: "Makes it a fourth-degree crime for a person not licensed to manufacture firearms to knowingly possess firearm digital instructions with intent to manufacture a firearm.",
         bills: [
           { label: "A4975", link: "https://www.njleg.state.nj.us/bill-search/2024/A4975" },
           { label: "S3894", link: "https://www.njleg.state.nj.us/bill-search/2024/S3894" },
@@ -272,9 +278,9 @@ const policyData = {
         bills: [{ label: "A1399", link: "https://www.njleg.state.nj.us/bill-search/2026/A1399" }],
       },
       {
-        status: "Active · Senate committee",
+        status: "Active · Senate Law & Public Safety",
         statusClass: "status-active",
-        summary: "Would raise specified firearm-manufacturing crimes, including unlicensed 3D manufacture, from second- to first-degree offenses.",
+        summary: "Would raise specified firearm-manufacturing crimes, including unlicensed 3D manufacture and distribution of digital instructions, from second- to first-degree offenses.",
         bills: [{ label: "S3232", link: "https://www.njleg.state.nj.us/bill-search/2026/S3232" }],
       },
     ],
@@ -282,13 +288,13 @@ const policyData = {
   VA: {
     name: "Virginia",
     kind: "Related unserialized-firearm law",
-    status: "Enacted · Effective July 1, 2027",
+    status: "Enacted · Effective January 1, 2027",
     statusClass: "status-enacted",
     summary: "Virginia enacted companion bills covering unserialized firearms and unfinished frames or receivers.",
     measures: [{
       status: "Enacted · Chapters 531–532",
       statusClass: "status-enacted",
-      summary: "Prohibits specified possession of unserialized firearms and unfinished frames or receivers, with stated exceptions.",
+      summary: "Bans manufacture, sale, and transfer, and from July 1, 2027 possession, of unserialized firearms and frames or receivers, including those made by additive or subtractive processes; stated exceptions.",
       bills: [
         { label: "HB 40", link: "https://lis.virginia.gov/bill-details/20261/HB40" },
         { label: "SB 323", link: "https://lis.virginia.gov/bill-details/20261/SB323" },
@@ -335,6 +341,12 @@ const policyData = {
         summary: "A late omnibus proposal with the same unlicensed 3D/CNC manufacture and design-file restrictions.",
         bills: [{ label: "HF 5160", link: "https://www.revisor.mn.gov/bills/94/2026/0/HF/5160/" }],
       },
+      {
+        status: "Concluded · Floor motion failed 67–67",
+        statusClass: "status-concluded",
+        summary: "Carried the same ghost-gun, 3D/CNC, design-file, and serialization text; a motion to take it up on the House floor failed on a tie.",
+        bills: [{ label: "HF 5140", link: "https://www.revisor.mn.gov/bills/94/2026/0/HF/5140/" }],
+      },
     ],
   },
   MI: {
@@ -342,14 +354,22 @@ const policyData = {
     kind: "Serialization proposal",
     status: "Active · House Government Operations",
     statusClass: "status-active",
-    summary: "A two-bill package remains active after Senate passage.",
+    summary: "A two-bill Senate package remains active after Senate passage; House companions remain in committee.",
     measures: [{
       status: "Active · Passed Senate; in House committee",
       statusClass: "status-active",
-      summary: "Would regulate unserialized firearms and components, including unlicensed manufacture using 3D printers or CNC equipment; SB332 updates penalties.",
+      summary: "Would regulate unserialized firearms and components, including unlicensed manufacture using 3D printers or CNC equipment; SB332 adds the offenses to the sentencing guidelines.",
       bills: [
         { label: "SB 331", link: "https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0331" },
         { label: "SB 332", link: "https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0332" },
+      ],
+    }, {
+      status: "Active · House Judiciary",
+      statusClass: "status-active",
+      summary: "House companions to SB 331 and SB 332; referred to committee in May 2025 with no further action.",
+      bills: [
+        { label: "HB 4478", link: "https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4478" },
+        { label: "HB 4479", link: "https://www.legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4479" },
       ],
     }],
   },
@@ -363,7 +383,7 @@ const policyData = {
       {
         status: "Concluded · Died in committee",
         statusClass: "status-concluded",
-        summary: "Overlapping proposals on unserialized firearms, unlicensed 3D/CNC manufacture, and machines marketed primarily for firearm production.",
+        summary: "Omnibus gun bills that also covered unserialized firearms, unlicensed 3D/CNC manufacture, and machines marketed primarily for firearm production.",
         bills: [
           { label: "SB 1096", link: "https://www.flsenate.gov/Session/Bill/2025/1096" },
           { label: "SB 252", link: "https://www.flsenate.gov/Session/Bill/2025/252" },
@@ -409,7 +429,7 @@ const policyData = {
       {
         status: "Concluded · Senate committee",
         statusClass: "status-concluded",
-        summary: "Would have prohibited specified manufacture, sale, transfer, or possession of a 3D-printed firearm and intentional distribution of schematics.",
+        summary: "Would have banned manufacture, sale, transfer, or possession of 3D-printed firearms or major components, with narrow exemptions, and intentional distribution of schematics.",
         bills: [{ label: "SB 1711", link: "https://capitol.texas.gov/billlookup/History.aspx?LegSess=89R&Bill=SB1711" }],
       },
       {
