@@ -158,8 +158,8 @@ button, input, select { font: inherit; }
 .hero-title-line { display: block; white-space: nowrap; }
 .hero-intro { max-width: 530px; margin: 44px 0 0 2px; color: rgba(255,253,248,.72); font-size: 18px; line-height: 1.55; }
 .hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 38px; }
-.hero-badge { margin: 30px 0 0 -6px; }
-.hero-badge img { display: block; width: 164px; height: auto; }
+.hero-badge { margin: 0 0 22px -4px; }
+.hero-badge img { display: block; width: 104px; height: auto; }
 
 .button { display: inline-flex; align-items: center; justify-content: center; min-width: 218px; padding: 17px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-align: center; text-transform: uppercase; transition: transform 180ms ease, background 180ms ease, color 180ms ease; }
 .button:hover { transform: translateY(-2px); }
@@ -403,7 +403,7 @@ html:not(.js) .reveal { opacity: 1 !important; transform: none !important; trans
 @media (max-width: 640px) {
   :root { --shell: calc(100% - 34px); }
   .site-header { padding-inline: 17px; }
-  .hero { min-height: 760px; }.hero-art picture { top: 13%; height: 48%; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(52px,15vw,75px); line-height: .88; }.hero-title-line { font-size: .84em; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }.hero-badge img { width: 140px; }
+  .hero { min-height: 760px; }.hero-art picture { top: 13%; height: 48%; }.hero-content { min-height: 760px; padding-bottom: 170px; }.hero h1 { font-size: clamp(52px,15vw,75px); line-height: .88; }.hero-title-line { font-size: .84em; }.hero-intro { margin-top: 32px; font-size: 16px; }.hero-actions,.closing-actions { align-items: flex-start; flex-direction: column; gap: 16px; }.hero-foot { grid-template-columns: 1fr; gap: 10px; bottom: 20px; }.hero-badge img { width: 92px; }
   .principles span { width: 100%; }
   .statement,.gap-section,.system-section,.performance-section,.foundation-section,.partners-section,.policy-section,.landscape-section,.reading-section { padding-block: 88px; }
   .display-heading { font-size: clamp(43px,13vw,64px); }.statement-copy,.policy-notes { grid-template-columns: 1fr; gap: 28px; margin-top: 45px; }
