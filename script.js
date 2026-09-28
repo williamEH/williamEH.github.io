@@ -91,15 +91,15 @@ if (year) year.textContent = new Date().getFullYear();
 const policyData = {
   CA: {
     name: "California",
-    kind: "Blocking proposal + enacted digital-file law",
-    status: "Enacted + active",
+    kind: "Blocking law + digital-file law",
+    status: "Enacted · 2025 and 2026 laws",
     statusClass: "status-enacted",
-    summary: "California has an active printer-blocking proposal and a 2025 law expanding rules for digital firearm manufacturing code.",
+    summary: "California enacted a conditional 3D-printer blocking mandate in 2026 and a 2025 law expanding rules for digital firearm manufacturing code.",
     measures: [
       {
-        status: "Active · Senate Appropriations",
-        statusClass: "status-active",
-        summary: "Would set performance standards for firearm-blueprint detection and later require compliant blocking technology on covered 3D printers.",
+        status: "Enacted · Ch. 461 (2026)",
+        statusClass: "status-enacted",
+        summary: "Once an ASTM standard exists, DOJ must adopt blocking-technology performance standards; a year later, 3D printers sold in California must comply. Lapses if no ASTM standard exists by July 1, 2029.",
         bills: [{ label: "AB 2047", link: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" }],
       },
       {
@@ -115,12 +115,12 @@ const policyData = {
     kind: "Blocking law + active 3D-firearm bills",
     status: "Enacted + active",
     statusClass: "status-enacted",
-    summary: "The enacted budget created a conditional blocking framework; separate active bills address manufacture, digital instructions, serialization, and printer sales.",
+    summary: "The enacted budget created a conditional blocking framework and digital-file offenses; separate active bills address 3D manufacture, registration, and printer-purchase background checks.",
     measures: [
       {
         status: "Enacted · Ch. 55 (2026)",
         statusClass: "status-enacted",
-        summary: "Creates 3D-firearm offenses and a working-group process for technically feasible printer-blocking standards.",
+        summary: "Creates offenses for distributing digital firearm manufacturing code, or possessing it with unlawful intent, and a working-group process for technically feasible printer-blocking standards.",
         bills: [
           { label: "S9005C", link: "https://www.nysenate.gov/legislation/bills/2025/S9005" },
           { label: "A10005C", link: "https://www.nysenate.gov/legislation/bills/2025/A10005/amendment/C" },
@@ -138,11 +138,11 @@ const policyData = {
       {
         status: "Active · In Codes",
         statusClass: "status-active",
-        summary: "Would criminalize specified unlicensed 3D manufacture and intentional distribution of usable firearm design instructions.",
+        summary: "Would expand the manufacturing felony to magazines and long-gun components and bar distributing 3D-printable firearm files to unlicensed New Yorkers. S227A stalled after its sponsor left the Senate.",
         bills: [
-          { label: "S227A", link: "https://www.nysenate.gov/legislation/bills/2025/S227" },
           { label: "A1777A", link: "https://www.nysenate.gov/legislation/bills/2025/A1777" },
           { label: "S9827", link: "https://www.nysenate.gov/legislation/bills/2025/S9827" },
+          { label: "S227A", link: "https://www.nysenate.gov/legislation/bills/2025/S227" },
         ],
       },
       {
@@ -158,19 +158,22 @@ const policyData = {
   },
   WA: {
     name: "Washington",
-    kind: "Enacted law + concluded proposal",
-    status: "Enacted + concluded proposal",
+    kind: "Enacted law + concluded proposals",
+    status: "Enacted + concluded proposals",
     statusClass: "status-enacted",
     summary: "Washington enacted restrictions on specified manufacture and digital code; a separate printer-blocking proposal did not advance.",
     measures: [
       {
         status: "Enacted · Ch. 203 (2026)",
         statusClass: "status-enacted",
-        summary: "Regulates specified firearm manufacture using 3D printers or CNC machines and possession or distribution of digital manufacturing code.",
-        bills: [
-          { label: "ESHB 2320", link: "https://app.leg.wa.gov/billsummary/?BillNumber=2320&Year=2025&Initiative=false" },
-          { label: "SB 6314", link: "https://app.leg.wa.gov/billsummary/?BillNumber=6314&Year=2025&Initiative=false" },
-        ],
+        summary: "Regulates specified firearm manufacture using 3D printers or CNC machines, distribution of digital manufacturing code, and possession of code with intent to distribute or manufacture.",
+        bills: [{ label: "ESHB 2320", link: "https://app.leg.wa.gov/billsummary/?BillNumber=2320&Year=2025&Initiative=false" }],
+      },
+      {
+        status: "Concluded · Senate committee",
+        statusClass: "status-concluded",
+        summary: "The Senate companion to ESHB 2320; it did not advance after the House bill became law.",
+        bills: [{ label: "SB 6314", link: "https://app.leg.wa.gov/billsummary/?BillNumber=6314&Year=2025&Initiative=false" }],
       },
       {
         status: "Concluded · House committee",
