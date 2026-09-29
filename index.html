@@ -5,22 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="PrintGuard is a local-first safety layer for additive manufacturing: fast, auditable screening for firearm-related risk in 3D-printing files."
+      content="PrintGuard detects 3D-printed firearm files before they print. Local, auditable firearm-blueprint screening for 3D-printer makers, slicers, and marketplaces preparing for print-blocking laws like California AB 2047."
     />
     <meta name="theme-color" content="#12110f" />
     <link rel="canonical" href="https://printguard.cv/" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <meta property="og:title" content="PrintGuard — The safety layer for additive manufacturing" />
+    <link rel="apple-touch-icon" href="assets/brand/printguard-logo.png" />
+    <meta property="og:site_name" content="PrintGuard" />
+    <meta property="og:title" content="PrintGuard — 3D-printed firearm detection and print-blocking technology" />
     <meta
       property="og:description"
-      content="Local screening. Auditable decisions. Practical compliance for the next era of 3D printing."
+      content="Screen 3D-printing files for firearm components before they are published, queued, or printed. Local-first, auditable, and built for laws like California AB 2047."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://printguard.cv/" />
     <meta property="og:image" content="https://printguard.cv/assets/printguard-firearm-scan-hero-v2.png" />
     <meta property="og:image:alt" content="A firearm rendered as a defensive 3D geometry scan" />
     <meta name="twitter:card" content="summary_large_image" />
-    <title>PrintGuard — The safety layer for additive manufacturing</title>
+    <title>PrintGuard | 3D-Printed Firearm Detection &amp; Print-Blocking Technology</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://printguard.cv/#organization",
+            "name": "PrintGuard",
+            "url": "https://printguard.cv/",
+            "logo": "https://printguard.cv/assets/brand/printguard-logo.png",
+            "email": "contact@printguard.cv",
+            "description": "PrintGuard builds firearm-detection and print-blocking software that screens 3D-printing files for firearm components before they print."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://printguard.cv/#website",
+            "name": "PrintGuard",
+            "url": "https://printguard.cv/",
+            "publisher": { "@id": "https://printguard.cv/#organization" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "PrintGuard",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Linux",
+            "description": "Local, auditable screening that detects firearm-related geometry in STL, OBJ, 3MF, AMF, and OFF files before they are published, sliced, or printed.",
+            "publisher": { "@id": "https://printguard.cv/#organization" }
+          }
+        ]
+      }
+    </script>
     <script>
       document.documentElement.classList.add("js");
       if (window.location.hash === "#demo") document.documentElement.classList.add("demo-route-pending");
@@ -404,8 +437,8 @@
               <p class="detail-status status-enacted" data-policy-status>Enacted · 2025 and 2026 laws</p>
               <h3 data-policy-title>California</h3>
               <p data-policy-summary>
-                California enacted a conditional 3D-printer blocking mandate in 2026 and a 2025 law expanding rules for
-                digital firearm manufacturing code.
+                California enacted AB 2047 (2026), a conditional 3D-printer blocking mandate, and AB 1263 (2025),
+                which expands rules for digital firearm manufacturing code.
               </p>
               <div class="policy-detail-measures" data-policy-measures aria-label="Bills in selected state"></div>
               <small data-policy-date>Status reviewed September 28, 2026</small>

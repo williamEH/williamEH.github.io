@@ -94,7 +94,7 @@ const policyData = {
     kind: "Blocking law + digital-file law",
     status: "Enacted · 2025 and 2026 laws",
     statusClass: "status-enacted",
-    summary: "California enacted a conditional 3D-printer blocking mandate in 2026 and a 2025 law expanding rules for digital firearm manufacturing code.",
+    summary: "California enacted AB 2047 (2026), a conditional 3D-printer blocking mandate, and AB 1263 (2025), which expands rules for digital firearm manufacturing code.",
     measures: [
       {
         status: "Enacted · Ch. 461 (2026)",
