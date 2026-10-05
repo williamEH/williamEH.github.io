@@ -57,9 +57,13 @@
     <script>
       document.documentElement.classList.add("js");
       if (window.location.hash === "#demo") document.documentElement.classList.add("demo-route-pending");
+      if (window.location.hash === "#landscape") window.location.replace("/legislation/");
+      if (["#printguardv1", "#system", "#gap", "#performance", "#foundation"].includes(window.location.hash)) {
+        document.documentElement.classList.add("view-printguardv1");
+      }
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css?v=23" />
+    <link rel="stylesheet" href="styles.css?v=25" />
     <link rel="stylesheet" href="assets/demo.css?v=4" />
   </head>
   <body>
@@ -71,7 +75,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="PrintGuard home">
+      <a class="brand" href="/" aria-label="PrintGuard home">
         <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
           <path d="M7 9.5 20 3l13 6.5v17L20 37 7 26.5Z" />
           <path d="m7 9.5 13 7 13-7M20 16.5V37" />
@@ -86,20 +90,28 @@
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-        <a href="#system">The system</a>
-        <a href="#gap">Why now</a>
-        <a href="#performance">Performance</a>
-        <a href="#landscape">Landscape</a>
-        <a href="#partners">Partners</a>
-        <a class="mobile-nav-brief" href="assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">Read the brief</a>
+        <a href="/" data-nav="about">About</a>
+        <a href="/#printguardv1" data-nav="printguardv1">Classifier</a>
+        <div class="nav-group" data-nav-group>
+          <a href="/legislation/" data-nav="legislation">Legislation</a>
+          <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="nav-legislation">
+            <span class="sr-only">Show legislation pages</span>
+          </button>
+          <div class="nav-submenu" id="nav-legislation">
+            <a href="/legislation/california-ab-2047/">California (AB 2047)</a>
+            <a href="/legislation/new-york-3d-printer-law/">New York</a>
+          </div>
+        </div>
+        <a class="mobile-nav-brief" href="/assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">Read the brief</a>
       </nav>
 
-      <a class="header-cta" href="assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">
+      <a class="header-cta" href="/assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">
         Read the brief
       </a>
     </header>
 
     <main id="main">
+      <div class="site-view" id="about" data-view>
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-art" aria-hidden="true">
           <picture>
@@ -124,7 +136,7 @@
             quickly, and with an auditable record.
           </p>
           <div class="hero-actions reveal" style="--delay: 240ms">
-            <a class="button button-light" href="#system">See how it works</a>
+            <a class="button button-light" href="#printguardv1">See how it works</a>
             <a class="text-link" href="#partners">Explore a partnership</a>
           </div>
         </div>
@@ -141,6 +153,155 @@
         <div class="principles page-shell">
           <span>Local screening, not central surveillance</span>
           <span>Geometry over guesswork</span>
+        </div>
+      </section>
+
+      <section class="explore-section" id="explore" aria-labelledby="explore-title">
+        <div class="page-shell">
+          <div class="explore-heading">
+            <p class="section-label reveal"><span>01</span> Explore</p>
+            <h2 class="display-heading reveal" id="explore-title">The classifier, and the laws that call for it.</h2>
+          </div>
+
+          <div class="explore-grid">
+            <a class="explore-card explore-dark reveal" href="#printguardv1">
+              <span class="explore-kicker">Classifier</span>
+              <h3>PrintGuard v1</h3>
+              <p>How the classifier screens 3D-printing files for firearm components, and how it performs on a held-out benchmark.</p>
+              <dl class="explore-stats">
+                <div><dt>Firearm detection</dt><dd>96.75%</dd></div>
+                <div><dt>False-positive rate</dt><dd>0.06%</dd></div>
+              </dl>
+              <span class="explore-link">See the system</span>
+            </a>
+            <a class="explore-card reveal" style="--delay: 80ms" href="/legislation/">
+              <span class="explore-kicker">Legislation</span>
+              <h3>3D-printed firearm laws</h3>
+              <p>California AB 2047 and New York&rsquo;s 2026 budget law put 3D-printer blocking on a timeline. Follow every tracked state on one map.</p>
+              <dl class="explore-stats">
+                <div><dt>Print-blocking laws</dt><dd>2</dd></div>
+                <div><dt>States tracked</dt><dd>15</dd></div>
+              </dl>
+              <span class="explore-link">Open the tracker</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="partners-section" id="partners" aria-labelledby="partners-title">
+        <div class="page-shell">
+          <div class="partners-heading">
+            <p class="section-label reveal"><span>02</span> Where it fits</p>
+            <h2 class="display-heading reveal" id="partners-title">One safety layer. Many points of integration.</h2>
+          </div>
+
+          <div class="partner-list">
+            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Printer%20OEMs">
+              <span class="partner-number">01</span><h3>3D-printer manufacturers</h3>
+              <p>Evaluate product-level safeguards against emerging performance requirements.</p><span class="partner-arrow">Email</span>
+            </a>
+            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Slicers%20and%20marketplaces">
+              <span class="partner-number">02</span><h3>Slicing software &amp; marketplaces</h3>
+              <p>Screen files before slicing or publication, close to the existing workflow.</p><span class="partner-arrow">Email</span>
+            </a>
+            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Labs%20and%20fabrication">
+              <span class="partner-number">03</span><h3>Labs &amp; fabrication</h3>
+              <p>Job-level intake controls for universities, makerspaces, and enterprise teams.</p><span class="partner-arrow">Email</span>
+            </a>
+            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Public%20safety">
+              <span class="partner-number">04</span><h3>Public-safety partners</h3>
+              <p>Support consistent file review while limiting unnecessary redistribution of sensitive CAD files.</p><span class="partner-arrow">Email</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="reading-section" id="reading" aria-labelledby="reading-title">
+        <div class="page-shell">
+          <div class="reading-heading">
+            <p class="section-label reveal"><span>03</span> In the public record</p>
+            <h2 class="display-heading reveal" id="reading-title">Reporting on the risk and the response.</h2>
+            <p class="reveal">
+              Independent coverage of untraceable firearms, the rise of 3D-printed weapons, and emerging policy
+              responses.
+            </p>
+          </div>
+
+          <div class="article-grid">
+            <a class="article-card feature-article reveal" href="https://apnews.com/article/737b48cd483da5394076bc99d94619ca" target="_blank" rel="noreferrer">
+              <span class="article-source">Associated Press · June 13, 2026</span>
+              <h3>Some people are making guns with 3D printers. A new law seeks to cancel their print jobs.</h3>
+              <p>Reporting on New York’s first-of-its-kind requirement, the technical questions it raises, and the emerging standards debate.</p>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
+            </a>
+            <a class="article-card reveal" href="https://apnews.com/article/0f22ec981a29a31d9a72d0f8b32d0b22" target="_blank" rel="noreferrer">
+              <span class="article-source">Associated Press · October 16, 2025</span>
+              <h3>Gun safety advocates warn of a surge in untraceable 3D-printed weapons in the US.</h3>
+              <p>A look at recoveries reported by roughly two dozen police departments, cheaper fabrication tools, and concern about a new wave of homemade weapons.</p>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
+            </a>
+            <a class="article-card reveal" href="https://www.nprillinois.org/southern-il-area/2026-06-12/southern-illinois-man-convicted-in-federal-case-involving-3d-printed-guns" target="_blank" rel="noreferrer">
+              <span class="article-source">Capitol News Illinois via NPR Illinois · June 12, 2026</span>
+              <h3>Southern Illinois man convicted in federal case involving 3D-printed guns.</h3>
+              <p>Reporting on a federal conviction and the enforcement challenges surrounding increasingly sophisticated home gun-making.</p>
+              <span class="article-link">Read the report</span>
+              <span class="sr-only">Opens in a new tab</span>
+            </a>
+            <a class="article-card reveal" href="https://www.pbs.org/video/sci-firearms-hearing-1713296785/" target="_blank" rel="noreferrer">
+              <span class="article-source">NJ Spotlight News / PBS · April 16, 2024</span>
+              <h3>“Ghost guns” in NJ: Easy, cheap and deadly.</h3>
+              <p>Statehouse reporting on crime-gun recoveries, 3D printing, conversion devices, and pressure on existing statutes.</p>
+              <span class="article-link">Watch the report</span>
+              <span class="sr-only">Opens in a new tab</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing-section" id="closing" aria-labelledby="closing-title">
+        <div class="closing-art" aria-hidden="true"></div>
+        <div class="page-shell closing-content">
+          <p class="eyebrow reveal">A practical middle path</p>
+          <h2 class="reveal" id="closing-title">Make 3D printing safer.<br /><em>Keep innovation open.</em></h2>
+          <p class="reveal">
+            We are building a practical screening layer for additive-manufacturing workflows—designed to reduce risk
+            without adding unnecessary friction for lawful use.
+          </p>
+          <div class="closing-actions reveal">
+            <a class="button button-coral" href="assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">
+              Read the brief (PDF)<span class="sr-only"> Opens in a new tab</span>
+            </a>
+            <a class="text-link light" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership">
+              Discuss a partnership
+            </a>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <div class="site-view" id="printguardv1" data-view data-view-title="PrintGuard v1 | Firearm Classifier for 3D-Printing Files">
+      <section class="page-intro" aria-labelledby="classifier-title">
+        <div class="page-shell page-intro-grid">
+          <div>
+          <p class="eyebrow page-eyebrow reveal">Classifier</p>
+          <h1 class="page-title reveal" id="classifier-title" style="--delay: 60ms">PrintGuard v1</h1>
+          <p class="page-lede reveal" style="--delay: 120ms">
+            A geometry classifier that screens 3D-printing files for firearm components before they are published,
+            sliced, or printed. It reads the shape of the mesh rather than the filename, and keeps an auditable record
+            of every decision.
+          </p>
+          <nav class="page-jump reveal" style="--delay: 180ms" aria-label="On this page">
+            <a href="#system">The system</a><a href="#gap">The gap</a><a href="#performance">Benchmark</a><a href="#foundation">Evidence</a>
+          </nav>
+          </div>
+          <dl class="intro-stats reveal" style="--delay: 240ms" aria-label="PrintGuard v1 benchmark, July 2026">
+            <div><dt>Firearm detection</dt><dd>96.75%</dd></div>
+            <div><dt>False-positive rate</dt><dd>0.06%</dd></div>
+            <div><dt>Per-file scoring</dt><dd>&lt;1 sec</dd></div>
+            <div><dt>Held-out test files</dt><dd>10,000</dd></div>
+          </dl>
         </div>
       </section>
 
@@ -379,181 +540,31 @@
         </div>
       </section>
 
-      <section class="landscape-section dark-section" id="landscape" aria-labelledby="landscape-title">
-        <div class="page-shell">
-          <div class="landscape-heading">
-            <p class="section-label reveal"><span>05</span> Policy landscape</p>
-            <h2 class="display-heading reveal" id="landscape-title">A national question, moving state by state.</h2>
-            <p class="reveal">
-              PrintGuard tracks 2025–26 measures that expressly address printer blocking, 3D firearm manufacture,
-              digital instructions, or serialization, together with selected related laws already in force.
-            </p>
-          </div>
-
-          <div class="policy-map-layout reveal">
-            <div class="policy-map" role="group" aria-label="Interactive map of tracked state policy activity">
-              <span class="map-grid" aria-hidden="true"></span>
-              <div class="policy-map-canvas">
-                <!-- CC0 Albers-projection state map derived from Wikimedia Commons: Blank US Map (states only).svg -->
-                <img class="us-outline" src="assets/us-policy-map.svg?v=3" alt="" aria-hidden="true" />
-
-                <button class="state-marker status-enacted active" style="--x: 8.34%; --y: 50.74%" data-policy-state="CA" type="button" aria-controls="policy-detail" aria-label="Show California policy details" aria-pressed="true"><span>CA</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 12.87%; --y: 8.47%" data-policy-state="WA" type="button" aria-controls="policy-detail" aria-label="Show Washington policy details" aria-pressed="false"><span>WA</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 34.75%; --y: 46.41%" data-policy-state="CO" type="button" aria-controls="policy-detail" aria-label="Show Colorado policy details" aria-pressed="false"><span>CO</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 92.97%; --y: 13.78%" data-policy-state="ME" type="button" aria-controls="policy-detail" aria-label="Show Maine policy details" aria-pressed="false"><span>ME</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 89.36%; --y: 20.45%" data-policy-state="VT" type="button" aria-controls="policy-detail" aria-label="Show Vermont policy details" aria-pressed="false"><span>VT</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 85.30%; --y: 25.89%" data-policy-state="NY" type="button" aria-controls="policy-detail" aria-label="Show New York policy details" aria-pressed="false"><span>NY</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 89.86%; --y: 29.63%" data-policy-state="CT" type="button" aria-controls="policy-detail" aria-label="Show Connecticut policy details" aria-pressed="false"><span>CT</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 87.02%; --y: 38.45%" data-policy-state="NJ" type="button" aria-controls="policy-detail" aria-label="Show New Jersey policy details" aria-pressed="false"><span>NJ</span><i></i></button>
-                <button class="state-marker status-enacted marker-tight" style="--x: 86.38%; --y: 42.26%" data-policy-state="DE" type="button" aria-controls="policy-detail" aria-label="Show Delaware policy details" aria-pressed="false"><span>DE</span><i></i></button>
-                <button class="state-marker status-enacted" style="--x: 81.82%; --y: 47.84%" data-policy-state="VA" type="button" aria-controls="policy-detail" aria-label="Show Virginia policy details" aria-pressed="false"><span>VA</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 52.43%; --y: 17.66%" data-policy-state="MN" type="button" aria-controls="policy-detail" aria-label="Show Minnesota policy details" aria-pressed="false"><span>MN</span><i></i></button>
-                <button class="state-marker status-active" style="--x: 68.99%; --y: 31.35%" data-policy-state="MI" type="button" aria-controls="policy-detail" aria-label="Show Michigan policy details" aria-pressed="false"><span>MI</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 79.85%; --y: 86.17%" data-policy-state="FL" type="button" aria-controls="policy-detail" aria-label="Show Florida policy details" aria-pressed="false"><span>FL</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 62.13%; --y: 67.89%" data-policy-state="MS" type="button" aria-controls="policy-detail" aria-label="Show Mississippi policy details" aria-pressed="false"><span>MS</span><i></i></button>
-                <button class="state-marker status-concluded" style="--x: 45.39%; --y: 76.88%" data-policy-state="TX" type="button" aria-controls="policy-detail" aria-label="Show Texas policy details" aria-pressed="false"><span>TX</span><i></i></button>
-              </div>
-
-              <div class="map-legend" aria-label="Status legend">
-                <span><i class="status-enacted"></i> Enacted</span>
-                <span><i class="status-active"></i> Active</span>
-                <span><i class="status-concluded"></i> Concluded</span>
-              </div>
-            </div>
-
-            <aside class="policy-detail" id="policy-detail" aria-live="polite">
-              <label class="policy-select-label" for="policy-state-select">Choose a tracked state</label>
-              <select class="policy-state-select" id="policy-state-select">
-                <option value="CA">California</option><option value="WA">Washington</option>
-                <option value="CO">Colorado</option><option value="ME">Maine</option>
-                <option value="VT">Vermont</option>
-                <option value="NY">New York</option><option value="CT">Connecticut</option>
-                <option value="NJ">New Jersey</option><option value="DE">Delaware</option>
-                <option value="VA">Virginia</option><option value="MN">Minnesota</option>
-                <option value="MI">Michigan</option><option value="FL">Florida</option>
-                <option value="MS">Mississippi</option><option value="TX">Texas</option>
-              </select>
-              <div class="detail-topline"><span data-policy-code>CA</span><i data-policy-kind>Blocking law + digital-file law</i></div>
-              <p class="detail-status status-enacted" data-policy-status>Enacted · 2025 and 2026 laws</p>
-              <h3 data-policy-title>California</h3>
-              <p data-policy-summary>
-                California enacted AB 2047 (2026), a conditional 3D-printer blocking mandate, and AB 1263 (2025),
-                which expands rules for digital firearm manufacturing code.
-              </p>
-              <div class="policy-detail-measures" data-policy-measures aria-label="Bills in selected state"></div>
-              <small data-policy-date>Status reviewed September 28, 2026</small>
-            </aside>
-          </div>
-
-          <div class="policy-records" data-policy-records aria-label="Tracked legislation"></div>
-
-          <p class="landscape-note reveal">
-            Scope: 2025–26 state measures expressly addressing printer blocking, 3D firearm manufacture, digital
-            instructions, or serialization, together with selected related laws already in force. Map color reflects
-            the most advanced listed measure. This
-            focused tracker does not attempt to catalog every general firearm or ghost-gun bill. Each linked measure
-            has substantive language within this scope; bills that merely repeat an existing definition are excluded.
-            It is informational, may not be exhaustive, and is not legal advice. Statuses last reviewed September 28, 2026.
-          </p>
-        </div>
-      </section>
-
-      <section class="partners-section" id="partners" aria-labelledby="partners-title">
-        <div class="page-shell">
-          <div class="partners-heading">
-            <p class="section-label reveal"><span>06</span> Where it fits</p>
-            <h2 class="display-heading reveal" id="partners-title">One safety layer. Many points of integration.</h2>
-          </div>
-
-          <div class="partner-list">
-            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Printer%20OEMs">
-              <span class="partner-number">01</span><h3>3D-printer manufacturers</h3>
-              <p>Evaluate product-level safeguards against emerging performance requirements.</p><span class="partner-arrow">Email</span>
-            </a>
-            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Slicers%20and%20marketplaces">
-              <span class="partner-number">02</span><h3>Slicing software &amp; marketplaces</h3>
-              <p>Screen files before slicing or publication, close to the existing workflow.</p><span class="partner-arrow">Email</span>
-            </a>
-            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Labs%20and%20fabrication">
-              <span class="partner-number">03</span><h3>Labs &amp; fabrication</h3>
-              <p>Job-level intake controls for universities, makerspaces, and enterprise teams.</p><span class="partner-arrow">Email</span>
-            </a>
-            <a class="partner-row reveal" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership%20%E2%80%94%20Public%20safety">
-              <span class="partner-number">04</span><h3>Public-safety partners</h3>
-              <p>Support consistent file review while limiting unnecessary redistribution of sensitive CAD files.</p><span class="partner-arrow">Email</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="reading-section" id="reading" aria-labelledby="reading-title">
-        <div class="page-shell">
-          <div class="reading-heading">
-            <p class="section-label reveal"><span>07</span> In the public record</p>
-            <h2 class="display-heading reveal" id="reading-title">Reporting on the risk and the response.</h2>
-            <p class="reveal">
-              Independent coverage of untraceable firearms, the rise of 3D-printed weapons, and emerging policy
-              responses.
-            </p>
-          </div>
-
-          <div class="article-grid">
-            <a class="article-card feature-article reveal" href="https://apnews.com/article/737b48cd483da5394076bc99d94619ca" target="_blank" rel="noreferrer">
-              <span class="article-source">Associated Press · June 13, 2026</span>
-              <h3>Some people are making guns with 3D printers. A new law seeks to cancel their print jobs.</h3>
-              <p>Reporting on New York’s first-of-its-kind requirement, the technical questions it raises, and the emerging standards debate.</p>
-              <span class="article-link">Read the report</span>
-              <span class="sr-only">Opens in a new tab</span>
-            </a>
-            <a class="article-card reveal" href="https://apnews.com/article/0f22ec981a29a31d9a72d0f8b32d0b22" target="_blank" rel="noreferrer">
-              <span class="article-source">Associated Press · October 16, 2025</span>
-              <h3>Gun safety advocates warn of a surge in untraceable 3D-printed weapons in the US.</h3>
-              <p>A look at recoveries reported by roughly two dozen police departments, cheaper fabrication tools, and concern about a new wave of homemade weapons.</p>
-              <span class="article-link">Read the report</span>
-              <span class="sr-only">Opens in a new tab</span>
-            </a>
-            <a class="article-card reveal" href="https://www.nprillinois.org/southern-il-area/2026-06-12/southern-illinois-man-convicted-in-federal-case-involving-3d-printed-guns" target="_blank" rel="noreferrer">
-              <span class="article-source">Capitol News Illinois via NPR Illinois · June 12, 2026</span>
-              <h3>Southern Illinois man convicted in federal case involving 3D-printed guns.</h3>
-              <p>Reporting on a federal conviction and the enforcement challenges surrounding increasingly sophisticated home gun-making.</p>
-              <span class="article-link">Read the report</span>
-              <span class="sr-only">Opens in a new tab</span>
-            </a>
-            <a class="article-card reveal" href="https://www.pbs.org/video/sci-firearms-hearing-1713296785/" target="_blank" rel="noreferrer">
-              <span class="article-source">NJ Spotlight News / PBS · April 16, 2024</span>
-              <h3>“Ghost guns” in NJ: Easy, cheap and deadly.</h3>
-              <p>Statehouse reporting on crime-gun recoveries, 3D printing, conversion devices, and pressure on existing statutes.</p>
-              <span class="article-link">Watch the report</span>
-              <span class="sr-only">Opens in a new tab</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="closing-section" id="closing" aria-labelledby="closing-title">
+      <section class="closing-section" aria-labelledby="classifier-closing-title">
         <div class="closing-art" aria-hidden="true"></div>
         <div class="page-shell closing-content">
-          <p class="eyebrow reveal">A practical middle path</p>
-          <h2 class="reveal" id="closing-title">Make 3D printing safer.<br /><em>Keep innovation open.</em></h2>
+          <p class="eyebrow reveal">Evaluate PrintGuard v1</p>
+          <h2 class="reveal" id="classifier-closing-title">Put it in front of<br /><em>your file pipeline.</em></h2>
           <p class="reveal">
-            We are building a practical screening layer for additive-manufacturing workflows—designed to reduce risk
-            without adding unnecessary friction for lawful use.
+            We work with printer makers, slicers, marketplaces, and print services to test PrintGuard on their own
+            files and workflows.
           </p>
           <div class="closing-actions reveal">
             <a class="button button-coral" href="assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">
               Read the brief (PDF)<span class="sr-only"> Opens in a new tab</span>
             </a>
-            <a class="text-link light" href="mailto:contact@printguard.cv?subject=PrintGuard%20partnership">
-              Discuss a partnership
+            <a class="text-link light" href="mailto:contact@printguard.cv?subject=PrintGuard%20v1%20evaluation">
+              Request an evaluation
             </a>
           </div>
         </div>
       </section>
+      </div>
     </main>
 
     <footer class="site-footer">
       <div class="page-shell footer-grid">
-        <a class="brand footer-brand" href="#top" aria-label="PrintGuard home">
+        <a class="brand footer-brand" href="/" aria-label="PrintGuard home">
           <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
             <path d="M7 9.5 20 3l13 6.5v17L20 37 7 26.5Z" />
             <path d="m7 9.5 13 7 13-7M20 16.5V37" />
@@ -563,8 +574,9 @@
         </a>
         <p>The safety layer for additive manufacturing.</p>
         <nav aria-label="Footer navigation">
-          <a href="#system">The system</a><a href="#gap">Why now</a><a href="#landscape">Landscape</a>
-          <a href="assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">Brief<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="/">About</a><a href="/#printguardv1">Classifier</a><a href="/legislation/">Legislation</a>
+          <a href="/legislation/california-ab-2047/">California (AB 2047)</a><a href="/legislation/new-york-3d-printer-law/">New York</a>
+          <a href="/assets/PrintGuard_Brief.pdf?v=5" target="_blank" rel="noreferrer">Brief<span class="sr-only"> (opens in a new tab)</span></a>
           <a href="mailto:contact@printguard.cv">contact@printguard.cv</a>
         </nav>
         <div class="footer-meta">
@@ -874,7 +886,7 @@
     <script src="assets/printguard-engine.js?v=1"></script>
     <script src="assets/printguard-model-mini.js?v=1"></script>
     <script src="assets/printguard-fixtures.js?v=1"></script>
-    <script src="script.js?v=13"></script>
+    <script src="script.js?v=14"></script>
     <script src="assets/demo.js?v=15"></script>
   </body>
 </html>

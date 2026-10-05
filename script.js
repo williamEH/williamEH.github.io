@@ -72,6 +72,62 @@ window.addEventListener("resize", () => {
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
 
+const navGroups = [...document.querySelectorAll("[data-nav-group]")];
+
+function setNavGroupOpen(group, isOpen) {
+  group.classList.toggle("open", isOpen);
+  group.querySelector(".nav-group-toggle")?.setAttribute("aria-expanded", String(isOpen));
+}
+
+navGroups.forEach((group) => {
+  group.querySelector(".nav-group-toggle")?.addEventListener("click", () => {
+    setNavGroupOpen(group, !group.classList.contains("open"));
+  });
+  group.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !group.classList.contains("open")) return;
+    event.stopPropagation();
+    setNavGroupOpen(group, false);
+    group.querySelector(".nav-group-toggle")?.focus();
+  });
+  group.addEventListener("focusout", (event) => {
+    if (!group.contains(event.relatedTarget)) setNavGroupOpen(group, false);
+  });
+});
+document.addEventListener("click", (event) => {
+  navGroups.forEach((group) => { if (!group.contains(event.target)) setNavGroupOpen(group, false); });
+});
+
+// The home page holds two views: About (default) and the PrintGuard v1 classifier (#printguardv1).
+// Any anchor inside a view, such as #performance, opens the view that contains it.
+const views = [...document.querySelectorAll("[data-view]")];
+const defaultTitle = document.title;
+
+function syncView() {
+  if (!views.length || window.location.hash === "#demo") return;
+  if (window.location.hash === "#landscape") {
+    window.location.replace("/legislation/");
+    return;
+  }
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  const target = id ? document.getElementById(id) : null;
+  const view = target?.closest("[data-view]") || views[0];
+  const root = document.documentElement;
+  const previous = views.find((other) => root.classList.contains(`view-${other.id}`)) || views[0];
+  views.forEach((other) => root.classList.toggle(`view-${other.id}`, other === view && other !== views[0]));
+  document.title = view.dataset.viewTitle || defaultTitle;
+  document.querySelectorAll("[data-nav]").forEach((link) => {
+    if (link.dataset.nav === view.id) link.setAttribute("aria-current", "page");
+    else if (link.dataset.nav === "about" || link.dataset.nav === "printguardv1") link.removeAttribute("aria-current");
+  });
+  if (target === view) window.scrollTo({ top: 0, behavior: "instant" });
+  else if (target && previous !== view) target.scrollIntoView({ behavior: "instant" });
+}
+
+if (views.length) {
+  window.addEventListener("hashchange", syncView);
+  syncView();
+}
+
 const revealObserver = new IntersectionObserver(
   (entries, observer) => {
     entries.forEach((entry) => {
@@ -99,7 +155,7 @@ const policyData = {
       {
         status: "Enacted · Ch. 461 (2026)",
         statusClass: "status-enacted",
-        summary: "Once an ASTM standard exists, DOJ must adopt blocking-technology performance standards; a year later, 3D printers sold in California must comply. Lapses if no ASTM standard exists by July 1, 2029.",
+        summary: "If ASTM publishes standards showing blocking is feasible, DOJ has 24 months to set minimum performance standards; a year later, 3D printers sold in California must comply. DOJ need not act further if no ASTM standard exists by July 1, 2029.",
         bills: [{ label: "AB 2047", link: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2047" }],
       },
       {
