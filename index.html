@@ -64,7 +64,7 @@
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
     <link rel="stylesheet" href="styles.css?v=25" />
-    <link rel="stylesheet" href="assets/demo.css?v=4" />
+    <link rel="stylesheet" href="assets/demo.css?v=9" />
   </head>
   <body>
     <!--
@@ -588,7 +588,7 @@
       </div>
     </footer>
 
-    <dialog class="pg" data-pg aria-label="PrintGuard v1 mini live classifier">
+    <dialog class="pg" data-pg aria-label="PrintGuard v1 mini classifier">
       <header class="pg-head">
         <span class="brand" aria-label="PrintGuard">
           <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
@@ -598,19 +598,16 @@
           </svg>
           <span>PrintGuard</span>
         </span>
-        <span class="pg-badge">v1 mini &middot; live browser demo</span>
+        <span class="pg-badge">v1 mini &middot; runs in this tab</span>
         <button class="pg-exit" type="button" data-pg-exit>Return to site</button>
       </header>
 
-      <!-- ------------------------------------------------------------ gate -->
+      <!-- ----------------------------------------------------------- gate -->
       <section class="pg-gate" data-pg-gate>
         <div class="pg-gate-card">
-          <p class="eyebrow">Private demo</p>
+          <p class="eyebrow">Access required</p>
           <h1>PrintGuard v1&nbsp;mini</h1>
-          <p>
-            This page is not linked from the site. Enter the access phrase to run the
-            classifier on your own files.
-          </p>
+          <p>Enter the access phrase to run the classifier on your own files.</p>
           <form data-pg-gate-form>
             <label class="sr-only" for="pg-pass">Access phrase</label>
             <input id="pg-pass" type="password" data-pg-pass placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
@@ -625,58 +622,18 @@
         </div>
       </section>
 
-      <!-- ------------------------------------------------------------- app -->
+      <!-- ------------------------------------------------------------ app -->
       <div class="pg-app" data-pg-app hidden>
         <div class="pg-shell">
-          <section class="pg-lede">
-            <div class="pg-lede-grid">
-              <div>
-                <p class="eyebrow">Live classifier</p>
-                <h1>Screen a printable file. Without it ever leaving this tab.</h1>
-              </div>
-              <div>
-                <p class="pg-lede-copy">
-                  Drop in an <strong>.stl</strong>, <strong>.obj</strong>, <strong>.off</strong>,
-                  <strong>.3mf</strong> or <strong>.amf</strong> file. PrintGuard parses the mesh,
-                  turns it into <span data-pg-featcount>869</span> geometry measurements, and runs
-                  a gradient-boosted classifier over them to estimate whether the object is a
-                  firearm-related component.
-                </p>
-                <p class="pg-lede-copy">
-                  Every step runs in JavaScript on this device. No file, and no derived
-                  feature, is sent anywhere.
-                </p>
-              </div>
-            </div>
 
-            <div class="pg-facts">
-              <div class="pg-fact">
-                <strong><span data-pg-featcount>869</span></strong>
-                <span>Geometry features per file</span>
-              </div>
-              <div class="pg-fact">
-                <strong><span data-pg-treecount>198</span></strong>
-                <span>Decision trees, run locally</span>
-              </div>
-              <div class="pg-fact">
-                <strong><span data-pg-rows>14,171</span></strong>
-                <span>Files behind the training set</span>
-              </div>
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------- 1: input -->
-          <section class="pg-section">
-            <div class="pg-section-head">
-              <div>
-                <span class="pg-step">Step 01</span>
-                <h2>Give it a file.</h2>
-              </div>
-              <p>
-                Bring your own model, or start from one of the samples. Files stay on
-                your machine; the classifier is what was downloaded, not your geometry.
-              </p>
-            </div>
+          <!-- ---------------------------------------------------- intake -->
+          <section class="pg-intake">
+            <p class="eyebrow">Live classifier</p>
+            <h1>Run the classifier on your own files.</h1>
+            <p class="pg-intake-sub">
+              Parsing, feature extraction and scoring all happen in this browser tab.
+              Nothing is uploaded.
+            </p>
 
             <div class="pg-drop" data-pg-drop tabindex="0" role="button"
                  aria-label="Choose a 3D file to classify, or drop one here">
@@ -684,138 +641,138 @@
                 <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M3.5 15v3.5a1.5 1.5 0 0 0 1.5 1.5h14a1.5 1.5 0 0 0 1.5-1.5V15" stroke-linecap="round" />
               </svg>
-              <strong>Drop a 3D file, or click to choose</strong>
+              <strong>Drop a file, or click to choose</strong>
               <span>STL, OBJ, OFF, 3MF, AMF &mdash; up to 64&nbsp;MB</span>
-              <em>Nothing is uploaded</em>
             </div>
             <input class="sr-only" type="file" data-pg-file accept=".stl,.obj,.off,.3mf,.amf" />
 
             <div class="pg-samples">
-              <p>Or try a sample</p>
-              <div class="pg-chiprow" data-pg-samples></div>
-            </div>
-
-            <!-- ------------------------------------------------- 2: result -->
-            <div class="pg-stage" data-pg-stage hidden>
-              <p class="pg-error" data-pg-error hidden></p>
-
-              <div class="pg-result" data-pg-result hidden data-state="allow">
-                <div class="pg-file">
-                  <strong data-pg-filename></strong>
-                  <span data-pg-filemeta></span>
-                </div>
-
-                <div class="pg-verdict">
-                  <div class="pg-score">
-                    <span class="pg-score-label">Firearm-related score</span>
-                    <p class="pg-score-value"><span data-pg-score>0.0</span><sup>%</sup></p>
-                    <p class="pg-decision"><i aria-hidden="true"></i><span data-pg-decision-label></span></p>
-                    <p class="pg-decision-copy" data-pg-decision-copy></p>
-
-                    <div class="pg-band">
-                      <div class="pg-band-track">
-                        <span class="pg-band-zone allow">Continue</span>
-                        <span class="pg-band-zone review">Human review</span>
-                        <span class="pg-band-zone hold">Hold</span>
-                        <span class="pg-band-marker" data-pg-marker style="left:0%"></span>
-                      </div>
-                      <div class="pg-band-scale"><span>0%</span><span>25%</span><span>75%</span><span>100%</span></div>
-                    </div>
-                  </div>
-
-                  <div class="pg-pipeline">
-                    <p>What just happened</p>
-                    <ol class="pg-steps">
-                      <li data-pg-step><span>01</span><strong>Parse the mesh</strong><em>&mdash;</em></li>
-                      <li data-pg-step><span>02</span><strong>Sample 2,048 surface points &rarr; features</strong><em>&mdash;</em></li>
-                      <li data-pg-step><span>03</span><strong>Run the gradient-boosted trees</strong><em>&mdash;</em></li>
-                      <li data-pg-step><span>04</span><strong>Apply policy thresholds</strong><em>&mdash;</em></li>
-                    </ol>
-                    <p style="margin-top:18px;color:var(--muted);font-size:13px;letter-spacing:0;text-transform:none">
-                      Measured on this device: <strong data-pg-total></strong>.
-                    </p>
-                  </div>
-                </div>
-
-                <!-- ---------------------------------------- 3: what it sees -->
-                <div class="pg-vision">
-                  <div class="pg-vision-head">
-                    <div>
-                      <span class="pg-step">Step 03</span>
-                      <h3>What the model actually sees.</h3>
-                    </div>
-                    <p>
-                      The classifier never sees your file. It sees a normalised point sample of
-                      the surface, reduced to an occupancy grid, three flattened silhouettes and
-                      two distance histograms. That abstraction is the whole input.
-                    </p>
-                  </div>
-
-                  <div class="pg-canvas-grid">
-                    <div class="pg-panel">
-                      <div class="pg-panel-top">
-                        <h4>Geometry</h4>
-                        <div class="pg-views">
-                          <button type="button" data-pg-mode="mesh" aria-pressed="true">Mesh</button>
-                          <button type="button" data-pg-mode="points" aria-pressed="false">2,048 points</button>
-                          <button type="button" data-pg-mode="voxels" aria-pressed="false">Voxels</button>
-                        </div>
-                      </div>
-                      <canvas data-pg-scene role="img" aria-label="View of the analysed geometry"></canvas>
-                      <p class="pg-canvas-foot">
-                        <span data-pg-voxel-fill></span><span>Drag to rotate</span>
-                      </p>
-                    </div>
-
-                    <div class="pg-panel">
-                      <div class="pg-panel-top">
-                        <h4>Where the trees looked</h4>
-                        <span>share of tree output</span>
-                      </div>
-                      <div data-pg-attrib></div>
-                    </div>
-                  </div>
-
-                  <p class="pg-vision-note">
-                    Decision-path summary: each tree&rsquo;s output is attributed to the features it
-                    tested on the way to its leaf, then grouped. It shows where the model looked for
-                    this file &mdash; it is not a Shapley value and does not prove causation.
-                  </p>
-                </div>
+              <div class="pg-sample-group">
+                <p>Benign samples</p>
+                <div class="pg-chiprow" data-pg-samples-benign></div>
               </div>
-              <p class="sr-only" aria-live="polite" data-pg-live></p>
+              <div class="pg-sample-group">
+                <p>Firearm-related samples</p>
+                <div class="pg-chiprow" data-pg-samples-regulated></div>
+              </div>
             </div>
+            <p class="pg-samples-note">
+              Firearm-related samples ship as pre-extracted feature vectors rather than
+              meshes, so those runs skip the parsing step.
+            </p>
           </section>
 
-          <!-- ------------------------------------------------ 4: model card -->
-          <section class="pg-section pg-card">
-            <div class="pg-section-head">
-              <div>
-                <span class="pg-step">Step 04</span>
-                <h2>What this model is, and isn&rsquo;t.</h2>
+          <!-- ---------------------------------------------------- result -->
+          <section class="pg-stage" data-pg-stage hidden>
+            <p class="pg-error" data-pg-error hidden></p>
+
+            <div class="pg-result" data-pg-result hidden data-state="allow">
+              <div class="pg-file">
+                <strong data-pg-filename></strong>
+                <span data-pg-filemeta></span>
+                <button class="pg-refile" type="button" data-pg-refile>Try another file</button>
               </div>
-              <p>
-                v1 mini is a deliberately reduced build made to run in a browser tab. The
-                deployed system is larger, answers more questions, and does not have to fit
-                in a download.
-              </p>
+
+              <div class="pg-verdict">
+                <div class="pg-score">
+                  <span class="pg-score-label">Firearm-related score</span>
+                  <p class="pg-score-value"><span data-pg-score>0.0</span><sup>%</sup></p>
+                  <p class="pg-decision"><i aria-hidden="true"></i><span data-pg-decision-label></span></p>
+                  <p class="pg-decision-copy" data-pg-decision-copy></p>
+
+                  <div class="pg-band">
+                    <div class="pg-band-track">
+                      <span class="pg-band-zone allow">Continue</span>
+                      <span class="pg-band-zone review">Human review</span>
+                      <span class="pg-band-zone hold">Hold</span>
+                      <span class="pg-band-marker" data-pg-marker style="left:0%"></span>
+                    </div>
+                    <div class="pg-band-scale"><span>0%</span><span>25%</span><span>75%</span><span>100%</span></div>
+                  </div>
+                </div>
+
+                <div class="pg-pipeline">
+                  <p>Pipeline</p>
+                  <ol class="pg-steps">
+                    <li data-pg-step><span>01</span><strong>Parse the mesh</strong><em>&mdash;</em></li>
+                    <li data-pg-step><span>02</span><strong>Sample 2,048 surface points &rarr; features</strong><em>&mdash;</em></li>
+                    <li data-pg-step><span>03</span><strong>Run the gradient-boosted trees</strong><em>&mdash;</em></li>
+                    <li data-pg-step><span>04</span><strong>Apply policy thresholds</strong><em>&mdash;</em></li>
+                  </ol>
+                  <p class="pg-timing">Measured on this device: <strong data-pg-total></strong></p>
+                </div>
+              </div>
+
+              <!-- ------------------------------------------ what it sees -->
+              <div class="pg-vision">
+                <div class="pg-vision-head">
+                  <h3>What the model sees</h3>
+                  <p>
+                    Not your file &mdash; a normalised 2,048-point surface sample, the
+                    8&times;8&times;8 occupancy grid built from it, and silhouette summaries.
+                  </p>
+                </div>
+
+                <div class="pg-canvas-grid">
+                  <div class="pg-panel">
+                    <div class="pg-panel-top">
+                      <h4>Geometry</h4>
+                      <div class="pg-views">
+                        <button type="button" data-pg-mode="mesh" aria-pressed="true">Mesh</button>
+                        <button type="button" data-pg-mode="points" aria-pressed="false">2,048 points</button>
+                        <button type="button" data-pg-mode="voxels" aria-pressed="false">Voxels</button>
+                      </div>
+                    </div>
+                    <canvas data-pg-scene role="img" aria-label="View of the analysed geometry"></canvas>
+                    <p class="pg-canvas-foot">
+                      <span data-pg-voxel-fill></span><span>Drag to rotate</span>
+                    </p>
+                  </div>
+
+                  <div class="pg-panel">
+                    <div class="pg-panel-top">
+                      <h4>Where the trees looked</h4>
+                      <span>share of tree output</span>
+                    </div>
+                    <div data-pg-attrib></div>
+                  </div>
+                </div>
+
+                <p class="pg-vision-note">
+                  Each tree&rsquo;s output is attributed to the features it tested on the way to
+                  its leaf, then grouped. It shows where the model looked &mdash; it is not a
+                  Shapley value and does not prove causation.
+                </p>
+              </div>
             </div>
+            <p class="sr-only" aria-live="polite" data-pg-live></p>
+          </section>
+
+          <!-- ------------------------------------------------ model card -->
+          <section class="pg-about">
+            <p class="eyebrow">Model card</p>
+            <p class="pg-about-lede">
+              This is the reduced build that fits in a browser. It detects firearm-related
+              geometry <strong>less well than the deployed classifier</strong>, which reads mesh
+              topology, convexity and mass properties that cannot be computed in JavaScript.
+              The figures below describe this build only.
+            </p>
 
             <div class="pg-card-grid">
               <div class="pg-card-cell">
                 <h4>Ranking quality (AUC)</h4>
                 <strong>0.958</strong>
-                <p>Measured on 751 held-out files &mdash; 400 regulated components, 351 benign &mdash; that share no source group with the training set.</p>
+                <p>On 751 held-out files &mdash; 400 regulated, 351 benign &mdash; sharing no source group with the training set.</p>
               </div>
               <div class="pg-card-cell">
                 <h4>At the 25% line</h4>
                 <strong>75% / 8.5%</strong>
-                <p>Recall of regulated parts against false-positive rate on benign parts. Below this line a job continues untouched.</p>
+                <p>Recall of regulated parts against false positives on benign parts. Below this line a job continues.</p>
               </div>
               <div class="pg-card-cell">
                 <h4>At the 75% line</h4>
                 <strong>62% / 4.0%</strong>
-                <p>The stricter hold line. Deployments tune both lines to the jurisdiction and the cost of interrupting a print.</p>
+                <p>The hold line. Deployments tune both lines to the jurisdiction and the cost of stopping a print.</p>
               </div>
               <div class="pg-card-cell">
                 <h4>Model fingerprint</h4>
@@ -824,61 +781,62 @@
               </div>
             </div>
 
-            <div class="pg-compare">
-              <h3>v1 mini vs. the deployed system</h3>
-              <table class="pg-table">
-                <thead>
-                  <tr><th>&nbsp;</th><th>v1 mini &mdash; this page</th><th>PrintGuard, deployed</th></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Model</th>
-                    <td class="pg-mini-col" data-label="v1 mini">One binary gradient-boosted classifier, 198 trees</td>
-                    <td data-label="Deployed">Hierarchical model: risk, then part type, then firearm platform family</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Features</th>
-                    <td class="pg-mini-col" data-label="v1 mini">869 geometry features</td>
-                    <td data-label="Deployed">999, adding mesh topology, convexity and mass properties</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Answer</th>
-                    <td class="pg-mini-col" data-label="v1 mini">A firearm-related probability</td>
-                    <td data-label="Deployed">Probability, part type, platform family, and an explicit &ldquo;unknown&rdquo; abstention</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Known files</th>
-                    <td class="pg-mini-col" data-label="v1 mini">Not included</td>
-                    <td data-label="Deployed">Exact SHA-256 matching plus a geometry near-match index</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Runs on</th>
-                    <td class="pg-mini-col" data-label="v1 mini">This browser tab</td>
-                    <td data-label="Deployed">Offline Linux service: printer-side sidecar or laptop, via CLI, Python or local HTTP</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Input handling</th>
-                    <td class="pg-mini-col" data-label="v1 mini">Single mesh files</td>
-                    <td data-label="Deployed">Sandboxed parsing with archive, memory and timeout limits</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <p class="pg-specs">
+              <span data-pg-featcount>869</span> geometry features
+              &middot; <span data-pg-treecount>198</span> decision trees
+              &middot; <span data-pg-rows>14,171</span> files behind the training set
+            </p>
 
-            <div class="pg-limits">
-              <h4>Read this before drawing conclusions</h4>
-              <ul>
-                <li>A score is a model output, not a legal determination. Thresholds and the actions behind them are policy, set per deployment.</li>
-                <li>v1 mini is trained to separate firearm-related components from close benign mechanical parts. Novel or heavily modified geometry can fall outside what it has seen.</li>
-                <li>The browser samples the mesh surface with a different random stream than the Python reference. Across the held-out set that moves a score by a median of 0.0008 and changed no decisions, but it is not bit-identical.</li>
-                <li>STEP and STP files need CAD-kernel conversion to a mesh format before anything here can read them.</li>
-              </ul>
-            </div>
+            <table class="pg-table">
+              <thead>
+                <tr><th>&nbsp;</th><th>v1 mini &mdash; this page</th><th>PrintGuard, deployed</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Model</th>
+                  <td class="pg-mini-col" data-label="v1 mini">One binary classifier, 198 trees</td>
+                  <td data-label="Deployed">Hierarchical: risk, then part type, then firearm platform family</td>
+                </tr>
+                <tr>
+                  <th scope="row">Answer</th>
+                  <td class="pg-mini-col" data-label="v1 mini">A firearm-related probability</td>
+                  <td data-label="Deployed">Probability, part type, platform family, and an explicit &ldquo;unknown&rdquo; abstention</td>
+                </tr>
+                <tr>
+                  <th scope="row">Detection rate</th>
+                  <td class="pg-mini-col" data-label="v1 mini">75% of regulated parts at 8.5% false positives; 19% if held to a 1% false-positive budget</td>
+                  <td data-label="Deployed">Substantially higher, and the gap widens as the false-positive budget tightens</td>
+                </tr>
+                <tr>
+                  <th scope="row">Known files</th>
+                  <td class="pg-mini-col" data-label="v1 mini">Not included</td>
+                  <td data-label="Deployed">Exact SHA-256 matching plus a geometry near-match index</td>
+                </tr>
+                <tr>
+                  <th scope="row">Input handling</th>
+                  <td class="pg-mini-col" data-label="v1 mini">Single mesh files</td>
+                  <td data-label="Deployed">Sandboxed parsing with archive, memory and timeout limits</td>
+                </tr>
+                <tr>
+                  <th scope="row">Runs on</th>
+                  <td class="pg-mini-col" data-label="v1 mini">This browser tab</td>
+                  <td data-label="Deployed">Offline Linux service: printer-side sidecar or laptop, via CLI, Python or local HTTP</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ul class="pg-limits">
+              <li>A score is a model output, not a legal determination. Thresholds, and the actions behind them, are policy set per deployment.</li>
+              <li>v1 mini separates firearm-related components from close benign mechanical parts. Novel or heavily modified geometry can fall outside what it has seen.</li>
+              <li>A low score here is not a clean bill of health: at its own review line this build misses roughly one regulated part in four.</li>
+              <li>This build samples the mesh with a different random stream than the Python reference: a median score shift of 0.0008 across the held-out set, with no decision changes.</li>
+              <li>STEP and STP files need CAD-kernel conversion to a mesh format before anything here can read them.</li>
+            </ul>
           </section>
 
           <footer class="pg-foot">
             <span>PrintGuard v1 mini &middot; exported from <span data-pg-fingerprint>&mdash;</span></span>
-            <span>Inference stays in this browser</span>
+            <a href="mailto:contact@printguard.cv">contact@printguard.cv</a>
           </footer>
         </div>
       </div>
@@ -888,6 +846,6 @@
     <script src="assets/printguard-model-mini.js?v=1"></script>
     <script src="assets/printguard-fixtures.js?v=1"></script>
     <script src="script.js?v=14"></script>
-    <script src="assets/demo.js?v=15"></script>
+    <script src="assets/demo.js?v=17"></script>
   </body>
 </html>

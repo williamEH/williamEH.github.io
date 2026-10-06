@@ -15,8 +15,8 @@
   const model = window.PRINTGUARD_MODEL;
   const catalogue = window.PRINTGUARD_FIXTURES;
   const HASH = "#demo";
-  const PASSPHRASE = "beingandtime";
-  const STORAGE_KEY = "printguard-demo-unlocked";
+  const PASSPHRASE = "firearmsafetytoday";
+  const STORAGE_KEY = "printguard-demo-unlocked-v2"; // bumped with the phrase, so old sessions re-prompt
   const MAX_BYTES = 64 * 1024 * 1024;
   const SCENE_ASPECT = 0.72;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -535,21 +535,29 @@
       return {
         decision,
         label: "Flagged — hold for review",
-        copy: "The score is at or above the upper policy line. In a deployment this is where a job is held and routed to a human reviewer.",
+        copy: "At or above the upper policy line. In a deployment the job is held and routed to a reviewer.",
       };
     }
     if (decision === "review") {
       return {
         decision,
         label: "Uncertain — send to review",
-        copy: "The score falls between the two policy lines. PrintGuard does not decide these on its own; they queue for a person.",
+        copy: "Between the two policy lines. PrintGuard does not decide these on its own; they queue for a person.",
       };
     }
     return {
       decision,
       label: "Not flagged",
-      copy: "The score is below the lower policy line, so the job continues without interruption.",
+      copy: "Below the lower policy line. The job continues without interruption.",
     };
+  }
+
+  // The dialog is its own scroll container, so a result rendered under the
+  // intake panel is off screen until we move to it.
+  function revealStage() {
+    const stage = $("[data-pg-stage]");
+    const top = stage.getBoundingClientRect().top + dialog.scrollTop - 86;
+    dialog.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
   }
 
   let runToken = 0;
@@ -560,6 +568,7 @@
     const errorBox = $("[data-pg-error]");
     stage.hidden = false;
     errorBox.hidden = true;
+    revealStage();
     resetSteps();
     dialog.classList.add("pg-scanning");
     $("[data-pg-result]").hidden = true;
@@ -674,6 +683,7 @@
       $("[data-pg-result]").hidden = true;
       errorBox.hidden = false;
       errorBox.textContent = `That file is ${(file.size / 1048576).toFixed(0)} MB. This browser demo accepts files up to 64 MB.`;
+      revealStage();
       return;
     }
     $$("[data-pg-sample]").forEach((chip) => chip.setAttribute("aria-pressed", "false"));
@@ -683,6 +693,11 @@
 
   const input = $("[data-pg-file]");
   const drop = $("[data-pg-drop]");
+
+  $("[data-pg-refile]").addEventListener("click", () => {
+    dialog.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    input.click();
+  });
 
   drop.addEventListener("click", () => input.click());
   drop.addEventListener("keydown", (event) => {
@@ -703,23 +718,20 @@
   /* --------------------------------------------------------------- samples */
 
   function buildSamples() {
-    const row = $("[data-pg-samples]");
-    const items = [];
-    (catalogue.bundled || []).forEach((item) =>
-      items.push({ ...item, kind: "bundled", truth: "benign" })
-    );
-    (catalogue.fixtures || []).forEach((item) =>
-      items.push({ ...item, kind: "fixture", truth: "regulated" })
-    );
+    const groups = [
+      { host: $("[data-pg-samples-benign]"), kind: "bundled", truth: "benign", items: catalogue.bundled || [] },
+      { host: $("[data-pg-samples-regulated]"), kind: "fixture", truth: "regulated", items: catalogue.fixtures || [] },
+    ];
 
-    for (const item of items) {
+    const build = (group, entry) => {
+      const item = { ...entry, kind: group.kind, truth: group.truth };
       const chip = document.createElement("button");
       chip.type = "button";
       chip.className = "pg-chip";
       chip.dataset.pgSample = item.id;
       chip.dataset.truth = item.truth;
       chip.setAttribute("aria-pressed", "false");
-      chip.innerHTML = `<i></i>${item.title}<small>${item.kind === "fixture" ? "features only" : "mesh"}</small>`;
+      chip.innerHTML = `<i></i>${item.title}`;
       chip.addEventListener("click", async () => {
         $$("[data-pg-sample]").forEach((other) => other.setAttribute("aria-pressed", "false"));
         chip.setAttribute("aria-pressed", "true");
@@ -737,12 +749,19 @@
           run({ kind: "file", name: item.name, buffer, meta: `${(buffer.byteLength / 1024).toFixed(0)} KB` });
         }
       });
-      row.appendChild(chip);
+      group.host.appendChild(chip);
+    };
+
+    for (const group of groups) {
+      if (!group.host) continue;
+      for (const entry of group.items) build(group, entry);
     }
   }
 
   /* ------------------------------------------------------------------ gate */
 
+  // The canvas only measures correctly once it is laid out, which does not
+  // happen while the app is hidden behind the gate — so bind it on unlock.
   function unlock() {
     $("[data-pg-gate]").hidden = true;
     $("[data-pg-app]").hidden = false;
@@ -750,10 +769,14 @@
       scene.canvas = $("[data-pg-scene]");
       bindOrbit(scene.canvas);
     }
+    setTimeout(() => $("[data-pg-drop]").focus({ preventScroll: true }), 60);
   }
 
-  const gateForm = $("[data-pg-gate-form]");
-  gateForm.addEventListener("submit", (event) => {
+  function isUnlocked() {
+    try { return sessionStorage.getItem(STORAGE_KEY) === "1"; } catch (_) { return false; }
+  }
+
+  $("[data-pg-gate-form]").addEventListener("submit", (event) => {
     event.preventDefault();
     const value = $("[data-pg-pass]").value.trim().toLowerCase();
     if (value === PASSPHRASE) {
@@ -765,10 +788,6 @@
       $("[data-pg-pass]").select();
     }
   });
-
-  function isUnlocked() {
-    try { return sessionStorage.getItem(STORAGE_KEY) === "1"; } catch (_) { return false; }
-  }
 
   /* ---------------------------------------------------------------- routing */
 
