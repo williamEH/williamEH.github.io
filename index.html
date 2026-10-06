@@ -64,7 +64,7 @@
     </script>
     <link rel="preload" href="assets/printguard-firearm-scan-hero-v2.webp" as="image" type="image/webp" />
     <link rel="stylesheet" href="styles.css?v=25" />
-    <link rel="stylesheet" href="assets/demo.css?v=9" />
+    <link rel="stylesheet" href="assets/demo.css?v=11" />
   </head>
   <body>
     <!--
@@ -615,10 +615,6 @@
             <button type="submit">Enter</button>
           </form>
           <p class="pg-gate-error" data-pg-gate-error role="alert"></p>
-          <p class="pg-gate-note">
-            The phrase gates this page in the browser only. It is not a security
-            boundary &mdash; treat the link as confidential.
-          </p>
         </div>
       </section>
 
@@ -824,14 +820,6 @@
                 </tr>
               </tbody>
             </table>
-
-            <ul class="pg-limits">
-              <li>A score is a model output, not a legal determination. Thresholds, and the actions behind them, are policy set per deployment.</li>
-              <li>v1 mini separates firearm-related components from close benign mechanical parts. Novel or heavily modified geometry can fall outside what it has seen.</li>
-              <li>A low score here is not a clean bill of health: at its own review line this build misses roughly one regulated part in four.</li>
-              <li>This build samples the mesh with a different random stream than the Python reference: a median score shift of 0.0008 across the held-out set, with no decision changes.</li>
-              <li>STEP and STP files need CAD-kernel conversion to a mesh format before anything here can read them.</li>
-            </ul>
           </section>
 
           <footer class="pg-foot">
